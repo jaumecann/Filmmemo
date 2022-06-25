@@ -1,5 +1,9 @@
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
+
+const data = require('./utils/fakeData');
 
 const app = express();
 
@@ -20,7 +24,7 @@ app.use((req, res, next) => {
   
 
 app.get('/lastfive', (req, res, next) =>{
-    res.json({message:'reaching the Roving Star'});
+    res.json(data);
 })
 
 app.listen(5000);

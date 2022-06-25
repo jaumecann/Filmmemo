@@ -1,0 +1,29 @@
+En backend
+
+-dentro directorio por comando
+npm init : rellenamos con defaults
+             Nos crea un package.json
+
+npm install --save express body-parser
+npm install --save-dev nodemon
+
+then in package.json in scripts
+
+-----------------
+IDEIAS
+
+Actualizas nota dispara acciones:
+
+-nota media país, director actualizada?
+
+-encontrar otras pelis votadas ese día otros años
+
+-timeline de pelis de ese director?? país?? en plan diagrama de cuando lo has ido votando en el tiempo
+
+-ranking director/país? en plan francia con ese voto ese director es cuarto
+
+-----
+
+-poner tags al introducir films, que se comporte como cuando pones direccion en mail (en la coma o punto y coma crea un tag)
+
+- last 5 votes. Podría haber calendario al lado con las fechas de los votos (en fase superior podría ser incluso calendario clickable)
