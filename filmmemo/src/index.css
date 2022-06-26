@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Inconsolata|Titan+One');
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One|Titan+One|Racing+Sans+One');
 
 
 body {
@@ -13,4 +13,8 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+:root {
+  --official-yellow: #f2d600;
 }

@@ -3,4 +3,35 @@
     width: 200px;
     margin: 3px;
     padding: 3px;
+    position: relative;
 }
+
+.poster {
+    width: 100px;
+}
+
+.poster img {
+    width: 100%;
+}
+
+.rating {
+    position: absolute;
+    top: 0;
+    font-family: Racing Sans One;
+    font-size: 2em;
+    background-color: rgba(0, 0, 0, 0.413);
+    text-shadow: 1px 1px 1px black;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+}
+
+.nine { color:#00852F;}
+.eight { color:#01A300;}
+.seven { color:#59C200;}
+.six { color:#C7E000;}
+.five { color:#FFB400;}
+.four { color:#FF8700;}
+.three { color:#FF6500;}
+.two { color:#FF0A00;}
+.one { color:#FF0000;}
