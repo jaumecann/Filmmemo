@@ -1,13 +1,15 @@
 .card {
-    border: solid 1px;
-    width: 200px;
+    border: solid 1px rgba(122, 119, 119, 0.645);
+    width: 300px;
     margin: 3px;
     padding: 3px;
     position: relative;
+    display: flex;
 }
 
 .poster {
-    width: 100px;
+    width: 50%;
+    background-color: darkgrey;
 }
 
 .poster img {
@@ -24,6 +26,19 @@
     width: 35px;
     height: 35px;
     text-align: center;
+}
+
+.filmdata {
+    width: 50%;
+    background-color: darkgrey;
+}
+
+.filmdata h4{
+    font-family:  Racing Sans One;
+    color: white;
+    font-weight: 100;
+    margin: 0 5px;
+    text-shadow: 1px 1px black;
 }
 
 .nine { color:#00852F;}

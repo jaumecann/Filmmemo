@@ -21,8 +21,6 @@ const rateclasses = () => {
 
     colorstyle = gradesToClasses[`${props.rating}`]
     return `${classes.rating} ${classes[`${colorstyle}`]}` 
-
-    // return `${classes['rating']} ${props.rating > 5 && classes.over} ${props.rating < 5 && classes.under}`
 };
 
 
@@ -34,7 +32,9 @@ return (
          {/* <div className={classes.rating}>{props.rating}</div> */}
          {/* <div className={`${classes['rating']} ${props.rating > 5 && classes.over} ${props.rating < 5 && classes.under}`}>{props.rating}</div> */}
          <div className={rateclasses()}>{props.rating}</div>
-         <h4>{props.title}</h4>
+         <div className={classes.filmdata}>
+            <h4>{props.title}</h4>
+         </div>
     </div>
 )
 };
