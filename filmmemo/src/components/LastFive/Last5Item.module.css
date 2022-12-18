@@ -1,5 +1,5 @@
 .card {
-    border: solid 1px rgba(122, 119, 119, 0.645);
+    border: solid 1px rgba(228, 226, 226, 0.645);
     width: 300px;
     margin: 3px;
     padding: 3px;
@@ -30,15 +30,15 @@
 
 .filmdata {
     width: 50%;
-    background-color: darkgrey;
+    background-color:rgba(228, 226, 226, 0.645);
 }
 
 .filmdata h4{
     font-family:  Racing Sans One;
-    color: white;
+    color: rgb(255, 202, 28);
     font-weight: 100;
     margin: 0 5px;
-    text-shadow: 1px 1px black;
+    text-shadow: 1px 1px 4px black;
 }
 
 .nine { color:#00852F;}

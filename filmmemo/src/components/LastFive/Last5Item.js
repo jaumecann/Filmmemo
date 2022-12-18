@@ -3,10 +3,8 @@ import classes from './Last5Item.module.css'
 const Last5Item = (props) => {
 
 const rateclasses = () => {
-    console.log(classes.rating)
 
     let colorstyle = '';
-
     let gradesToClasses = {
         9 : "nine",
         8 : "eight",

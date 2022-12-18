@@ -1,6 +1,7 @@
 
 import classes from './App.module.css';
 import { LastFive } from './components/LastFive/LastFive';
+import NewEntry from './components/NewEntry/NewEntry';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
         Film<span className={classes.yellow}>History</span>
       </header>
       <LastFive />
+      <NewEntry />
     </div>
   );
 }
