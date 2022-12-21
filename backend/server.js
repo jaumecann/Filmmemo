@@ -7,38 +7,42 @@ const data = require('./utils/fakeData');
 
 const app = express();
 
-const sql = require('mssql');
+// const sql = require('mssql');
 
-//pool so we donmt open and close conenction every time
+// //pool so we donmt open and close conenction every time
 
-let config = {
-    user:'sa',
-    password:'esoken',
-    server:'DESKTOP-I70VC4F',
-    database:'Filmmemo',
-    trustServerCertificate: true,
-    pool: {
-        max:10,
-        min:0,
-    }
-};
+// let config = {
+//     user:'sa',
+//     password:'esoken',
+//     server:'DESKTOP-I70VC4F',
+//     database:'Filmmemo',
+//     trustServerCertificate: true,
+//     pool: {
+//         max:10,
+//         min:0,
+//     }
+// };
 
-sql.connect(config, function(err){
-    if (err) console.log(err);
+// sql.connect(config, function(err){
+//     if (err) console.log(err);
 
-    // create Request object
-    let request = new sql.Request();
+//     // create Request object
+//     let request = new sql.Request();
        
-    // query to the database and get the records
-    request.query('select * from FilmRecord', function (err, recordset) {
+//     // query to the database and get the records
+//     request.query('select * from FilmRecord', function (err, recordset) {
         
-        if (err) console.log(err)
+//         if (err) console.log(err)
 
-        // send records as a response
-        console.log(recordset);
-   })
+//         // send records as a response
+//         console.log(recordset);
+//    })
 
-})
+// })
+
+const sqlquery = require('./utils/database')
+
+sqlquery('select * from FilmRecord').then((res) => console.log(res.recordsets[0][1298]))
 
 app.use(bodyParser.json());
 
