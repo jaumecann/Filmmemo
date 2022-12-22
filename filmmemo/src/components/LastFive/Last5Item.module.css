@@ -34,11 +34,16 @@
 }
 
 .filmdata h4{
-    font-family:  Racing Sans One;
-    color: rgb(255, 202, 28);
+    font-family: Racing Sans One;
+    color: rgb(255, 255, 255);
     font-weight: 100;
     margin: 0 5px;
     text-shadow: 1px 1px 4px black;
+    background-color: #F2D600;
+    padding: 5px;
+    font-size: 12px;
+    border-radius: 5px;
+    box-shadow: 3px 3px grey;
 }
 
 .nine { color:#00852F;}

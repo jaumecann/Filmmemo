@@ -25,7 +25,7 @@ const rateclasses = () => {
 return (
     <div className={classes.card}>
          <div className={classes.poster}>
-            <img src={`/assets/${props.img}.jpg`}></img>
+            <img alt='poster' src={`/assets/${props.img}`}></img>
          </div> 
          {/* <div className={classes.rating}>{props.rating}</div> */}
          {/* <div className={`${classes['rating']} ${props.rating > 5 && classes.over} ${props.rating < 5 && classes.under}`}>{props.rating}</div> */}

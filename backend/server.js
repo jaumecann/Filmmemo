@@ -7,42 +7,11 @@ const data = require('./utils/fakeData');
 
 const app = express();
 
-// const sql = require('mssql');
-
-// //pool so we donmt open and close conenction every time
-
-// let config = {
-//     user:'sa',
-//     password:'esoken',
-//     server:'DESKTOP-I70VC4F',
-//     database:'Filmmemo',
-//     trustServerCertificate: true,
-//     pool: {
-//         max:10,
-//         min:0,
-//     }
-// };
-
-// sql.connect(config, function(err){
-//     if (err) console.log(err);
-
-//     // create Request object
-//     let request = new sql.Request();
-       
-//     // query to the database and get the records
-//     request.query('select * from FilmRecord', function (err, recordset) {
-        
-//         if (err) console.log(err)
-
-//         // send records as a response
-//         console.log(recordset);
-//    })
-
-// })
-
+const filmRoutes = require('./routes/films-routes')
 const sqlquery = require('./utils/database')
+const querystrings = require('./utils/sql-dark-corner');
 
-sqlquery('select * from FilmRecord').then((res) => console.log(res.recordsets[0][1298]))
+// sqlquery('select * from FilmRecord').then((res) => console.log(res.recordsets[0][1298]))
 
 app.use(bodyParser.json());
 
@@ -58,11 +27,13 @@ app.use((req, res, next) => {
     );
     next();
   });
-  
 
-app.get('/lastfive', (req, res, next) =>{
-    res.json(data);
-})
+  app.use('/api/films', filmRoutes);
+
+//  app.get('/api/films/lastfive', async (req, res, next) =>{
+//     const lastFive = await sqlquery(querystrings.last5);
+//     res.json(lastFive.recordsets[0]);
+// })
 
 
 app.listen(5000);

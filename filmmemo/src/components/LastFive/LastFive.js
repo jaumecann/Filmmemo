@@ -8,7 +8,7 @@ export function LastFive(){
 
     useEffect(()=>{
         const fetchLast5 = async () => {
-            const response = await fetch('http://localhost:5000/lastfive')
+            const response = await fetch('http://localhost:5000/api/films/lastfive')
             const data = await response.json();
             console.log(data)
             setLastFive(data);
@@ -20,11 +20,11 @@ export function LastFive(){
     const lastfiveItems = lastFive.map((item) => 
      <Last5Item key={item.id} 
      title={item.title} 
-     year={item.year} 
-     date={item.date} 
-     director={item.director} 
+     year={item.yearFilm} 
+     date={item.ratedate} 
+     director={item.directorid} 
      country={item.country}
-     img={item.img}
+     img={item.poster}
      rating={item.rating} />
     );
 
