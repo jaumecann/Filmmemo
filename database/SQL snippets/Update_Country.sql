@@ -1,8 +1,11 @@
 /****** Script for SelectTopNRows command from SSMS  ******/
 
 
-  UPDATE [Filmmemo].[dbo].[FilmRecord] SET country = 'CHE' 
-  where country LIKE '%CHK%' 
+  UPDATE [Filmmemo].[dbo].[Countries] SET countryid = 'IRK' 
+  where countryid LIKE '%IRQ%' 
+
+  -- UPDATE [Filmmemo].[dbo].[FilmRecord] SET country = 'ICE' 
+  --where country LIKE '%ISL%' 
 
   SELECT * FROM  [Filmmemo].[dbo].[Countries] 
-  --WHERE NAME LIKE '%Chad%'
+  --WHERE NAME LIKE '%Greece%'

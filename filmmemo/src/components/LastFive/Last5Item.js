@@ -24,6 +24,7 @@ const rateclasses = () => {
 
 return (
     <div className={classes.card}>
+        <div className={classes.flag}><img alt='flag' src={`/flags/${props.country}.png`}></img></div>
          <div className={classes.poster}>
             <img alt='poster' src={`/assets/${props.img}`}></img>
          </div> 

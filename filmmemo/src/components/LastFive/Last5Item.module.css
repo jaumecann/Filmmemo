@@ -7,6 +7,16 @@
     display: flex;
 }
 
+.flag {
+    position: absolute;
+    right: 0;
+    top: 25px;
+}
+
+.flag img {
+    width: 20px;
+}
+
 .poster {
     width: 50%;
     background-color: darkgrey;
