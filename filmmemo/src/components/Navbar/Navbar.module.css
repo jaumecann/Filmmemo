@@ -1,0 +1,18 @@
+.bar {
+    display: flex;
+}
+
+.baritem {
+    flex: 1 0 20%;
+    background-image: linear-gradient(#f5dcad, #ffffff,  #f5dcad);
+    font-family: Racing Sans One;
+    padding: 0 3px;
+   
+    
+}
+
+.baritem a {
+    color: rgb(189, 123, 0);
+    text-shadow: 1px 1px rgb(255, 255, 255);
+    text-decoration: none;
+}
