@@ -5,7 +5,13 @@ import TextField from '@mui/material/TextField';
 
 const NewEntry = () => {
     const [countryList, setCountryList] = useState([]);
-    const [directors, setDirectors] = useState(['tito', 'nano']);
+    const [directors, setDirectors] = useState([]);
+
+    const getDirectors = async () => {
+        const response = await fetch('http://localhost:5000/api/directors/alldirectors')
+        const directors = await response.json();
+        setDirectors(directors);
+    }
 
     const country = <Autocomplete
     className={`${classes.inputs} ${classes.countries}`}
@@ -20,7 +26,13 @@ const NewEntry = () => {
     freeSolo
     selectOnFocus
     clearOnBlur
-    onInputChange={(event, newValue) => { console.log(event); console.log(newValue)}}
+    getOptionLabel={(option) => option.directorname}
+    onInputChange={(event, newValue) => {
+        console.log(directors)
+         if (newValue.length >= 3 && directors.length < 1){
+            getDirectors();
+         }
+        }}
     renderInput={(params) => <TextField {...params} label="Director" />}
     />
 
