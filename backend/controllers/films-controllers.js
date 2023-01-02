@@ -7,5 +7,12 @@ const getLast5 = async (req, res, next) =>{
     return next();
     }
 
+const getCountries = async (freq,res, next) => {
+    const countries = await sqlquery(querystrings.countries)
+    res.json(countries.recordsets[0])
+    return next();
+}
+
 
 exports.getLast5 = getLast5;  
+exports.getCountries = getCountries
