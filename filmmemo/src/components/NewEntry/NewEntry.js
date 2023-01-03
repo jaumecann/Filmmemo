@@ -1,15 +1,18 @@
 import classes from './NewEntry.module.css';
 import  Autocomplete  from '@mui/material/Autocomplete';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef} from 'react';
 import TextField from '@mui/material/TextField';
+import Rating from '@mui/material/Rating';
 
 const NewEntry = () => {
     const [countryList, setCountryList] = useState([]);
     const [directors, setDirectors] = useState([]);
 
     const [directorSelected, setDirectorSelected] = useState({});
+    const [isNewDirector, setIsNewDirector] = useState(false);
 
-    const directorRef = useRef();
+    const ratingRef = useRef()
+
 
 //    directorRef.current.value;
 
@@ -18,8 +21,6 @@ const NewEntry = () => {
         const directors = await response.json();
         setDirectors(directors);
     }
-
-    const testudo = () => { console.log(directorSelected)}
 
     const country = <Autocomplete
     className={`${classes.inputs} ${classes.countries}`}
@@ -30,8 +31,8 @@ const NewEntry = () => {
     />
 
     const director = <Autocomplete
+    className={`${classes.inputs} ${classes.countries}`}
     options={directors}
-    freeSolo
     selectOnFocus
     clearOnBlur
     getOptionLabel={(option) => option.directorname}
@@ -41,12 +42,25 @@ const NewEntry = () => {
          }
         }}
     renderInput={(params) => <TextField {...params} label="Director" />}
-    ref={directorRef}
+    onFocus={()=> {setIsNewDirector(false)}}
     onChange={(e,v,r) => {setDirectorSelected(v)}}
     />
 
-    const title = <TextField label="Títol" variant='outlined' className={classes.inputs} style={{width:400}}/>
+    const title = <TextField label="Títol" variant='outlined' className={classes.inputs} style={{width:500}}/>
     const year = <TextField label="Year" variant='outlined' className={classes.inputs} style={{width:100}}/>
+    const directorName = <TextField label="Nom" variant='outlined' className={classes.inputs} style={{width:300}}/>
+    const directorCountry = <Autocomplete 
+            className={`${classes.inputs}`} 
+            options={countryList}
+            getOptionLabel={(option)=> option.name}
+            isOptionEqualToValue={(option, value) => option.countryid === value.countryid}
+            renderInput={(params) => <TextField {...params} label="Country" />}
+            style={{width:200}}
+            />
+
+    const handleNewDirector = () => {
+        setIsNewDirector(true);
+    }
 
     useEffect(()=>{
         (async() => {
@@ -57,6 +71,7 @@ const NewEntry = () => {
     },[])
 
     return (
+      <div className={classes.flex}>
         <div className={classes.wrapper}>
             <div className={classes.row}>
                 {title}
@@ -65,14 +80,28 @@ const NewEntry = () => {
             <div>
                 {country}
             </div>
-            <div>
+            <div className={classes.row}>
                 {director}
+                <div onClick={handleNewDirector} className={classes.newD}>Nou director</div>
             </div>
-            <div onClick={testudo}>
-                Submit
-            </div>
-
+            {isNewDirector && <div className={`${classes.newDirArea}`}>
+                <div className={`${classes.row}`}>
+                    {directorName}
+                    {directorCountry}
+                </div>
+                <div className={classes.sendDir}>
+                    Enviar
+                </div>
+            </div>}
         </div>
+
+        <div className={classes.attach_wrapper}>
+            <TextField label="Poster" variant='outlined' className={classes.inputs} style={{width:400}}/>
+            <h3>Nota</h3>
+            <Rating name="customized-10" min={1} max={10} className={classes.ratebar} onChange={(e,v) => {console.log(v)}}/>
+        </div>
+      </div>
+     
     )
 }
 

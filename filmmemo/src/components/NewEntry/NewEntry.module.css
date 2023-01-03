@@ -1,14 +1,16 @@
 .wrapper {
     padding: 2em;
     background-color: #f5dcad;
-    width: 50%;
+    width: 45%;
     border-radius: 5px;
     margin: 2em 1em;
     border: solid 2px rgb(189, 123, 0);
+
 }
 
 .inputs {
     background-color: #ffffff;
+    font-family: Racing Sans One !important;
 }
 
 .countries {
@@ -21,3 +23,49 @@
     justify-content: space-between;
     margin: 1em 0;
 }
+
+.newD{
+    background-color: #d79173;
+    border-radius: 20px;
+    color: white;
+    font-family: Racing Sans One;
+    padding:5px;
+    height:auto;
+    align-self: center;
+    text-shadow: 1px 1px black;
+
+}
+
+.newDirArea {
+    background-color: #d79173;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.sendDir {
+    font-family: Racing Sans One;
+    color: white;
+    text-shadow: 1px 1px black;
+}
+
+.flex {
+    display: flex;
+}
+
+.attach_wrapper {
+    padding: 2em;
+    /* background-color: #f5dcad; */
+    width: 38%;
+    border-radius: 5px;
+    margin: 2em 1em;
+    border: solid 2px rgb(189, 123, 0);
+
+}
+
+.ratebar {
+    font-size: 2em;
+}
+
+/* input {
+    font-family: Racing Sans One !important;
+} */
