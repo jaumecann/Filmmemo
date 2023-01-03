@@ -1,7 +1,7 @@
 .wrapper {
     padding: 2em;
     background-color: #f5dcad;
-    width: 45%;
+    width: 40%;
     border-radius: 5px;
     margin: 2em 1em;
     border: solid 2px rgb(189, 123, 0);
@@ -50,6 +50,7 @@
 
 .flex {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .attach_wrapper {
@@ -64,6 +65,10 @@
 
 .ratebar {
     font-size: 2em;
+}
+
+.submit {
+    text-align: center;
 }
 
 /* input {

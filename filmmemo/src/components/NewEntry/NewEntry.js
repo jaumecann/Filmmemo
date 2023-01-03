@@ -1,8 +1,10 @@
 import classes from './NewEntry.module.css';
 import  Autocomplete  from '@mui/material/Autocomplete';
-import { useEffect, useState, useRef} from 'react';
+import { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
+import { Button } from '@mui/material';
+import * as React from 'react';
 
 const NewEntry = () => {
     const [countryList, setCountryList] = useState([]);
@@ -10,9 +12,6 @@ const NewEntry = () => {
 
     const [directorSelected, setDirectorSelected] = useState({});
     const [isNewDirector, setIsNewDirector] = useState(false);
-
-    const ratingRef = useRef()
-
 
 //    directorRef.current.value;
 
@@ -71,6 +70,7 @@ const NewEntry = () => {
     },[])
 
     return (
+    <React.Fragment>
       <div className={classes.flex}>
         <div className={classes.wrapper}>
             <div className={classes.row}>
@@ -102,6 +102,11 @@ const NewEntry = () => {
         </div>
       </div>
      
+     <div className={classes.submit}>
+     <Button variant="contained" >Enviar</Button>
+    </div>
+    </React.Fragment>
+
     )
 }
 
