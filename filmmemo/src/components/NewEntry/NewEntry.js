@@ -1,11 +1,12 @@
 import classes from './NewEntry.module.css';
 import  Autocomplete  from '@mui/material/Autocomplete';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
 import { Button } from '@mui/material';
 import * as React from 'react';
 import { useFormState } from '../../shared/hooks/formstate-hook';
+import { FilmRecord } from '../../shared/models/FilmRecord';
 
 const NewEntry = () => {
     const [countryList, setCountryList] = useState([]);
@@ -14,7 +15,6 @@ const NewEntry = () => {
     const [isNewDirector, setIsNewDirector] = useState(false);
 
     const [inputchecker, payload] = useFormState()
-    const [test, setTest ] = useState(true)
 
     const getDirectors = async () => {
         const response = await fetch('http://localhost:5000/api/directors/alldirectors')
@@ -65,8 +65,38 @@ const NewEntry = () => {
         setIsNewDirector(true);
     }
 
-    const submitData = () => {
-       console.log(payload)
+    const submitData = async () => {
+        console.log(payload)
+      const allvalidated = Object.values(payload).every(i => i.isValid === true)
+      
+      if (!allvalidated) {
+        alert('no todos los campos son validos')
+        return
+      }
+
+    //   console.log(Object.assign(new FilmRecord(), payload))
+
+      let record = new FilmRecord();
+      record.title = payload.title.value;
+      record.year = payload.year.value;
+      record.country = payload.country.value.countryid
+      record.director = payload.director.value.id
+      record.rate = payload.rate.value
+      record.poster = payload.poster.value
+
+      console.log(record);
+
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(record)
+    };
+    try{
+        await fetch('http://localhost:5000/api/films', requestOptions)
+    } catch (e){
+        console.log(e)
+    }
+    
     }
 
     useEffect(()=>{
@@ -84,7 +114,6 @@ const NewEntry = () => {
             <div className={classes.row}>
                 {title}
                 {year}
-                {!test && <div>Incorrecto!!!!!!!!!!!</div>}
             </div>
             <div>
                 {country}
