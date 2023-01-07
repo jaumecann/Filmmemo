@@ -14,6 +14,9 @@ const NewEntry = () => {
 
     const [isNewDirector, setIsNewDirector] = useState(false);
 
+    const [newDirector, setNewDirector] = useState({name:'', country:''});
+
+
     const [inputchecker, payload] = useFormState()
 
     const getDirectors = async () => {
@@ -21,8 +24,6 @@ const NewEntry = () => {
         const directors = await response.json();
         setDirectors(directors);
     }
-
-    // const testchecking = (e) => { setTest(inputchecker(e.target.value, 'YEAR')) }
 
     const country = <Autocomplete
     className={`${classes.inputs} ${classes.countries}`}
@@ -50,8 +51,11 @@ const NewEntry = () => {
     />
 
     const title = <TextField label="Títol" variant='outlined' className={classes.inputs} onBlur={(e) => {inputchecker(e.target.value, 'title')}} style={{width:500}}/>
+
     const year = <TextField label="Year" variant='outlined' className={classes.inputs} style={{width:100}} onBlur={(e) => {inputchecker(e.target.value, 'YEAR')}}/>
-    const directorName = <TextField label="Nom" variant='outlined' className={classes.inputs} style={{width:300}} />
+
+    const directorName = <TextField label="Nom" variant='outlined' className={classes.inputs} style={{width:300}} onBlur={(e) => { setNewDirector({...newDirector, name:e.target.value})}}/>
+
     const directorCountry = <Autocomplete 
             className={`${classes.inputs}`} 
             options={countryList}
@@ -59,6 +63,7 @@ const NewEntry = () => {
             isOptionEqualToValue={(option, value) => option.countryid === value.countryid}
             renderInput={(params) => <TextField {...params} label="Country" />}
             style={{width:200}}
+            onChange={(e,v,r) => {setNewDirector({...newDirector, country: v.countryid})}}
             />
 
     const handleNewDirector = () => {
@@ -73,8 +78,6 @@ const NewEntry = () => {
         alert('no todos los campos son validos')
         return
       }
-
-    //   console.log(Object.assign(new FilmRecord(), payload))
 
       let record = new FilmRecord();
       record.title = payload.title.value;
@@ -95,8 +98,27 @@ const NewEntry = () => {
         await fetch('http://localhost:5000/api/films', requestOptions)
     } catch (e){
         console.log(e)
+    } 
     }
-    
+
+    const submitDirector = async () => {
+        console.log(newDirector);
+        if (!newDirector.name || !newDirector.country){
+            alert('falta per omplir nom o pais del director')
+            return;
+        }
+
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(newDirector)
+        };
+
+        try {
+            await fetch('http://localhost:5000/api/directors', requestOptions)
+        } catch (e){
+            console.log(e)
+        } 
     }
 
     useEffect(()=>{
@@ -127,7 +149,7 @@ const NewEntry = () => {
                     {directorName}
                     {directorCountry}
                 </div>
-                <div className={classes.sendDir}>
+                <div className={classes.sendDir} onClick={submitDirector}>
                     Enviar
                 </div>
             </div>}
