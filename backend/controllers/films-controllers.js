@@ -8,11 +8,18 @@ const getLast5 = async (req, res, next) =>{
     return next();
     }
 
-const getCountries = async (req,res, next) => {
+const getAll = async (req,res,next) => {
+    const allFilms = await sqlquery(querystrings.getAll)
+    res.json(allFilms.recordset)
+    return next();
+}
+
+    const getCountries = async (req,res, next) => {
     const countries = await sqlquery(querystrings.countries)
     res.json(countries.recordsets[0])
     return next();
 }
+
 
 const insert = async (req, res, next) => {
 
@@ -42,5 +49,6 @@ const insert = async (req, res, next) => {
 
 
 exports.getLast5 = getLast5;  
-exports.getCountries = getCountries
-exports.insert = insert
+exports.getCountries = getCountries;
+exports.insert = insert;
+exports.getAll = getAll;

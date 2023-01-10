@@ -7,18 +7,15 @@ import { Button } from '@mui/material';
 import * as React from 'react';
 import { useFormState } from '../../shared/hooks/formstate-hook';
 import { FilmRecord } from '../../shared/models/FilmRecord';
+import FilmrecordContext from '../../shared/context/records-context';
 
 const NewEntry = () => {
     const [countryList, setCountryList] = useState([]);
     const [directors, setDirectors] = useState([]);
-
     const [isNewDirector, setIsNewDirector] = useState(false);
-
     const [newDirector, setNewDirector] = useState({name:'', country:''});
-
-
-    const [inputchecker, payload] = useFormState()
-
+    const [inputchecker, payload] = useFormState();
+    const allrecords = React.useContext(FilmrecordContext)
     const getDirectors = async () => {
         const response = await fetch('http://localhost:5000/api/directors/alldirectors')
         const directors = await response.json();
@@ -50,7 +47,7 @@ const NewEntry = () => {
     onChange={(e,v,r) => {inputchecker(v, 'director')}}
     />
 
-    const title = <TextField label="Títol" variant='outlined' className={classes.inputs} onBlur={(e) => {inputchecker(e.target.value, 'title')}} style={{width:500}}/>
+    const title = <TextField label="Títol" variant='outlined' className={classes.inputs} onBlur={(e) => {inputchecker(e.target.value, 'title')}} style={{width:500}} onClick={ ()=> {console.log(allrecords)}}/>
 
     const year = <TextField label="Year" variant='outlined' className={classes.inputs} style={{width:100}} onBlur={(e) => {inputchecker(e.target.value, 'YEAR')}}/>
 
@@ -79,6 +76,11 @@ const NewEntry = () => {
         return
       }
 
+      if (allrecords.collection.find((film)=> film.title.toLowerCase() === payload.title.value.toLowerCase())){
+        alert(`ja existeix ${payload.title.value}`)
+        return;
+      }
+
       let record = new FilmRecord();
       record.title = payload.title.value;
       record.year = payload.year.value;
@@ -94,11 +96,11 @@ const NewEntry = () => {
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(record)
     };
-    try{
-        await fetch('http://localhost:5000/api/films', requestOptions)
-    } catch (e){
-        console.log(e)
-    } 
+    // try{
+    //     await fetch('http://localhost:5000/api/films', requestOptions)
+    // } catch (e){
+    //     console.log(e)
+    // } 
     }
 
     const submitDirector = async () => {
@@ -127,7 +129,11 @@ const NewEntry = () => {
             const countries = await response.json();
             setCountryList(countries);
         })();
-    },[])
+    },[]);
+
+    // useEffect(()=> {
+    //     console.log(lastfiveexample);
+    // },[lastfiveexample])
 
     return (
     <React.Fragment>

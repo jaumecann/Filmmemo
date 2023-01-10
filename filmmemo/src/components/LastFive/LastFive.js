@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Last5Item from './Last5Item';
 import classes from './LastFive.module.css';
 
-export function LastFive(){
+export function LastFive(props){
 
     const [lastFive, setLastFive] = useState([]);
 
@@ -11,11 +11,12 @@ export function LastFive(){
             const response = await fetch('http://localhost:5000/api/films/lastfive')
             const data = await response.json();
             console.log(data)
-            setLastFive(data);
+            setLastFive(data);    
         };
-        
         fetchLast5();
+      
     },[]);
+
 
     const lastfiveItems = lastFive.map((item) => 
      <Last5Item key={item.id} 
