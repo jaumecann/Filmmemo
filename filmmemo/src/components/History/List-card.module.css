@@ -1,0 +1,17 @@
+.cardbox {
+    border: solid .5px #929292;
+    box-shadow: 1px 1px 2px black;
+    margin: 1em;
+    font-family: Racing Sans One;
+    font-weight: 100;
+    color:#d46700;
+    /* text-shadow: 1px 1px white; */
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.rating{
+    color: black;
+    font-size: 40px;
+}
