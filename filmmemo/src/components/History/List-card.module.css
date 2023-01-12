@@ -4,7 +4,6 @@
     margin: 1em;
     font-family: Racing Sans One;
     font-weight: 100;
-    color:#d46700;
     /* text-shadow: 1px 1px white; */
     padding: 1em;
     display: flex;
@@ -14,4 +13,21 @@
 .rating{
     color: black;
     font-size: 40px;
+}
+
+.title{
+    /* background-color: black; */
+    padding: .5em;
+    border-radius: 10px;
+    background-image: linear-gradient(rgb(195, 177, 11) 10%, 30%, orange 90%);
+    color:white;
+    text-shadow: 1px 1px 3px black;
+}
+
+.poster{
+    width:100px;
+}
+
+.poster img{
+    width:100%;
 }

@@ -10,8 +10,12 @@ const ListCard = (props) => {
     return (
         <div className={classes.cardbox}>
             <div>
-            {props.title} 
+            <p className={classes.title}>{props.title}</p> 
             {props.year}
+            </div>
+            <div className={classes.poster}>
+            <img alt='poster' src={`/assets/${props.poster}`}></img>
+            {props.poster}
             </div>
             <div className={classes.rating}>
                 <div style={findColor}>
