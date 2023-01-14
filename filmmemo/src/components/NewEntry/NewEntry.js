@@ -96,11 +96,11 @@ const NewEntry = () => {
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(record)
     };
-    // try{
-    //     await fetch('http://localhost:5000/api/films', requestOptions)
-    // } catch (e){
-    //     console.log(e)
-    // } 
+    try{
+        await fetch('http://localhost:5000/api/films', requestOptions)
+    } catch (e){
+        console.log(e)
+    } 
     }
 
     const submitDirector = async () => {

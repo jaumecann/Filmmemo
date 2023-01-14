@@ -12,22 +12,51 @@ const History = () => {
     const allrecords = React.useContext(FilmrecordContext)
     // const totalPages = Math.ceil(allrecords.length / itemsPerPage)
     const [totalPages, setTotalPages] = React.useState(0)
+    const [directorSelected, setDirectorSelected] = React.useState();
+    const [displayedFilms, setDisplayedFilms] = React.useState(allrecords.collection)
 
     const handleChange = (event, value) => {
         setPage(value);
     };
 
-    React.useEffect(() =>{
-        setTotalPages(Math.ceil(allrecords.collection.length / itemsPerPage))
-    },[allrecords.collection.length])
+    const handleDirectorSelected = (directorId) => {
+        setDirectorSelected(directorId)
+    }
 
-    const currentFilms = allrecords.collection.slice((page -1)*itemsPerPage, page*itemsPerPage).map(item => 
+    React.useEffect(() =>{
+        if (displayedFilms.length === 0){
+             (async () => {
+                const response = await fetch('http://localhost:5000/api/films/getAll')
+                const data = await response.json();
+                console.log(data)
+                setDisplayedFilms(data)
+            })();
+        }
+        setTotalPages(Math.ceil(displayedFilms.length / itemsPerPage))
+    },[displayedFilms.length])
+
+    React.useEffect(() => {
+        if(directorSelected){
+            const updatedlist = displayedFilms.filter(f => f.directorid === directorSelected)
+            const directorlist = updatedlist.sort((a, b) => {
+                return a.yearFilm > b.yearFilm ?  -1 : 1
+            })
+            setPage(1);
+            setDisplayedFilms(directorlist)
+        };
+    },[directorSelected])
+
+    let currentFilms = displayedFilms.slice((page -1)*itemsPerPage, page*itemsPerPage).map(item => 
       <ListCard 
       key={item.id} 
       title={item.title} 
       year={item.yearFilm}
       rating={item.rating}
       poster={item.poster}
+      directorname={item.directorname}
+      directorid={item.directorid}
+      country={item.country} 
+      onSelectDirector={handleDirectorSelected}
       /> 
       );
 

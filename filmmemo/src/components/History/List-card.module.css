@@ -5,23 +5,29 @@
     font-family: Racing Sans One;
     font-weight: 100;
     /* text-shadow: 1px 1px white; */
-    padding: 1em;
     display: flex;
-    justify-content: space-between;
 }
 
 .rating{
     color: black;
     font-size: 40px;
+    padding: 5px;
+    height: 50%;
+    border-radius: 10px;
 }
 
 .title{
     /* background-color: black; */
     padding: .5em;
-    border-radius: 10px;
-    background-image: linear-gradient(rgb(195, 177, 11) 10%, 30%, orange 90%);
+    /* border-radius: 10px; */
+    background-image: linear-gradient(rgb(246, 243, 243) 20%, 40%,rgb(203, 203, 203) 90%);
     color:white;
     text-shadow: 1px 1px 3px black;
+
+}
+
+.titlesection {
+    flex: 1 0 70%;
 }
 
 .poster{
@@ -30,4 +36,21 @@
 
 .poster img{
     width:100%;
+}
+
+.blocksdata{
+    display:flex;
+}
+
+ul {
+    margin: 0;
+    list-style-type: none;
+}
+
+.director span {
+    align-self: flex-end;
+}
+
+.director {
+    display: flex;
 }

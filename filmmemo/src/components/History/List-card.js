@@ -1,4 +1,6 @@
+import  Icon  from '@mui/material/Icon';
 import classes from './List-card.module.css';
+
 
 const ListCard = (props) => {
 
@@ -7,15 +9,30 @@ const ListCard = (props) => {
     const value = colors[props.rating-1]
     const findColor = {color:value}
 
+    const loadDirector = (event) => {
+        if (event.target.value) {
+            props.onSelectDirector(event.target.value);
+        }
+    }
+        
+    
+
     return (
         <div className={classes.cardbox}>
-            <div>
-            <p className={classes.title}>{props.title}</p> 
-            {props.year}
+            <div className={classes.titlesection}>
+            <p className={classes.title}>{props.title}</p>
+                <div className={classes.blocksdata}>
+                    <div>
+                        <ul>
+                        <li>{props.year}</li>
+                        <li className={classes.director} value={props.directorid} onClick={loadDirector}>
+                            <span className={classes.icon}><Icon>theaters</Icon></span>{props.directorname}</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div className={classes.poster}>
             <img alt='poster' src={`/assets/${props.poster}`}></img>
-            {props.poster}
             </div>
             <div className={classes.rating}>
                 <div style={findColor}>
