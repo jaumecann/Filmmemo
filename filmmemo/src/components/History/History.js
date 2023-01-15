@@ -14,13 +14,15 @@ const History = () => {
     const [totalPages, setTotalPages] = React.useState(0)
     const [directorSelected, setDirectorSelected] = React.useState();
     const [displayedFilms, setDisplayedFilms] = React.useState(allrecords.collection)
+    const [directorname, setDirectorname] = React.useState('');
 
     const handleChange = (event, value) => {
         setPage(value);
     };
 
-    const handleDirectorSelected = (directorId) => {
-        setDirectorSelected(directorId)
+    const handleDirectorSelected = (directorId, directorName) => {
+        setDirectorSelected(directorId);
+        setDirectorname(directorName);
     }
 
     React.useEffect(() =>{
@@ -46,6 +48,7 @@ const History = () => {
         };
     },[directorSelected])
 
+
     let currentFilms = displayedFilms.slice((page -1)*itemsPerPage, page*itemsPerPage).map(item => 
       <ListCard 
       key={item.id} 
@@ -60,10 +63,15 @@ const History = () => {
       /> 
       );
 
+      const reloadAll = () => {
+        setDisplayedFilms(allrecords.collection)
+        setDirectorname('');
+      }
+
     return(
         <React.Fragment>
         <h2>
-            Totes
+            <span onClick={reloadAll}>Totes</span> <span> {directorname}</span>
         </h2>
         <div>
             {currentFilms}

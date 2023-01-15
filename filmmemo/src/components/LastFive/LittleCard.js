@@ -1,6 +1,6 @@
-import classes from './Last5Item.module.css'
+import classes from './LittleCard.module.css'
 
-const Last5Item = (props) => {
+const LittleCard = (props) => {
 
 const rateclasses = () => {
 
@@ -24,7 +24,6 @@ const rateclasses = () => {
 
 return (
     <div className={classes.card}>
-        <div className={classes.flag}><img alt='flag' src={`/flags/${props.country}.png`}></img></div>
          <div className={classes.poster}>
             <img alt='poster' src={`/assets/${props.img}`}></img>
          </div> 
@@ -33,10 +32,11 @@ return (
          <div className={rateclasses()}>{props.rating}</div>
          <div className={classes.filmdata}>
             <h4>{props.title}</h4>
+            <div className={classes.flag}><img alt='flag' src={`/flags/${props.country}.png`}></img></div>
          </div>
     </div>
 )
 };
 
 
-export default Last5Item
+export default LittleCard

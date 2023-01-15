@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import Last5Item from './Last5Item';
+import LittleCard from './LittleCard';
 import classes from './LastFive.module.css';
 
 export function LastFive(props){
@@ -19,7 +19,7 @@ export function LastFive(props){
 
 
     const lastfiveItems = lastFive.map((item) => 
-     <Last5Item key={item.id} 
+     <LittleCard key={item.id} 
      title={item.title} 
      year={item.yearFilm} 
      date={item.ratedate} 

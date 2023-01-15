@@ -8,13 +8,12 @@
 }
 
 .flag {
-    position: absolute;
-    right: 0;
-    top: 25px;
+margin: 1em 5px;
 }
 
 .flag img {
-    width: 20px;
+    width: 30px;
+    box-shadow: 2px 2px 4px black;
 }
 
 .poster {

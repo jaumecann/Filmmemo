@@ -11,7 +11,7 @@ const ListCard = (props) => {
 
     const loadDirector = (event) => {
         if (event.target.value) {
-            props.onSelectDirector(event.target.value);
+            props.onSelectDirector(event.target.value, props.directorname);
         }
     }
         

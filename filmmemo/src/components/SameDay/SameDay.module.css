@@ -1,0 +1,20 @@
+.samedayarea {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.headerlast5 {
+    text-align: center;
+    margin-top: 100px;
+    font-family: Racing Sans One;
+    text-shadow: 1px 1px 1px var(--official-yellow);
+}
+
+.year {
+    border: solid 1px black;
+    width: 50px;
+    padding: 2px;
+    text-align: center;
+    border-radius: 15px;
+}
