@@ -6,13 +6,17 @@ import FilmrecordContext from '../../shared/context/records-context';
 export function SameDay(props){
 
     const [sameDayFilms, setSameDayFilms] = useState([]);
+    const [sameDayAvg, setSameDayAvg] = useState();
     const allrecords = React.useContext(FilmrecordContext)
 
 
     useEffect(()=>{
         if(allrecords.collection.length > 0){
-            setSameDayFilms(allrecords.collection.filter(f => findSameDate(f.ratedate)))
-
+            let totalrates = 0;
+            let sameday = allrecords.collection.filter(f => findSameDate(f.ratedate));
+            sameday.map(f => totalrates += f.rating)
+            setSameDayAvg(totalrates / sameday.length)
+            setSameDayFilms(sameday)
         }  
     },[allrecords]);
 
@@ -48,7 +52,7 @@ export function SameDay(props){
 
     return(
     <React.Fragment>
-    <h2 className={classes.headerlast5}>Same day</h2>
+    <h2 className={classes.headerlast5}>Same day <span>({sameDayAvg})</span></h2>
      <div className={classes.samedayarea}>{films}</div>       
     </React.Fragment> 
     )
