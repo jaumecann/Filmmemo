@@ -15,7 +15,7 @@ export function SameDay(props){
             let totalrates = 0;
             let sameday = allrecords.collection.filter(f => findSameDate(f.ratedate));
             sameday.map(f => totalrates += f.rating)
-            setSameDayAvg(totalrates / sameday.length)
+            setSameDayAvg((totalrates / sameday.length).toFixed(2))
             setSameDayFilms(sameday)
         }  
     },[allrecords]);

@@ -30,7 +30,6 @@ const History = () => {
              (async () => {
                 const response = await fetch('http://localhost:5000/api/films/getAll')
                 const data = await response.json();
-                console.log(data)
                 setDisplayedFilms(data)
             })();
         }
@@ -46,7 +45,7 @@ const History = () => {
             setPage(1);
             setDisplayedFilms(directorlist)
         };
-    },[directorSelected])
+    },[directorSelected]);
 
 
     let currentFilms = displayedFilms.slice((page -1)*itemsPerPage, page*itemsPerPage).map(item => 

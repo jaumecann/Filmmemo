@@ -29,7 +29,12 @@ const ListCard = (props) => {
                             <span className={classes.icon}><Icon>theaters</Icon></span>{props.directorname}</li>
                         </ul>
                     </div>
+                    <div className={classes.blockcountry}>
+                <img alt='flag' src={`/flags/${props.country}.png`}></img>
+                bla vla
                 </div>
+                </div>
+             
             </div>
             <div className={classes.poster}>
             <img alt='poster' src={`/assets/${props.poster}`}></img>

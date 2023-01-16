@@ -38,11 +38,26 @@ function App() {
     const fetchEverything= async () => {
       const response = await fetch('http://localhost:5000/api/films/getAll')
       let data = await response.json();
+      let datasorted = data.sort((a, b) => { 
+        if(a.rating > b.rating) return  -1;
+        else if (a.rating === b.rating) return 0;
+        else return 1;
+      });
+
+      console.log(datasorted.filter(f => f.country === 'FRA').findIndex(f => f.rating === 5))
+      console.log(datasorted.filter(f => f.country === 'FRA'))
+ 
       data = data.map((film) => {
         let {country, ...rest} = film;
         country = country.trim();
+
+        // let test = datasorted.filter(f => f.country === film.country).findIndex(f => f.rating === film.rating)
+        // console.log(test)
         return {country, ...rest}
-      })
+      });
+
+
+    
       setEverything(data)  
   };
   fetchEverything();
