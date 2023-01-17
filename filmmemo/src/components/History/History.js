@@ -25,13 +25,21 @@ const History = () => {
         setDirectorname(directorName);
     }
 
+    const getPercentile = (rank, totalFilms) => {
+      const over100 = (rank * 100) / totalFilms
+      const percentile = 100 - over100;
+      return percentile.toFixed(2);
+    }
+
     React.useEffect(() =>{
         if (displayedFilms.length === 0){
-             (async () => {
+       /* necessari quan es refresca al navegador */
+        /*      (async () => {
                 const response = await fetch('http://localhost:5000/api/films/getAll')
                 const data = await response.json();
                 setDisplayedFilms(data)
-            })();
+            })(); */
+            setDisplayedFilms(allrecords.collection)
         }
         setTotalPages(Math.ceil(displayedFilms.length / itemsPerPage))
     },[displayedFilms.length])
@@ -58,6 +66,8 @@ const History = () => {
       directorname={item.directorname}
       directorid={item.directorid}
       country={item.country} 
+      countryrank={item.countryRank}
+      countrypercent={getPercentile(item.countryRank, item.totalCountry)}
       onSelectDirector={handleDirectorSelected}
       /> 
       );

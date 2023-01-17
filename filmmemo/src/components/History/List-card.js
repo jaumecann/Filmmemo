@@ -31,7 +31,8 @@ const ListCard = (props) => {
                     </div>
                     <div className={classes.blockcountry}>
                 <img alt='flag' src={`/flags/${props.country}.png`}></img>
-                bla vla
+                <div>{props.countryrank}</div>
+                <div>{props.countrypercent}</div>
                 </div>
                 </div>
              
