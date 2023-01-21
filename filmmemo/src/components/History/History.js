@@ -3,6 +3,7 @@ import * as React from 'react';
 import FilmrecordContext from '../../shared/context/records-context';
 import ListCard from './List-card';
 import Pagination from '@mui/material/Pagination'; 
+import { useFetchContext } from '../../shared/hooks/fetchcontext-hook';
 
 
 const History = () => {
@@ -15,6 +16,7 @@ const History = () => {
     const [directorSelected, setDirectorSelected] = React.useState();
     const [displayedFilms, setDisplayedFilms] = React.useState(allrecords.collection)
     const [directorname, setDirectorname] = React.useState('');
+    const fetchData = useFetchContext();
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -34,12 +36,19 @@ const History = () => {
     React.useEffect(() =>{
         if (displayedFilms.length === 0){
        /* necessari quan es refresca al navegador */
-        /*      (async () => {
+/*              (async () => {
                 const response = await fetch('http://localhost:5000/api/films/getAll')
                 const data = await response.json();
                 setDisplayedFilms(data)
-            })(); */
-            setDisplayedFilms(allrecords.collection)
+            })();  */
+
+            fetchData.then(r => {
+                console.log(r)
+                setDisplayedFilms(r)
+              })
+
+
+            // setDisplayedFilms(allrecords.collection)
         }
         setTotalPages(Math.ceil(displayedFilms.length / itemsPerPage))
     },[displayedFilms.length])

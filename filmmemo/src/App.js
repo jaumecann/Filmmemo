@@ -12,12 +12,24 @@ import * as React from 'react'
 import Navbar from './components/Navbar/Navbar';
 import FilmrecordContext from './shared/context/records-context';
 import Home from './components/Home/Home'
+import { useFetchContext } from './shared/hooks/fetchcontext-hook';
 
 function App() {
 
   let routes;
 
-  const [everything, setEverything] = React.useState([])
+  const fetchData = useFetchContext();
+  const [contextData, setContextData] = React.useState([]);
+
+  routes = (
+    <Routes>
+      <Route exact path="/" element={<Home />}/>
+      <Route path="/new_entry" element={<NewEntry />}/>     
+      <Route path="/history" element={<History/>}/>
+    </Routes>
+  );
+
+ /*  const [everything, setEverything] = React.useState([])
 
   // const addLastFive = (lastfive) => {
   //   console.log(lastfive)
@@ -63,10 +75,19 @@ function App() {
   };
   fetchEverything();
   },[])
+ */
+
+  React.useEffect(()=>{
+    fetchData.then(r => {
+      console.log(r)
+      setContextData(r)
+    })
+  },[])
+  // )
 
   return (
     <FilmrecordContext.Provider
-      value={{collection: everything}}
+      value={{collection: contextData}}
     >
     <Router>
     <div>
