@@ -29,61 +29,12 @@ function App() {
     </Routes>
   );
 
- /*  const [everything, setEverything] = React.useState([])
-
-  // const addLastFive = (lastfive) => {
-  //   console.log(lastfive)
-  //   setLastFiveExampleContext(lastfive)
-  // }
-
-  // const dotha = () => {console.log(lastfiveExampleContext[2].title)}
-
-  routes = (
-    <Routes>
-      <Route exact path="/" element={<Home />}/>
-      <Route path="/new_entry" element={<NewEntry />}/>     
-      <Route path="/history" element={<History/>}/>
-    </Routes>
-  );
-
   React.useEffect(()=>{
-    const fetchEverything= async () => {
-      const response = await fetch('http://localhost:5000/api/films/getAll')
-      let data = await response.json();
-
-      let datasorted = [...data]
-       datasorted = datasorted.sort((a, b) => { 
-        if(a.rating > b.rating) return  -1;
-        else if (a.rating === b.rating) return 0;
-        else return 1;
-      });
- 
-      data = data.map((film) => {
-        film.countryRank = undefined;
-        film.totalCountry = undefined;
-        let {country, countryRank, totalCountry, ...rest} = film;
-
-        country = country.trim();
-        let countryFilms = datasorted.filter(f => f.country === film.country);
-        totalCountry = countryFilms.length
-        countryRank = countryFilms.findIndex(f => f.rating === film.rating);
-
-        return {country, countryRank, totalCountry, ...rest}
-      });
-      console.log(data)
-      setEverything(data)  
-  };
-  fetchEverything();
-  },[])
- */
-
-  React.useEffect(()=>{
-    fetchData.then(r => {
-      console.log(r)
-      setContextData(r)
+    fetchData.then(data=> {
+      setContextData(data)
     })
   },[])
-  // )
+
 
   return (
     <FilmrecordContext.Provider

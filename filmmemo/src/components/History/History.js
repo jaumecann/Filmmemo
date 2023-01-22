@@ -16,7 +16,7 @@ const History = () => {
     const [directorSelected, setDirectorSelected] = React.useState();
     const [displayedFilms, setDisplayedFilms] = React.useState(allrecords.collection)
     const [directorname, setDirectorname] = React.useState('');
-    const fetchData = useFetchContext();
+    const fetchGlobalContextData = useFetchContext();
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -35,20 +35,10 @@ const History = () => {
 
     React.useEffect(() =>{
         if (displayedFilms.length === 0){
-       /* necessari quan es refresca al navegador */
-/*              (async () => {
-                const response = await fetch('http://localhost:5000/api/films/getAll')
-                const data = await response.json();
-                setDisplayedFilms(data)
-            })();  */
-
-            fetchData.then(r => {
+            fetchGlobalContextData.then(r => {
                 console.log(r)
                 setDisplayedFilms(r)
               })
-
-
-            // setDisplayedFilms(allrecords.collection)
         }
         setTotalPages(Math.ceil(displayedFilms.length / itemsPerPage))
     },[displayedFilms.length])
@@ -71,6 +61,7 @@ const History = () => {
       title={item.title} 
       year={item.yearFilm}
       rating={item.rating}
+      ratingdate={item.ratedate}
       poster={item.poster}
       directorname={item.directorname}
       directorid={item.directorid}

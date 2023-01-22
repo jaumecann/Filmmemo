@@ -15,7 +15,11 @@ const ListCard = (props) => {
         }
     }
         
-    
+    const transformData = (date) => {
+       const intl = new Intl.DateTimeFormat('es-ES')
+       const data = new Date(date)
+       return intl.format(data)
+    }
 
     return (
         <div className={classes.cardbox}>
@@ -27,6 +31,7 @@ const ListCard = (props) => {
                         <li>{props.year}</li>
                         <li className={classes.director} value={props.directorid} onClick={loadDirector}>
                             <span className={classes.icon}><Icon>theaters</Icon></span>{props.directorname}</li>
+                        <li>Votada el {transformData(props.ratingdate)}</li>
                         </ul>
                     </div>
                     <div className={classes.blockcountry}>
