@@ -34,12 +34,15 @@ const ListCard = (props) => {
                         <li>Votada el {transformData(props.ratingdate)}</li>
                         </ul>
                     </div>
-                    <div className={classes.blockcountry}>
+            <div className={classes.blockcountry}>
                 <img alt='flag' src={`/flags/${props.country}.png`}></img>
                 <div>{props.countryrank}</div>
                 <div>{props.countrypercent}</div>
-                </div>
-                </div>
+            </div>
+            <div className={classes.blockcountry}>
+               Pelis hermanas en ranking
+            </div>
+            </div>
              
             </div>
             <div className={classes.poster}>
