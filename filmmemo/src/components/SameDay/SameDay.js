@@ -8,6 +8,9 @@ export function SameDay(props){
     const [sameDayFilms, setSameDayFilms] = useState([]);
     const [sameDayAvg, setSameDayAvg] = useState();
     const allrecords = React.useContext(FilmrecordContext)
+    const todaydate = new Date();
+    const intl = new Intl.DateTimeFormat('es-ES');
+    const today = intl.format(todaydate).slice(0,5)
 
 
     useEffect(()=>{
@@ -52,7 +55,7 @@ export function SameDay(props){
 
     return(
     <React.Fragment>
-    <h2 className={classes.headerlast5}>Same day <span>({sameDayAvg})</span></h2>
+    <h2 className={classes.headerlast5}>Same day {today} <span>({sameDayAvg})</span></h2>
      <div className={classes.samedayarea}>{films}</div>       
     </React.Fragment> 
     )

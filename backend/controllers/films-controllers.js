@@ -14,9 +14,17 @@ const getAll = async (req,res,next) => {
     return next();
 }
 
-    const getCountries = async (req,res, next) => {
+const getCountries = async (req,res, next) => {
     const countries = await sqlquery(querystrings.countries)
     res.json(countries.recordsets[0])
+    return next();
+}
+
+const getSisters = async (req,res, next) => {
+    const ids = req.query
+    console.log(ids)
+    console.log('hitted')
+    res.json('any')
     return next();
 }
 
@@ -52,3 +60,4 @@ exports.getLast5 = getLast5;
 exports.getCountries = getCountries;
 exports.insert = insert;
 exports.getAll = getAll;
+exports.getSisters = getSisters

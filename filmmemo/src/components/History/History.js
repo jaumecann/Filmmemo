@@ -4,6 +4,7 @@ import FilmrecordContext from '../../shared/context/records-context';
 import ListCard from './List-card';
 import Pagination from '@mui/material/Pagination'; 
 import { useFetchContext } from '../../shared/hooks/fetchcontext-hook';
+import { useParams } from 'react-router-dom';
 
 
 const History = () => {
@@ -20,6 +21,7 @@ const History = () => {
 
     const handleChange = (event, value) => {
         setPage(value);
+        fetchSisters();
     };
 
     const handleDirectorSelected = (directorId, directorName) => {
@@ -33,6 +35,18 @@ const History = () => {
       return percentile.toFixed(2);
     }
 
+    const fetchSisters = React.useCallback(async() => {
+        const filmsOnPage = displayedFilms.slice((page -1)*itemsPerPage, page*itemsPerPage);
+        const targetIds = filmsOnPage.map(f => f.id)
+        console.log(targetIds)
+
+        const call = await fetch (`http://localhost:5000/api/films/getSisters/?ids=${targetIds}`)
+       
+      /*   const call = await fetch (`http://localhost:5000/api/films/getSisters/?ids=3205&ids=3303`) */
+
+    }, [displayedFilms, page]
+    )
+
     React.useEffect(() =>{
         if (displayedFilms.length === 0){
             fetchGlobalContextData.then(r => {
@@ -40,8 +54,9 @@ const History = () => {
                 setDisplayedFilms(r)
               })
         }
-        setTotalPages(Math.ceil(displayedFilms.length / itemsPerPage))
-    },[displayedFilms.length])
+        setTotalPages(Math.ceil(displayedFilms.length / itemsPerPage));
+        fetchSisters();
+    },[displayedFilms.length, fetchGlobalContextData, fetchSisters])
 
     React.useEffect(() => {
         if(directorSelected){

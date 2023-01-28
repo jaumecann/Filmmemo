@@ -6,6 +6,7 @@ const router = express.Router();
 router.get('/lastfive', filmControllers.getLast5);
 router.get('/countries', filmControllers.getCountries);
 router.get('/getAll', filmControllers.getAll)
+router.get('/getSisters', filmControllers.getSisters)
 
 router.post('/', filmControllers.insert)
 
