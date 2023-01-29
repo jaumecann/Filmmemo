@@ -1,7 +1,7 @@
 
 export const useFetchContext = async() => {
 
-
+  console.log('calling')
     // const fetchEverything= async () => {
         const response = await fetch('http://localhost:5000/api/films/getAll')
         let data = await response.json();

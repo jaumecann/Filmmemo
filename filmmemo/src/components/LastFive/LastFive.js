@@ -24,7 +24,7 @@ export function LastFive(props){
      year={item.yearFilm} 
      date={item.ratedate} 
      director={item.directorid} 
-     country={item.country}
+     country={item.country.trim()}
      img={item.poster}
      rating={item.rating} />
     );

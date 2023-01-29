@@ -38,7 +38,6 @@ const History = () => {
     const fetchSisters = React.useCallback(async() => {
         const filmsOnPage = displayedFilms.slice((page -1)*itemsPerPage, page*itemsPerPage);
         const targetIds = filmsOnPage.map(f => f.id)
-        console.log(targetIds)
 
         const call = await fetch (`http://localhost:5000/api/films/getSisters/?ids=${targetIds}`)
        
@@ -50,13 +49,12 @@ const History = () => {
     React.useEffect(() =>{
         if (displayedFilms.length === 0){
             fetchGlobalContextData.then(r => {
-                console.log(r)
                 setDisplayedFilms(r)
               })
         }
         setTotalPages(Math.ceil(displayedFilms.length / itemsPerPage));
         fetchSisters();
-    },[displayedFilms.length, fetchGlobalContextData, fetchSisters])
+    },[])
 
     React.useEffect(() => {
         if(directorSelected){
