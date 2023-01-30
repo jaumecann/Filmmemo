@@ -21,10 +21,32 @@ const getCountries = async (req,res, next) => {
 }
 
 const getSisters = async (req,res, next) => {
-    const ids = req.query
-    console.log(ids)
-    console.log('hitted')
-    res.json('any')
+    const ids = req.query.ids
+    const idArray = ids.split(',')
+
+    returnObject = {}
+
+    for (let i=0; i < idArray.length; i++){
+        const queryCountry = `SELECT country FROM FilmRecord where id = ${idArray[i]}`
+        const country = await sqlquery(queryCountry)
+        const target = country.recordset[0].country
+    
+        const allYearRecordsQuery = 
+        `SELECT id, title, country
+        FROM FilmRecord
+        where country = '${target}'
+        order by rating desc, country`;
+    
+        const list = await sqlquery(allYearRecordsQuery)
+        idslist = list.recordset.map(a => a.id)
+        const index = idslist.findIndex(e => e == idArray[i])
+        const biggerSis = idslist[index -1]
+        const littleSis = idslist[index+1]
+
+        returnObject[idArray[i]]= {big: biggerSis, little: littleSis}
+    }
+    
+    res.json(returnObject)
     return next();
 }
 
