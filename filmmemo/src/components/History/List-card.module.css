@@ -39,6 +39,14 @@
     width:100%;
 }
 
+.posterSister{
+    width: 50%
+}
+
+.posterSister img{
+    width: 100%
+}
+
 .blocksdata{
     display:flex;
 }
@@ -61,4 +69,8 @@ ul {
     padding: 5px;
     margin: 1em;
     flex: 0 0 20%;
+}
+
+.flex{
+    display: flex;
 }

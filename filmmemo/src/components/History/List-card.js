@@ -1,4 +1,5 @@
 import  Icon  from '@mui/material/Icon';
+import { useEffect } from 'react';
 import classes from './List-card.module.css';
 
 
@@ -21,6 +22,8 @@ const ListCard = (props) => {
        return intl.format(data)
     }
 
+    useEffect(()=>{console.log(props)}, [])
+
     return (
         <div className={classes.cardbox}>
             <div className={classes.titlesection}>
@@ -39,8 +42,13 @@ const ListCard = (props) => {
                 <div>{props.countryrank}</div>
                 <div>{props.countrypercent}</div>
             </div>
-            <div className={classes.blockcountry}>
-               Pelis hermanas en ranking
+            <div className={`${classes.blockcountry} ${classes.flex}`}>
+                <div className={classes.posterSister}>
+                {props.sisters && <img alt='poster' src={`/assets/${props.sisters.bigSis}`}></img>}
+                </div>
+                <div className={classes.posterSister}>
+               {props.sisters && <img alt='poster' src={`/assets/${props.sisters.littleSis}`}></img>}
+                </div>
             </div>
             </div>
              

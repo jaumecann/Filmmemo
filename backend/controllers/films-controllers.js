@@ -1,4 +1,4 @@
-const { options } = require('../routes/films-routes');
+
 const sqlquery = require('../utils/database')
 const querystrings = require('../utils/sql-dark-corner');
 
@@ -32,18 +32,22 @@ const getSisters = async (req,res, next) => {
         const target = country.recordset[0].country
     
         const allYearRecordsQuery = 
-        `SELECT id, title, country
+        `SELECT id, title, country, poster
         FROM FilmRecord
         where country = '${target}'
         order by rating desc, country`;
     
         const list = await sqlquery(allYearRecordsQuery)
-        idslist = list.recordset.map(a => a.id)
-        const index = idslist.findIndex(e => e == idArray[i])
+        idslist = list.recordset.map(a => {return {id:a.id, poster:a.poster}})
+        const index = idslist.findIndex(e => e.id == idArray[i])
         const biggerSis = idslist[index -1]
         const littleSis = idslist[index+1]
 
-        returnObject[idArray[i]]= {big: biggerSis, little: littleSis}
+      
+
+        returnObject[idArray[i]]= {bigSis: biggerSis?.poster ? biggerSis.poster : '', 
+                                littleSis: littleSis?.poster ? littleSis.poster : ''
+                            }
     }
     
     res.json(returnObject)

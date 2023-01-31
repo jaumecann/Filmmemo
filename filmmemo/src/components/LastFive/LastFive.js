@@ -10,7 +10,6 @@ export function LastFive(props){
         const fetchLast5 = async () => {
             const response = await fetch('http://localhost:5000/api/films/lastfive')
             const data = await response.json();
-            console.log(data)
             setLastFive(data);    
         };
         fetchLast5();

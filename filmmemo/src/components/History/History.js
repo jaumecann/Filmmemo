@@ -18,6 +18,7 @@ const History = () => {
     const [displayedFilms, setDisplayedFilms] = React.useState(allrecords.collection)
     const [directorname, setDirectorname] = React.useState('');
     const fetchGlobalContextData = useFetchContext();
+    const [sistersList, setSistersList] = React.useState('');
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -39,9 +40,11 @@ const History = () => {
         const filmsOnPage = displayedFilms.slice((page -1)*itemsPerPage, page*itemsPerPage);
         const targetIds = filmsOnPage.map(f => f.id)
 
-        const call = await fetch (`http://localhost:5000/api/films/getSisters/?ids=${targetIds}`)
-       
-      /*   const call = await fetch (`http://localhost:5000/api/films/getSisters/?ids=3205&ids=3303`) */
+        const sistersCall = await fetch (`http://localhost:5000/api/films/getSisters/?ids=${targetIds}`)
+        const sistersData = await sistersCall.json();
+        console.log(sistersData)
+        setSistersList(sistersData)
+      
 
     }, [displayedFilms, page]
     )
@@ -67,6 +70,11 @@ const History = () => {
         };
     },[directorSelected]);
 
+    // const getBigSis = (id) => {
+    //     console.log(sistersList[id].bigSis);
+    //     return '1'
+    //   }
+
 
     let currentFilms = displayedFilms.slice((page -1)*itemsPerPage, page*itemsPerPage).map(item => 
       <ListCard 
@@ -76,6 +84,7 @@ const History = () => {
       rating={item.rating}
       ratingdate={item.ratedate}
       poster={item.poster}
+      sisters={sistersList[item.id]}
       directorname={item.directorname}
       directorid={item.directorid}
       country={item.country} 
@@ -90,6 +99,7 @@ const History = () => {
         setDirectorname('');
       }
 
+     
     return(
         <React.Fragment>
         <h2>
