@@ -22,7 +22,7 @@ const History = () => {
 
     const handleChange = (event, value) => {
         setPage(value);
-        fetchSisters();
+        fetchSisters(value);
     };
 
     const handleDirectorSelected = (directorId, directorName) => {
@@ -36,13 +36,12 @@ const History = () => {
       return percentile.toFixed(2);
     }
 
-    const fetchSisters = React.useCallback(async() => {
-        const filmsOnPage = displayedFilms.slice((page -1)*itemsPerPage, page*itemsPerPage);
+    const fetchSisters = React.useCallback(async(currentPage) => {
+        const filmsOnPage = displayedFilms.slice((currentPage -1)*itemsPerPage, currentPage*itemsPerPage);
         const targetIds = filmsOnPage.map(f => f.id)
 
         const sistersCall = await fetch (`http://localhost:5000/api/films/getSisters/?ids=${targetIds}`)
         const sistersData = await sistersCall.json();
-        console.log(sistersData)
         setSistersList(sistersData)
       
 
@@ -56,7 +55,7 @@ const History = () => {
               })
         }
         setTotalPages(Math.ceil(displayedFilms.length / itemsPerPage));
-        fetchSisters();
+        fetchSisters(1);
     },[])
 
     React.useEffect(() => {

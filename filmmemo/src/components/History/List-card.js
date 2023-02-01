@@ -22,8 +22,6 @@ const ListCard = (props) => {
        return intl.format(data)
     }
 
-    useEffect(()=>{console.log(props)}, [])
-
     return (
         <div className={classes.cardbox}>
             <div className={classes.titlesection}>
