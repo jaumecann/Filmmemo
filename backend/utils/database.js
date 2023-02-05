@@ -17,22 +17,19 @@ const dbquery = async (sql_query) => {
 
    const conn = await sql.connect(config)
 
+/*    Al parecer en el request se pierde la conexion al hacer varias solicitudes a la vez. 
+   Por lo cual en el constructor del Request debes colocar la conexión. 
+   Si no la colocas tratará de adivinar la conexión abierta, 
+   en ese momento puede que al hacer varias solicitudes escoge una conexión que está cerrada.
+   https://es.stackoverflow.com/questions/146967/node-mssql-error-connection-is-closed-cuando-ejecuto-varias-consultas-a-la-v
+   */
+
    let request = new sql.Request(conn)
 
    const result = await request.query(sql_query)
 
    conn.close()
-        // .then((conn) => {
-        // conn.query(sql_query)
-            // .then((recordset) => {return recordset; 
-            //     // console.log(result.recordsets[0][222])
-            // })
-            //     .then(() => {
-            //         conn.close(); 
-            //     });
-
-    // })
-    return result;
+   return result;
 
 }
 
