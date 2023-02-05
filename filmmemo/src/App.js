@@ -25,6 +25,7 @@ function App() {
     <Routes>
       <Route exact path="/" element={<Home />}/>
       <Route path="/new_entry" element={<NewEntry />}/>     
+      <Route path="/edit/:id" element={<NewEntry/>}/>
       <Route path="/history" element={<History/>}/>
     </Routes>
   );

@@ -37,10 +37,10 @@ const ListCard = (props) => {
                     </div>
             <div className={classes.blockcountry}>
                 <img alt='flag' src={`/flags/${props.country}.png`}></img>
-                <div>{props.countryrank}</div>
-                <div>{props.countrypercent}</div>
+                <div>Ranking país <span><Icon>arrow_circle_right</Icon></span> {props.countryrank}</div>
+                <div>Percentil <span><Icon>arrow_circle_right</Icon></span>  {props.countrypercent}</div>
             </div>
-            <div className={`${classes.blockcountry} ${classes.flex}`}>
+            <div className={`${classes.blocksisters} ${classes.flex}`}>
                 <div className={classes.posterSister}>
                 {props.sisters && <img alt='poster' src={`/assets/${props.sisters.bigSis}`}></img>}
                 </div>

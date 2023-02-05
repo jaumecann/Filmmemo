@@ -17,7 +17,9 @@ const dbquery = async (sql_query) => {
 
    const conn = await sql.connect(config)
 
-   const result = await conn.query(sql_query)
+   let request = new sql.Request(conn)
+
+   const result = await request.query(sql_query)
 
    conn.close()
         // .then((conn) => {

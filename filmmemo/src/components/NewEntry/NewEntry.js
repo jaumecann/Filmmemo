@@ -8,6 +8,7 @@ import * as React from 'react';
 import { useFormState } from '../../shared/hooks/formstate-hook';
 import { FilmRecord } from '../../shared/models/FilmRecord';
 import FilmrecordContext from '../../shared/context/records-context';
+import { useParams } from 'react-router-dom';
 
 const NewEntry = () => {
     const [countryList, setCountryList] = useState([]);
@@ -21,6 +22,8 @@ const NewEntry = () => {
         const directors = await response.json();
         setDirectors(directors);
     }
+    const filmID = useParams().id;
+    const [filmData, setFilmData] = useState({});
 
     const country = <Autocomplete
     className={`${classes.inputs} ${classes.countries}`}
@@ -129,6 +132,15 @@ const NewEntry = () => {
             const countries = await response.json();
             setCountryList(countries);
         })();
+
+        if(filmID){
+            // console.log(filmID)
+            (async() => {
+                const response = await fetch(`http://localhost:5000/api/films/getFilm/?id=${filmID}`);
+                const filmdata = await response.json();
+                setFilmData(filmdata[0])
+            })();
+        }
     },[]);
 
     // useEffect(()=> {
@@ -138,6 +150,7 @@ const NewEntry = () => {
     return (
     <React.Fragment>
       <div className={classes.flex}>
+        {filmData && <p>{filmData.title}</p>}
         <div className={classes.wrapper}>
             <div className={classes.row}>
                 {title}

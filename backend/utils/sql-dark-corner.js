@@ -4,6 +4,7 @@ const queries = {
     countries: "select countryid, name from Countries",
     alldirectors: "select * from Directors where directorname not like '%Rep Etido%'",
     getAll: "SELECT  rec.[id],[title],[rating],[yearFilm],[ratedate],[ratehour],dir.directorname,[directorid],[country],[poster],[director2] FROM [Filmmemo].[dbo].[FilmRecord] rec join [Filmmemo].[dbo].[Directors] dir on rec.directorid = dir.id order by ratedate desc",
+    getFilm: "select * from FilmRecord where id ="
 }
 
 module.exports = queries;

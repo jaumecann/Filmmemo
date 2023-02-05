@@ -9,8 +9,6 @@ const app = express();
 
 const filmRoutes = require('./routes/films-routes')
 const directorRoutes = require('./routes/director-routes')
-const sqlquery = require('./utils/database')
-const querystrings = require('./utils/sql-dark-corner');
 
 // sqlquery('select * from FilmRecord').then((res) => console.log(res.recordsets[0][1298]))
 
