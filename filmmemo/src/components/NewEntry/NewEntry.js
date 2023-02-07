@@ -30,8 +30,9 @@ const NewEntry = () => {
     options={countryList}
     getOptionLabel={(option)=> option.name}
     isOptionEqualToValue={(option, value) => option.countryid === value.countryid}
-    renderInput={(params) => <TextField {...params} label="Country" />}
+    renderInput={(params) => <TextField {...params} label="Country"/>}
     onChange={(e,v,r) => {inputchecker(v, 'country')}}
+    defaultValue={{countryid : filmData.country, name:'Switzerland'}}
     />
 
     const director = <Autocomplete
@@ -45,16 +46,19 @@ const NewEntry = () => {
             getDirectors();
          }
         }}
-    renderInput={(params) => <TextField {...params} label="Director" />}
+    renderInput={(params) => <TextField {...params} label="Director"/>}
     onFocus={()=> {setIsNewDirector(false)}}
     onChange={(e,v,r) => {inputchecker(v, 'director')}}
+    inputValue={filmData.directorid || ''}
     />
 
-    const title = <TextField label="Títol" variant='outlined' className={classes.inputs} onBlur={(e) => {inputchecker(e.target.value, 'title')}} style={{width:500}} onClick={ ()=> {console.log(allrecords)}}/>
+/* https://stackoverflow.com/questions/46118340/i-cant-edit-text-field-in-material-ui */
 
-    const year = <TextField label="Year" variant='outlined' className={classes.inputs} style={{width:100}} onBlur={(e) => {inputchecker(e.target.value, 'YEAR')}}/>
+    const title = <TextField label="Títol" variant='outlined' className={classes.inputs} onBlur={(e) => {inputchecker(e.target.value, 'title')}} style={{width:500}} value={filmData.title || ''}/>
 
-    const directorName = <TextField label="Nom" variant='outlined' className={classes.inputs} style={{width:300}} onBlur={(e) => { setNewDirector({...newDirector, name:e.target.value})}}/>
+    const year = <TextField label="Year" variant='outlined' className={classes.inputs} style={{width:100}} onBlur={(e) => {inputchecker(e.target.value, 'YEAR')}} defaultValue={filmData.yearFilm}/>
+
+    const directorName = <TextField label="Nom" variant='outlined' className={classes.inputs} style={{width:300}} onBlur={(e) => { setNewDirector({...newDirector, name:e.target.value})}} value={filmData.director || ''}/>
 
     const directorCountry = <Autocomplete 
             className={`${classes.inputs}`} 
@@ -108,22 +112,22 @@ const NewEntry = () => {
 
     const submitDirector = async () => {
         console.log(newDirector);
-        if (!newDirector.name || !newDirector.country){
-            alert('falta per omplir nom o pais del director')
-            return;
-        }
+        // if (!newDirector.name || !newDirector.country){
+        //     alert('falta per omplir nom o pais del director')
+        //     return;
+        // }
 
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json'},
-            body: JSON.stringify(newDirector)
-        };
+        // const requestOptions = {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json'},
+        //     body: JSON.stringify(newDirector)
+        // };
 
-        try {
-            await fetch('http://localhost:5000/api/directors', requestOptions)
-        } catch (e){
-            console.log(e)
-        } 
+        // try {
+        //     await fetch('http://localhost:5000/api/directors', requestOptions)
+        // } catch (e){
+        //     console.log(e)
+        // } 
     }
 
     useEffect(()=>{
@@ -150,7 +154,6 @@ const NewEntry = () => {
     return (
     <React.Fragment>
       <div className={classes.flex}>
-        {filmData && <p>{filmData.title}</p>}
         <div className={classes.wrapper}>
             <div className={classes.row}>
                 {title}
@@ -175,9 +178,9 @@ const NewEntry = () => {
         </div>
 
         <div className={classes.attach_wrapper}>
-            <TextField label="Poster" variant='outlined' className={classes.inputs} style={{width:400}} onBlur={(e) => {inputchecker(e.target.value, 'poster')}}/>
+            <TextField label="Poster" variant='outlined' className={classes.inputs} style={{width:400}} onBlur={(e) => {inputchecker(e.target.value, 'poster')}} value={filmData.poster || ''}/>
             <h3>Nota</h3>
-            <Rating name="customized-10" min={1} max={10} className={classes.ratebar} onChange={(e,v) => {inputchecker(v, 'rate')}}/>
+            <Rating name="customized-10" min={1} max={10} className={classes.ratebar} onChange={(e,v) => {inputchecker(v, 'rate')}} value={filmData.rating|| ''}/>
         </div>
       </div>
      
