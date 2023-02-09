@@ -3,16 +3,18 @@ import { useCallback, useReducer } from "react"
 export const useFormState = () => {
 
     const formReducer = (state, action) => {
-        switch (action.type) {
-            case 'YEAR': 
-            state.year.value = action.value;
-            state.year.isValid = action.value > 1800 && action.value <= new Date().getFullYear() ? true : false
-            return state;
-            default : 
-            state[`${action.type}`].value = action.value;
-            state[`${action.type}`].isValid = action.value? true : false
-            return state;
-        };
+        console.log(action.filmdata)
+        // switch (action.type) {
+        //     case 'YEAR': 
+        //     state.year.value = action.value;
+        //     state.year.isValid = action.value > 1800 && action.value <= new Date().getFullYear() ? true : false
+        //     return state;
+        //     default : 
+        //     state[`${action.type}`].value = action.value;
+        //     state[`${action.type}`].isValid = action.value? true : false
+        //     return state;
+        // };
+
      
     }
 
@@ -27,10 +29,9 @@ export const useFormState = () => {
 
     const [payloadObject, dispatch] = useReducer(formReducer, emptyPayload);
 
-    const inputProcesser = useCallback((value, type) => {
+    const inputProcesser = useCallback((filmdata) => {
         dispatch({
-            type,
-            value
+            filmdata
         });
     }, []);
     

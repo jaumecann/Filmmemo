@@ -10,12 +10,27 @@ import { FilmRecord } from '../../shared/models/FilmRecord';
 import FilmrecordContext from '../../shared/context/records-context';
 import { useParams } from 'react-router-dom';
 
+let dataModel = {
+    country: '',
+    director2: '',
+    directorid: '',
+    directorname: '',
+    id: '',
+    name: '',
+    poster: '',
+    ratedate: '',
+    ratehour: '',
+    rating:'',
+    title: '',
+    yearFilm: ''
+}
+
 const NewEntry = () => {
     const [countryList, setCountryList] = useState([]);
     const [directors, setDirectors] = useState([]);
     const [isNewDirector, setIsNewDirector] = useState(false);
     const [newDirector, setNewDirector] = useState({name:'', country:''});
-    const [inputchecker, payload] = useFormState();
+    const [inputprocesser, payload] = useFormState();
     const allrecords = React.useContext(FilmrecordContext)
     const getDirectors = async () => {
         const response = await fetch('http://localhost:5000/api/directors/alldirectors')
@@ -23,7 +38,20 @@ const NewEntry = () => {
         setDirectors(directors);
     }
     const filmID = useParams().id;
-    const [filmData, setFilmData] = useState({});
+    const [filmData, setFilmData] = useState(dataModel);
+    const countryRef = React.useRef();
+
+    const onChangeInput = (event) => {
+        console.log(event)
+        setFilmData({...filmData, [event.target.name]: event.target.value})
+  
+    }
+
+    const onChangeCountry = (e,v) => {
+        console.log(e)
+        console.log(v)
+        setFilmData({...filmData, countryid: v.countryid, name: v.name})
+    }
 
     const country = <Autocomplete
     className={`${classes.inputs} ${classes.countries}`}
@@ -31,8 +59,10 @@ const NewEntry = () => {
     getOptionLabel={(option)=> option.name}
     isOptionEqualToValue={(option, value) => option.countryid === value.countryid}
     renderInput={(params) => <TextField {...params} label="Country"/>}
-    onChange={(e,v,r) => {inputchecker(v, 'country')}}
-    defaultValue={{countryid : filmData.country, name:'Switzerland'}}
+    ref={countryRef}
+    name="countryid"
+    value={{countryid:filmData.country, name:filmData.name}}
+    onChange={onChangeCountry}
     />
 
     const director = <Autocomplete
@@ -48,17 +78,16 @@ const NewEntry = () => {
         }}
     renderInput={(params) => <TextField {...params} label="Director"/>}
     onFocus={()=> {setIsNewDirector(false)}}
-    onChange={(e,v,r) => {inputchecker(v, 'director')}}
-    inputValue={filmData.directorid || ''}
+    onChange={(e,v,r) => {inputprocesser(v, 'director')}}
     />
 
 /* https://stackoverflow.com/questions/46118340/i-cant-edit-text-field-in-material-ui */
 
-    const title = <TextField label="Títol" variant='outlined' className={classes.inputs} onBlur={(e) => {inputchecker(e.target.value, 'title')}} style={{width:500}} value={filmData.title || ''}/>
+    const title = <TextField label="Títol" variant='outlined' name="title" className={classes.inputs} onBlur={(e) => {inputprocesser(e.target.value, 'title')}} value={filmData.title} style={{width:500}} onChange={onChangeInput}/>
 
-    const year = <TextField label="Year" variant='outlined' className={classes.inputs} style={{width:100}} onBlur={(e) => {inputchecker(e.target.value, 'YEAR')}} defaultValue={filmData.yearFilm}/>
+    const year = <TextField label="Year" variant='outlined' className={classes.inputs} style={{width:100}} onBlur={(e) => {inputprocesser(e.target.value, 'YEAR')}}/>
 
-    const directorName = <TextField label="Nom" variant='outlined' className={classes.inputs} style={{width:300}} onBlur={(e) => { setNewDirector({...newDirector, name:e.target.value})}} value={filmData.director || ''}/>
+    const directorName = <TextField label="Nom" variant='outlined' className={classes.inputs} style={{width:300}} onBlur={(e) => { setNewDirector({...newDirector, name:e.target.value})}}/>
 
     const directorCountry = <Autocomplete 
             className={`${classes.inputs}`} 
@@ -69,12 +98,15 @@ const NewEntry = () => {
             style={{width:200}}
             onChange={(e,v,r) => {setNewDirector({...newDirector, country: v.countryid})}}
             />
+    
+
 
     const handleNewDirector = () => {
         setIsNewDirector(true);
     }
 
     const submitData = async () => {
+        inputprocesser(filmData)
         console.log(payload)
       const allvalidated = Object.values(payload).every(i => i.isValid === true)
       
@@ -103,11 +135,11 @@ const NewEntry = () => {
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(record)
     };
-    try{
-        await fetch('http://localhost:5000/api/films', requestOptions)
-    } catch (e){
-        console.log(e)
-    } 
+    // try{
+    //     await fetch('http://localhost:5000/api/films', requestOptions)
+    // } catch (e){
+    //     console.log(e)
+    // } 
     }
 
     const submitDirector = async () => {
@@ -178,9 +210,9 @@ const NewEntry = () => {
         </div>
 
         <div className={classes.attach_wrapper}>
-            <TextField label="Poster" variant='outlined' className={classes.inputs} style={{width:400}} onBlur={(e) => {inputchecker(e.target.value, 'poster')}} value={filmData.poster || ''}/>
+            <TextField label="Poster" variant='outlined' className={classes.inputs} style={{width:400}} onBlur={(e) => {inputprocesser(e.target.value, 'poster')}}/>
             <h3>Nota</h3>
-            <Rating name="customized-10" min={1} max={10} className={classes.ratebar} onChange={(e,v) => {inputchecker(v, 'rate')}} value={filmData.rating|| ''}/>
+            <Rating name="customized-10" min={1} max={10} className={classes.ratebar} onChange={(e,v) => {inputprocesser(v, 'rate')}}/>
         </div>
       </div>
      
