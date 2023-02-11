@@ -14,16 +14,29 @@ export const useFormState = () => {
         //     state[`${action.type}`].isValid = action.value? true : false
         //     return state;
         // };
-
-     
+        const dataSubmited = action.filmdata
+        for (const entry in dataSubmited){
+            if(entry === 'yearFilm'){
+                state.yearFilm.value = dataSubmited[entry]
+                state.yearFilm.isValid = dataSubmited[entry] > 1800 && dataSubmited[entry] <= new Date().getFullYear() ? true : false
+          } else {
+                if(state[`${entry}`] !== undefined){
+                    state[`${entry}`].value = dataSubmited[entry]
+                    state[`${entry}`].isValid = dataSubmited[entry] ? true : false
+                }
+          }
+        }
+        console.log(state)
+        return state;
+   
     }
-
+  
     let emptyPayload = {
         title: {value:'',isValid:false},
-        year: {value:'',isValid:false},
+        yearFilm: {value:'',isValid:false},
         country: {value:'',isValid:false},
-        director: {value:'',isValid:false},
-        rate: {value:'',isValid:false},
+        directorid: {value:'',isValid:false},
+        rating: {value:'',isValid:false},
         poster: {value:'',isValid:false},     
     }
 

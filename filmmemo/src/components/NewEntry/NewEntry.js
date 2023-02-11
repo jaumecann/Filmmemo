@@ -39,27 +39,38 @@ const NewEntry = () => {
     }
     const filmID = useParams().id;
     const [filmData, setFilmData] = useState(dataModel);
-    const countryRef = React.useRef();
 
     const onChangeInput = (event) => {
-        console.log(event)
-        setFilmData({...filmData, [event.target.name]: event.target.value})
-  
+        setFilmData((currentData)=>{
+            return {...currentData, [event.target.name]: event.target.value}
+        })
     }
 
     const onChangeCountry = (e,v) => {
-        console.log(e)
-        console.log(v)
-        setFilmData({...filmData, countryid: v.countryid, name: v.name})
+        setFilmData((currentData)=>{
+            return  {...currentData, countryid: v.countryid, country:v.countryid, name: v.name}
+        })
+    }   
+
+
+    const onChangeDirector = (e,v ) => {
+        setFilmData((currentData)=>{
+            console.log(v)
+           return {...currentData, directorid: v.id, directorname: v.directorname}
+        }
+        )
     }
 
     const country = <Autocomplete
     className={`${classes.inputs} ${classes.countries}`}
     options={countryList}
     getOptionLabel={(option)=> option.name}
-    isOptionEqualToValue={(option, value) => option.countryid === value.countryid}
+    isOptionEqualToValue={
+        (option, value) => {
+            return option.countryid === value.countryid
+        }
+    }
     renderInput={(params) => <TextField {...params} label="Country"/>}
-    ref={countryRef}
     name="countryid"
     value={{countryid:filmData.country, name:filmData.name}}
     onChange={onChangeCountry}
@@ -71,6 +82,10 @@ const NewEntry = () => {
     selectOnFocus
     clearOnBlur
     getOptionLabel={(option) => option.directorname}
+    isOptionEqualToValue = {(option, value)=>{
+     return option.id === value.id
+    }
+    }
     onInputChange={(event, newValue) => {
          if (newValue.length >= 3 && directors.length < 1){
             getDirectors();
@@ -78,14 +93,15 @@ const NewEntry = () => {
         }}
     renderInput={(params) => <TextField {...params} label="Director"/>}
     onFocus={()=> {setIsNewDirector(false)}}
-    onChange={(e,v,r) => {inputprocesser(v, 'director')}}
+    value={{directorname: filmData.directorname, id:filmData.directorid}}
+    onChange={onChangeDirector}
     />
 
 /* https://stackoverflow.com/questions/46118340/i-cant-edit-text-field-in-material-ui */
 
-    const title = <TextField label="Títol" variant='outlined' name="title" className={classes.inputs} onBlur={(e) => {inputprocesser(e.target.value, 'title')}} value={filmData.title} style={{width:500}} onChange={onChangeInput}/>
+    const title = <TextField label="Títol" variant='outlined' name="title" className={classes.inputs} value={filmData.title} style={{width:500}} onChange={onChangeInput}/>
 
-    const year = <TextField label="Year" variant='outlined' className={classes.inputs} style={{width:100}} onBlur={(e) => {inputprocesser(e.target.value, 'YEAR')}}/>
+    const year = <TextField label="Year" variant='outlined' name="yearFilm" className={classes.inputs} value={filmData.yearFilm} style={{width:100}} onChange={onChangeInput}/>
 
     const directorName = <TextField label="Nom" variant='outlined' className={classes.inputs} style={{width:300}} onBlur={(e) => { setNewDirector({...newDirector, name:e.target.value})}}/>
 
@@ -144,22 +160,22 @@ const NewEntry = () => {
 
     const submitDirector = async () => {
         console.log(newDirector);
-        // if (!newDirector.name || !newDirector.country){
-        //     alert('falta per omplir nom o pais del director')
-        //     return;
-        // }
+        if (!newDirector.name || !newDirector.country){
+            alert('falta per omplir nom o pais del director')
+            return;
+        }
 
-        // const requestOptions = {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json'},
-        //     body: JSON.stringify(newDirector)
-        // };
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(newDirector)
+        };
 
-        // try {
-        //     await fetch('http://localhost:5000/api/directors', requestOptions)
-        // } catch (e){
-        //     console.log(e)
-        // } 
+        try {
+            await fetch('http://localhost:5000/api/directors', requestOptions)
+        } catch (e){
+            console.log(e)
+        } 
     }
 
     useEffect(()=>{
@@ -210,9 +226,12 @@ const NewEntry = () => {
         </div>
 
         <div className={classes.attach_wrapper}>
-            <TextField label="Poster" variant='outlined' className={classes.inputs} style={{width:400}} onBlur={(e) => {inputprocesser(e.target.value, 'poster')}}/>
+            {filmData.poster && <div className={classes.poster}>
+            <img alt='poster' src={`/assets/${filmData.poster}`}></img>
+            </div>} 
+            <TextField label="Poster" variant='outlined' name='poster' className={classes.inputs} value={filmData.poster} style={{width:400}} onChange={onChangeInput}/>
             <h3>Nota</h3>
-            <Rating name="customized-10" min={1} max={10} className={classes.ratebar} onChange={(e,v) => {inputprocesser(v, 'rate')}}/>
+            <Rating name="rating" min={1} max={10} value={filmData.rating}  className={classes.ratebar} onChange={onChangeInput}/>
         </div>
       </div>
      

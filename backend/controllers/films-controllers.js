@@ -73,8 +73,8 @@ const insert = async (req, res, next) => {
     const ratedate = dateTimeFormat.format(timeDetails)
     const ratehour = hourFormat.format(timeDetails)
 
-    const {title, year, country, director, rate, poster} = req.body
-    const query = `INSERT INTO FilmRecord(title, rating, yearFilm, ratedate, ratehour, country, directorid, poster) VALUES ('${title}', ${rate}, ${year}, '${ratedate}', '${ratehour}', '${country}', ${director}, '${poster}')`
+    const {title, yearFilm, country, directorid, rating, poster} = req.body
+    const query = `INSERT INTO FilmRecord(title, rating, yearFilm, ratedate, ratehour, country, directorid, poster) VALUES ('${title}', ${rating}, ${yearFilm}, '${ratedate}', '${ratehour}', '${country}', ${directorid}, '${poster}')`
     try {
         const record = await sqlquery(query);
         res.sendStatus(200);
