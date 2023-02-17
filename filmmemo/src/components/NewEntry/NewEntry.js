@@ -131,26 +131,42 @@ const NewEntry = () => {
         return
       }
 
-      if (allrecords.collection.find((film)=> film.title.toLowerCase() === payload.title.value.toLowerCase())){
-        alert(`ja existeix ${payload.title.value}`)
-        return;
-      }
-
       let record = new FilmRecord();
       record.title = payload.title.value;
-      record.year = payload.year.value;
-      record.country = payload.country.value.countryid
-      record.director = payload.director.value.id
-      record.rate = payload.rate.value
+      record.year = payload.yearFilm.value;
+      record.country = payload.country.value
+      record.director = payload.directorid.value;
+      record.rate = payload.rating.value
       record.poster = payload.poster.value
 
-      console.log(record);
 
-      const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json'},
-        body: JSON.stringify(record)
-    };
+
+      if (filmID){
+        try{
+            record.id = filmID
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json'},
+                body: JSON.stringify(record)
+            };
+
+            await fetch('http://localhost:5000/api/films/update', requestOptions)
+        } catch (e){
+            console.log(e)
+        } 
+      } else {
+
+        if (allrecords.collection.find((film)=> film.title.toLowerCase() === payload.title.value.toLowerCase())){
+            alert(`ja existeix ${payload.title.value}`)
+            return;
+        }
+      }
+
+    //   const requestOptions = {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json'},
+    //     body: JSON.stringify(record)
+    // };
     // try{
     //     await fetch('http://localhost:5000/api/films', requestOptions)
     // } catch (e){

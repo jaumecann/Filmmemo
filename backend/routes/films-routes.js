@@ -9,7 +9,8 @@ router.get('/getAll', filmControllers.getAll)
 router.get('/getSisters', filmControllers.getSisters);
 router.get('/getFilm', filmControllers.getFilm)
 
-router.post('/', filmControllers.insert)
+router.post('/', filmControllers.insert);
+router.post('/update', filmControllers.update);
 
 
 module.exports = router

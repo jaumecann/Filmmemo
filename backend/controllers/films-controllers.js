@@ -85,6 +85,24 @@ const insert = async (req, res, next) => {
    
 }
 
+const update = async (req, res, next) => {
+/* primer comprovem si ha canviat la nota */
+
+const entryToUpdate = req.body;
+const id = entryToUpdate.id;
+const enteredRating = parseInt(entryToUpdate.rate)
+
+const idquerystring = `${querystrings.getFilm}${id}`
+const previousRecord = await sqlquery(idquerystring);
+const previousRating = previousRecord.recordset[0].rating;
+
+console.log (enteredRating !== previousRating);
+
+/* TO DO - log amb qualsevol update que hi hagi hagut (taula on un camp sigui explicació de l'update) */
+return next();
+}
+
+
 
 exports.getLast5 = getLast5;  
 exports.getCountries = getCountries;
@@ -92,3 +110,4 @@ exports.insert = insert;
 exports.getAll = getAll;
 exports.getSisters = getSisters;
 exports.getFilm = getFilm;
+exports.update = update;
