@@ -24,8 +24,8 @@ function App() {
   routes = (
     <Routes>
       <Route exact path="/" element={<Home />}/>
-      <Route path="/new_entry" element={<NewEntry />}/>     
-      <Route path="/edit/:id" element={<NewEntry/>}/>
+      <Route path="/new_entry" element={<NewEntry key="add-film" />}/>     
+      <Route path="/edit/:id" element={<NewEntry key="update-film"/>} />
       <Route path="/history" element={<History/>}/>
     </Routes>
   );
