@@ -64,17 +64,19 @@ const getSisters = async (req,res, next) => {
 
 const insert = async (req, res, next) => {
 
-    const timeDetails = new Date();
-    const dateTimeFormat = new Intl.DateTimeFormat("en-ca", { year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-    })
-    const hourFormat = new Intl.DateTimeFormat(undefined, {hour: '2-digit', minute:'numeric'})
-    const ratedate = dateTimeFormat.format(timeDetails)
-    const ratehour = hourFormat.format(timeDetails)
+    // const timeDetails = new Date();
+    // const dateTimeFormat = new Intl.DateTimeFormat("en-ca", { year: 'numeric',
+    // month: '2-digit',
+    // day: '2-digit'
+    // })
+    // const hourFormat = new Intl.DateTimeFormat(undefined, {hour: '2-digit', minute:'numeric'})
+    // const ratedate = dateTimeFormat.format(timeDetails)
+    // const ratehour = hourFormat.format(timeDetails)
 
-    const {title, yearFilm, country, directorid, rating, poster} = req.body
-    const query = `INSERT INTO FilmRecord(title, rating, yearFilm, ratedate, ratehour, country, directorid, poster) VALUES ('${title}', ${rating}, ${yearFilm}, '${ratedate}', '${ratehour}', '${country}', ${directorid}, '${poster}')`
+    const [ratedate, ratehour] = timeFieldsForNow();
+
+    const {title, year, country, director, rate, poster} = req.body
+    const query = `INSERT INTO FilmRecord(title, rating, yearFilm, ratedate, ratehour, country, directorid, poster) VALUES ('${title}', ${rate}, ${year}, '${ratedate}', '${ratehour}', '${country}', ${director}, '${poster}')`
     try {
         const record = await sqlquery(query);
         res.sendStatus(200);
@@ -86,20 +88,47 @@ const insert = async (req, res, next) => {
 }
 
 const update = async (req, res, next) => {
+
+const {id, title, year, country, director, rate, poster} = req.body
+const enteredRating = parseInt(rate)
+
 /* primer comprovem si ha canviat la nota */
-
-const entryToUpdate = req.body;
-const id = entryToUpdate.id;
-const enteredRating = parseInt(entryToUpdate.rate)
-
 const idquerystring = `${querystrings.getFilm}${id}`
 const previousRecord = await sqlquery(idquerystring);
 const previousRating = previousRecord.recordset[0].rating;
 
-console.log (enteredRating !== previousRating);
+let query;
 
-/* TO DO - log amb qualsevol update que hi hagi hagut (taula on un camp sigui explicació de l'update) */
-return next();
+if (enteredRating !== previousRating){
+    const [date, hour] = timeFieldsForNow();
+ 
+    query = `UPDATE Filmrecord SET title = '${title}', rating = '${rate}', yearFilm = '${year}', ratedate = '${date}', ratehour = '${hour}', country = '${country}', directorid = '${director}', poster = '${poster}' WHERE id = ${id}`
+} else {
+    query = `UPDATE Filmrecord SET title = '${title}', yearFilm = '${year}', country = '${country}', directorid = '${director}', poster = '${poster}' WHERE id = ${id}`
+};
+
+/* TO DO - log amb canvi nota que hi hagi hagut (taula on un camp sigui explicació de l'update) */
+try {
+    const record = await sqlquery(query);
+    res.sendStatus(200);
+}
+catch (e) {
+    return next(e);
+}
+
+}
+
+const timeFieldsForNow = () => {
+    const timeDetails = new Date();
+    const dateTimeFormat = new Intl.DateTimeFormat("en-ca", { year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+    })
+    const hourFormat = new Intl.DateTimeFormat(undefined, {hour: '2-digit', minute:'numeric'})
+    const ratedate = dateTimeFormat.format(timeDetails)
+    const ratehour = hourFormat.format(timeDetails)
+
+    return [ratedate, ratehour]
 }
 
 

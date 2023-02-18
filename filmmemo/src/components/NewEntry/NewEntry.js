@@ -160,18 +160,21 @@ const NewEntry = () => {
             alert(`ja existeix ${payload.title.value}`)
             return;
         }
+        
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json'},
+            body: JSON.stringify(record)
+        };
+        try{
+            await fetch('http://localhost:5000/api/films', requestOptions)
+        } catch (e){
+            console.log(e)
+        } 
+
       }
 
-    //   const requestOptions = {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json'},
-    //     body: JSON.stringify(record)
-    // };
-    // try{
-    //     await fetch('http://localhost:5000/api/films', requestOptions)
-    // } catch (e){
-    //     console.log(e)
-    // } 
+
     }
 
     const submitDirector = async () => {
