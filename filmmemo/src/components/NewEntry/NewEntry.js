@@ -222,18 +222,19 @@ const NewEntry = () => {
     <React.Fragment>
       <div className={classes.flex}>
         <div className={classes.wrapper}>
-            <div className={classes.row}>
+            <div className={classes.half}>
+                <div className={classes.row}>
                 {title}
                 {year}
-            </div>
-            <div>
+                 </div>
+                <div>
                 {country}
-            </div>
-            <div className={classes.row}>
+                </div>
+                <div className={classes.row}>
                 {director}
                 <div onClick={handleNewDirector} className={classes.newD}>Nou director</div>
-            </div>
-            {isNewDirector && <div className={`${classes.newDirArea}`}>
+                </div>
+                {isNewDirector && <div className={`${classes.newDirArea}`}>
                 <div className={`${classes.row}`}>
                     {directorName}
                     {directorCountry}
@@ -242,16 +243,21 @@ const NewEntry = () => {
                     Enviar
                 </div>
             </div>}
-        </div>
-
-        <div className={classes.attach_wrapper}>
+            </div>
+            <div className={classes.half}>
+            <div className={classes.attach_wrapper}>
             {filmData.poster && <div className={classes.poster}>
             <img alt='poster' src={`/assets/${filmData.poster}`}></img>
             </div>} 
             <TextField label="Poster" variant='outlined' name='poster' className={classes.inputs} value={filmData.poster} style={{width:400}} onChange={onChangeInput}/>
             <h3>Nota</h3>
-            <Rating name="rating" min={1} max={10} value={filmData.rating}  className={classes.ratebar} onChange={onChangeInput}/>
+            <Rating name="rating" min={1} max={10} value={filmData.rating}  classes={classes.ratebar} onChange={onChangeInput}/>
+            </div>
+            </div>
+       
         </div>
+
+    
       </div>
      
      <div className={classes.submit}>

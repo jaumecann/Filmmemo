@@ -1,11 +1,12 @@
 .wrapper {
     padding: 2em;
     background-color: #f5dcad;
-    width: 40%;
+    width: 100%;
     border-radius: 5px;
     margin: 2em 1em;
     border: solid 2px rgb(189, 123, 0);
-
+    display: flex;
+    justify-content: space-between;
 }
 
 .inputs {
@@ -57,15 +58,14 @@
 .attach_wrapper {
     padding: 2em;
     /* background-color: #f5dcad; */
-    width: 38%;
     border-radius: 5px;
-    margin: 2em 1em;
     border: solid 2px rgb(189, 123, 0);
+    background-color: rgb(189, 123, 0);
 
 }
 
 .ratebar {
-    font-size: 2em;
+
 }
 
 .submit {
@@ -75,3 +75,7 @@
 /* input {
     font-family: Racing Sans One !important;
 } */
+
+.half {
+    width: 45%;
+}
