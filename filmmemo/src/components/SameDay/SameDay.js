@@ -38,19 +38,16 @@ export function SameDay(props){
     }
 
 
-    const films = sameDayFilms.map((item) => 
-     <div>
-    <div className={classes.year}>{item.ratedate.slice(0,4)}</div>
-     <LittleCard key={item.id} 
-     title={item.title} 
-     year={item.yearFilm} 
-     date={item.ratedate} 
-     director={item.directorid} 
-     country={item.country}
-     img={item.poster}
-     rating={item.rating} />
-     </div>
-
+    let films = sameDayFilms.map((item) => 
+        <LittleCard 
+        key={item.id} 
+        title={item.title} 
+        year={item.yearFilm} 
+        date={item.ratedate} 
+        director={item.directorid} 
+        country={item.country}
+        img={item.poster}
+        rating={item.rating} />
     );
 
     return(

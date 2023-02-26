@@ -54,11 +54,12 @@ const NewEntry = () => {
 
 
     const onChangeDirector = (e,v ) => {
-        setFilmData((currentData)=>{
-            console.log(v)
-           return {...currentData, directorid: v.id, directorname: v.directorname}
+        if(v){
+            setFilmData((currentData)=>{
+               return {...currentData, directorid: v.id, directorname: v.directorname}
+            }
+            )
         }
-        )
     }
 
     const country = <Autocomplete
@@ -92,7 +93,7 @@ const NewEntry = () => {
          }
         }}
     renderInput={(params) => <TextField {...params} label="Director"/>}
-    onFocus={()=> {setIsNewDirector(false)}}
+    onFocus={()=> {setIsNewDirector(false); getDirectors()}}
     value={{directorname: filmData.directorname, id:filmData.directorid}}
     onChange={onChangeDirector}
     />
