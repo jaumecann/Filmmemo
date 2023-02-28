@@ -30,6 +30,7 @@ return (
          {/* <div className={classes.rating}>{props.rating}</div> */}
          {/* <div className={`${classes['rating']} ${props.rating > 5 && classes.over} ${props.rating < 5 && classes.under}`}>{props.rating}</div> */}
          <div className={rateclasses()}>{props.rating}</div>
+         <div className={classes.ratedate}>{props.date.slice(0,4)}</div>
          <div className={classes.filmdata}>
             <h4>{props.title}</h4>
             <div className={classes.flag}><img alt='flag' src={`/flags/${props.country}.png`}></img></div>

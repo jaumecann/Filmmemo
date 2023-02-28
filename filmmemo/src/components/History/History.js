@@ -45,18 +45,17 @@ const History = () => {
         setSistersList(sistersData)
       
 
-    }, [displayedFilms, page]
+    }, [displayedFilms]
     )
 
     React.useEffect(() =>{
         if (displayedFilms.length === 0){
-            fetchGlobalContextData.then(r => {
-                setDisplayedFilms(r)
-              })
-        }
+            return
+                // setDisplayedFilms(fetchGlobalContextData)
+              }
         setTotalPages(Math.ceil(displayedFilms.length / itemsPerPage));
         fetchSisters(1);
-    },[])
+    },[displayedFilms, fetchGlobalContextData, fetchSisters])
 
     React.useEffect(() => {
         if(directorSelected){

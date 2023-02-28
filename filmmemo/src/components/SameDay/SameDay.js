@@ -14,6 +14,7 @@ export function SameDay(props){
 
 
     useEffect(()=>{
+        console.log(allrecords)
         if(allrecords.collection.length > 0){
             let totalrates = 0;
             let sameday = allrecords.collection.filter(f => findSameDate(f.ratedate));

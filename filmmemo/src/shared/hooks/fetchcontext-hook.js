@@ -1,8 +1,11 @@
+import { useEffect, useState } from "react";
 
-export const useFetchContext = async() => {
+export const useFetchContext = () => {
+  
+    const [dataGlobal, setDataGlobal] = useState([]);
 
-  console.log('calling')
-    // const fetchEverything= async () => {
+    useEffect(()=>{
+      const fetchData = async () => {
         const response = await fetch('http://localhost:5000/api/films/getAll')
         let data = await response.json();
   
@@ -25,9 +28,13 @@ export const useFetchContext = async() => {
   
           return {country, countryRank, totalCountry, ...rest}
         });
+        setDataGlobal(data)
+      }
+      fetchData()
+    },[])
+    // const fetchEverything= async () => {
     
     // }
-
-    return data
+    return dataGlobal
     
 }

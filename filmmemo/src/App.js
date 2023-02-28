@@ -31,10 +31,9 @@ function App() {
   );
 
   React.useEffect(()=>{
-    fetchData.then(data=> {
-      setContextData(data)
-    })
-  },[])
+    console.log(fetchData)
+      setContextData(fetchData)
+  },[fetchData])
 
 
   return (
