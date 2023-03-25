@@ -18,7 +18,7 @@ const FilmDetail = () => {
 
     return (
         <div>
-            <div className={classes.wrap}>
+            {filmData && <div className={classes.wrap}>
                 <div>
                 {filmData && <h1>{filmData.title}</h1>}
                 <img alt='poster' src={`/assets/${filmData.poster}`}></img>
@@ -31,7 +31,7 @@ const FilmDetail = () => {
                 <div className={classes.ratearea}>
                 {filmData.rating}
                 </div>
-            </div>       
+            </div>  }     
         </div>
     )
 }
