@@ -13,6 +13,7 @@ import Navbar from './components/Navbar/Navbar';
 import FilmrecordContext from './shared/context/records-context';
 import Home from './components/Home/Home'
 import { useFetchContext } from './shared/hooks/fetchcontext-hook';
+import FilmDetail from './components/FilmDetail/FilmDetail';
 
 function App() {
 
@@ -27,11 +28,11 @@ function App() {
       <Route path="/new_entry" element={<NewEntry key="add-film" />}/>     
       <Route path="/edit/:id" element={<NewEntry key="update-film"/>} />
       <Route path="/history" element={<History/>}/>
+      <Route path="/film/:id" element={<FilmDetail/>}/>
     </Routes>
   );
 
   React.useEffect(()=>{
-    console.log(fetchData)
       setContextData(fetchData)
   },[fetchData])
 

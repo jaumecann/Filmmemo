@@ -1,0 +1,16 @@
+.wrap{
+    background-color:blanchedalmond;
+    padding: 2em 3em;
+    margin: 1em 3em;
+    display: flex;
+}
+
+.data{
+    padding: 2em 3em;
+}
+
+.ratearea{
+    font-size: 10em;
+    text-shadow: 2px 2px 1px black;
+    margin-left: 1em;
+}
