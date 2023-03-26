@@ -1,8 +1,25 @@
 .wrap{
     background-color:blanchedalmond;
     padding: 2em 3em;
-    margin: 1em 3em;
+    margin: auto;
+    width:50%;
     display: flex;
+    font-family: 'Acme';
+    margin-top: 50px;
+    position:relative;
+    border:solid 2px;
+}
+
+h1{
+    background-color: #f2d600;
+    border-radius: 2em;
+    padding: 8px;
+    position: absolute;
+    top: -60px;
+    border-top: solid 5px;
+    border-bottom: solid 2px;
+    border-left: solid;
+    border-right: solid;
 }
 
 .data{
@@ -11,6 +28,18 @@
 
 .ratearea{
     font-size: 10em;
-    text-shadow: 2px 2px 1px black;
-    margin-left: 1em;
+    text-shadow: 8px 8px 5px #f2d600;
+    margin-left: auto;
+    font-family: 'Acme';
+}
+
+.icontime {
+    font-size: 2px;
+}
+
+.edit {
+    border: solid 2px;
+    width: 30px;
+    padding:0 3px;
+    cursor: pointer;
 }
