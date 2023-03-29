@@ -42,4 +42,7 @@ h1{
     width: 30px;
     padding:0 3px;
     cursor: pointer;
+    background-color: #e4a000;
+    box-shadow: 1px 1px 1px black;
+    margin-top: 1em;
 }

@@ -47,9 +47,11 @@ const NewEntry = () => {
     }
 
     const onChangeCountry = (e,v) => {
-        setFilmData((currentData)=>{
-            return  {...currentData, countryid: v.countryid, country:v.countryid, name: v.name}
-        })
+        if(v){
+            setFilmData((currentData)=>{
+                return  {...currentData, countryid: v.countryid, country:v.countryid, name: v.name}
+            })
+        }
     }   
 
 
@@ -75,6 +77,11 @@ const NewEntry = () => {
     name="countryid"
     value={{countryid:filmData.country, name:filmData.name}}
     onChange={onChangeCountry}
+    // onInputChange={(event, newValue) => {
+    //      if (newValue.length === 0){
+    //         return
+    //      }
+    //     }}
     />
 
     const director = <Autocomplete
