@@ -10,7 +10,7 @@ export function SameDay(props){
     const allrecords = React.useContext(FilmrecordContext)
     const todaydate = new Date();
     const intl = new Intl.DateTimeFormat('es-ES');
-    const today = intl.format(todaydate).slice(0,5)
+    const today = intl.format(todaydate)
 
 
     useEffect(()=>{
