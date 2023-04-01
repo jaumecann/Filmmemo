@@ -15,7 +15,8 @@ const queries = {
     ,[director2]
 FROM [Filmmemo].[dbo].[FilmRecord] films
 join [Filmmemo].[dbo].[Countries] ctry on films.country = ctry.countryid
-join [Filmmemo].[dbo].[Directors] dir on films.directorid = dir.id  where films.id =`
+join [Filmmemo].[dbo].[Directors] dir on films.directorid = dir.id  where films.id =`,
+    getDayRecords: "SELECT id, CAST(totalpoints AS decimal(10,2))/CAST(film_number AS decimal(10,2)) as avrg,  RANK() OVER (ORDER BY CAST(totalpoints AS decimal(10,2))/CAST(film_number AS decimal(10,2)) DESC) AS ranking FROM DayRecord"
 }
 
 module.exports = queries;

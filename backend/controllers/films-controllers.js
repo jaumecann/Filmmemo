@@ -64,15 +64,6 @@ const getSisters = async (req,res, next) => {
 
 const insert = async (req, res, next) => {
 
-    // const timeDetails = new Date();
-    // const dateTimeFormat = new Intl.DateTimeFormat("en-ca", { year: 'numeric',
-    // month: '2-digit',
-    // day: '2-digit'
-    // })
-    // const hourFormat = new Intl.DateTimeFormat(undefined, {hour: '2-digit', minute:'numeric'})
-    // const ratedate = dateTimeFormat.format(timeDetails)
-    // const ratehour = hourFormat.format(timeDetails)
-
     const [ratedate, ratehour] = timeFieldsForNow();
 
     const {title, year, country, director, rate, poster} = req.body
@@ -103,6 +94,17 @@ if (enteredRating !== previousRating){
     const [date, hour] = timeFieldsForNow();
  
     query = `UPDATE Filmrecord SET title = '${title}', rating = '${rate}', yearFilm = '${year}', ratedate = '${date}', ratehour = '${hour}', country = '${country}', directorid = '${director}', poster = '${poster}' WHERE id = ${id}`
+
+    //WIP update registres de Dayrecord
+    // const ratingDiff = enteredRating - previousRating
+
+    // try {
+    //     updateDateRecord = `UPDATE Dayrecord SET totalpoints = totalpoints + ${ratingDiff} where id = `
+    //     await sqlquery
+    // }
+    // catch (e){
+    //     return next(e);    
+    // }
 } else {
     query = `UPDATE Filmrecord SET title = '${title}', yearFilm = '${year}', country = '${country}', directorid = '${director}', poster = '${poster}' WHERE id = ${id}`
 };

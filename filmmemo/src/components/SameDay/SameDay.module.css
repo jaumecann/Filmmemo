@@ -19,3 +19,12 @@
     border-radius: 15px;
     background-color: #ffd500;
 }
+
+.ranko {
+    color: darkgreen;
+    padding: 3px;
+    border-radius: 10px;
+    text-shadow: none;
+    font-size: 14px;
+    text-decoration: none;
+}

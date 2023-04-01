@@ -7,6 +7,7 @@ export function SameDay(props){
 
     const [sameDayFilms, setSameDayFilms] = useState([]);
     const [sameDayAvg, setSameDayAvg] = useState();
+    const [dayRank, setDayRank] = useState(); 
     const allrecords = React.useContext(FilmrecordContext)
     const todaydate = new Date();
     const intl = new Intl.DateTimeFormat('es-ES');
@@ -14,14 +15,25 @@ export function SameDay(props){
 
 
     useEffect(()=>{
-        console.log(allrecords)
         if(allrecords.collection.length > 0){
             let totalrates = 0;
             let sameday = allrecords.collection.filter(f => findSameDate(f.ratedate));
             sameday.map(f => totalrates += f.rating)
-            setSameDayAvg((totalrates / sameday.length).toFixed(2))
+            // setSameDayAvg((totalrates / sameday.length).toFixed(2))
             setSameDayFilms(sameday)
         }  
+        const wholeYearRecords = async () => {
+           const response = await fetch (`http://localhost:5000/api/days/dayrecords`);
+           const data = await response.json();
+
+           let day = todaydate.getDate().toString().padStart(2, '0'); // Get day and pad with leading zero if necessary
+           let month = (todaydate.getMonth() + 1).toString().padStart(2, '0'); // Get month and pad with leading zero if necessary
+           let dateStr = day + month; // Concatenate day and month strings
+           const targetDate = data.find((item) => item.id === dateStr);
+           setSameDayAvg(targetDate.avrg.toFixed(2))
+           setDayRank(targetDate.ranking)
+        }
+        wholeYearRecords(); 
     },[allrecords]);
 
     const findSameDate = (rawdate) => { 
@@ -53,7 +65,7 @@ export function SameDay(props){
 
     return(
     <React.Fragment>
-    <h2 className={classes.headerlast5}>Same day {today} <span>({sameDayAvg})</span></h2>
+    <h2 className={classes.headerlast5}>Same day {today} <span>({sameDayAvg})</span> <span className={classes.ranko}>{dayRank} rank dia</span></h2>
      <div className={classes.samedayarea}>{films}</div>       
     </React.Fragment> 
     )
