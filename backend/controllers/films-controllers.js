@@ -67,9 +67,17 @@ const insert = async (req, res, next) => {
     const [ratedate, ratehour] = timeFieldsForNow();
 
     const {title, year, country, director, rate, poster} = req.body
-    const query = `INSERT INTO FilmRecord(title, rating, yearFilm, ratedate, ratehour, country, directorid, poster) VALUES ('${title}', ${rate}, ${year}, '${ratedate}', '${ratehour}', '${country}', ${director}, '${poster}')`
+    const query = `INSERT INTO FilmRecord(title, rating, yearFilm, ratedate, ratehour, country, directorid, poster) VALUES ('${title}', ${rate}, ${year}, '${ratedate}', '${ratehour}', '${country}', ${director}, '${poster}')`;
+
+    const [yearrate, month, day] = ratedate.split('-');
+    const id = `${day}${month}`;
+
+    const updateDayRecord = `UPDATE Dayrecord SET totalpoints = totalpoints + ${rate}, film_number = film_number + 1 where id = ${id}`;
+
+    
     try {
         const record = await sqlquery(query);
+        await sqlquery(updateDayRecord)
         res.sendStatus(200);
     }
     catch (e) {
@@ -89,6 +97,7 @@ const previousRecord = await sqlquery(idquerystring);
 const previousRating = previousRecord.recordset[0].rating;
 
 let query;
+let updateDateRecord = '';
 
 if (enteredRating !== previousRating){
     const [date, hour] = timeFieldsForNow();
@@ -96,15 +105,13 @@ if (enteredRating !== previousRating){
     query = `UPDATE Filmrecord SET title = '${title}', rating = '${rate}', yearFilm = '${year}', ratedate = '${date}', ratehour = '${hour}', country = '${country}', directorid = '${director}', poster = '${poster}' WHERE id = ${id}`
 
     //WIP update registres de Dayrecord
-    // const ratingDiff = enteredRating - previousRating
+    const ratingDiff = enteredRating - previousRating
+    const [yearrate, month, day] = date.split('-');
+    const idDate = `${day}${month}`;
 
-    // try {
-    //     updateDateRecord = `UPDATE Dayrecord SET totalpoints = totalpoints + ${ratingDiff} where id = `
-    //     await sqlquery
-    // }
-    // catch (e){
-    //     return next(e);    
-    // }
+    updateDateRecord = `UPDATE DayRecord SET totalpoints = totalpoints + ${ratingDiff} where id = ${idDate}`
+    console.log(updateDateRecord)
+   
 } else {
     query = `UPDATE Filmrecord SET title = '${title}', yearFilm = '${year}', country = '${country}', directorid = '${director}', poster = '${poster}' WHERE id = ${id}`
 };
@@ -112,12 +119,14 @@ if (enteredRating !== previousRating){
 /* TO DO - log amb canvi nota que hi hagi hagut (taula on un camp sigui explicació de l'update) */
 try {
     const record = await sqlquery(query);
+    if(updateDateRecord.length > 0){
+        await sqlquery(updateDateRecord)
+    }
     res.sendStatus(200);
 }
 catch (e) {
     return next(e);
 }
-
 }
 
 const timeFieldsForNow = () => {
