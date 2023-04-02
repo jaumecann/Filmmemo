@@ -33,8 +33,9 @@ export function SameDay(props){
             sameday.map(f => totalrates += f.rating)
             // setSameDayAvg((totalrates / sameday.length).toFixed(2))
             setSameDayFilms(sameday)
+            wholeYearRecords(); 
         }  
-        wholeYearRecords(); 
+      
     },[allrecords, wholeYearRecords]);
 
     const findSameDate = (rawdate) => { 
