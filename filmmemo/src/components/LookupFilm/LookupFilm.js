@@ -3,12 +3,14 @@ import { useState, useContext, useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import classes from './LookupFilm.module.css';
 import FilmrecordContext from '../../shared/context/records-context';
+import { useNavigate } from "react-router-dom";
 
 
 const LookupFilm = () => {
 
     const [filmsList, setFilmList] = useState([])
     const allrecords = useContext(FilmrecordContext)
+    const navigate = useNavigate();
 
     useEffect(()=>{
         if(allrecords.collection.length > 0){
@@ -45,10 +47,17 @@ const LookupFilm = () => {
             return options;
             }}
             renderOption={(props, option) => (
-            <li {...props} key={option.id}>
+            <li style={{fontFamily:'Acme'}} {...props} key={option.id}>
             {option.title}
             </li>
              )}
+             onInputChange={(event, newValue) => {
+                const selectedFilm = filmsList.find((film) => film.title === newValue);
+                 if (selectedFilm) {
+                    navigate(`/film/${selectedFilm.id}`)
+                }
+            }
+            }
             />
         </div>
     )

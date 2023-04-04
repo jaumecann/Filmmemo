@@ -68,6 +68,12 @@ margin: 1em 5px;
     border: solid
 }
 
+.year{
+    font-family: Racing Sans One;
+    margin-top: -10px;
+    padding-left: 5px;
+}
+
 .nine { color:#00852F;}
 .eight { color:#01A300;}
 .seven { color:#59C200;}

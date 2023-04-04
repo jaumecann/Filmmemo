@@ -2,6 +2,7 @@ import React, {useEffect, useState, useCallback} from 'react';
 import LittleCard from '../LastFive/LittleCard';
 import classes from './SameDay.module.css';
 import FilmrecordContext from '../../shared/context/records-context';
+import { useNavigate } from 'react-router-dom';
 
 export function SameDay(props){
 
@@ -11,7 +12,8 @@ export function SameDay(props){
     const allrecords = React.useContext(FilmrecordContext)
     const todaydate = new Date();
     const intl = new Intl.DateTimeFormat('es-ES');
-    const today = intl.format(todaydate)
+    const today = intl.format(todaydate);
+    const navigate = useNavigate();
 
 
     const wholeYearRecords = useCallback(async () => {
@@ -62,7 +64,8 @@ export function SameDay(props){
         director={item.directorid} 
         country={item.country}
         img={item.poster}
-        rating={item.rating} />
+        rating={item.rating} 
+        id={item.id}/>
     );
 
     return(

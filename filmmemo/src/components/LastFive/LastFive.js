@@ -25,7 +25,8 @@ export function LastFive(props){
      director={item.directorid} 
      country={item.country.trim()}
      img={item.poster}
-     rating={item.rating} />
+     rating={item.rating}
+     id={item.id}/>
     );
 
     return(

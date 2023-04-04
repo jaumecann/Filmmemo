@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 import classes from './LittleCard.module.css'
 
 const LittleCard = (props) => {
+
+const navigate = useNavigate();
 
 const rateclasses = () => {
 
@@ -21,6 +24,10 @@ const rateclasses = () => {
     return `${classes.rating} ${classes[`${colorstyle}`]}` 
 };
 
+const navigateToFilm = (id) => {
+    navigate(`/film/${id}`)
+}
+
 
 return (
     <div className={classes.card}>
@@ -32,8 +39,9 @@ return (
          <div className={rateclasses()}>{props.rating}</div>
          <div className={classes.ratedate}>{props.date.slice(0,4)}</div>
          <div className={classes.filmdata}>
-            <h4>{props.title}</h4>
+            <h4 onClick={()=>{navigateToFilm(props.id)}}>{props.title} </h4>
             <div className={classes.flag}><img alt='flag' src={`/flags/${props.country}.png`}></img></div>
+            <div className={classes.year}>{props.year}</div>
          </div>
     </div>
 )
