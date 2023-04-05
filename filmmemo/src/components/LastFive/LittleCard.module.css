@@ -74,6 +74,10 @@ margin: 1em 5px;
     padding-left: 5px;
 }
 
+.titleh4{
+    cursor:pointer;
+}
+
 .nine { color:#00852F;}
 .eight { color:#01A300;}
 .seven { color:#59C200;}
