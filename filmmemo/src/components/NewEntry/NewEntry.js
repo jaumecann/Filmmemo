@@ -3,7 +3,7 @@ import  Autocomplete  from '@mui/material/Autocomplete';
 import { useEffect, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import Rating from '@mui/material/Rating';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 import * as React from 'react';
 import { useFormState } from '../../shared/hooks/formstate-hook';
 import { FilmRecord } from '../../shared/models/FilmRecord';
@@ -26,6 +26,7 @@ let dataModel = {
 }
 
 const NewEntry = () => {
+    const [isLoading, setIsLoading] = useState(false)
     const [countryList, setCountryList] = useState([]);
     const [directors, setDirectors] = useState([]);
     const [isNewDirector, setIsNewDirector] = useState(false);
@@ -151,6 +152,7 @@ const NewEntry = () => {
 
       if (filmID){
         try{
+            setIsLoading(true);
             record.id = filmID
             const requestOptions = {
                 method: 'POST',
@@ -161,7 +163,9 @@ const NewEntry = () => {
             await fetch('http://localhost:5000/api/films/update', requestOptions)
         } catch (e){
             console.log(e)
-        } 
+        } finally {
+            setIsLoading(false)
+        }
       } else {
 
         if (allrecords.collection.find((film)=> film.title.toLowerCase() === payload.title.value.toLowerCase())){
@@ -175,10 +179,13 @@ const NewEntry = () => {
             body: JSON.stringify(record)
         };
         try{
+            setIsLoading(true);
             await fetch('http://localhost:5000/api/films', requestOptions)
         } catch (e){
             console.log(e)
-        } 
+        } finally {
+            setIsLoading(false)
+        }
 
       }
 
@@ -228,6 +235,7 @@ const NewEntry = () => {
 
     return (
     <React.Fragment>
+
       <div className={classes.flex}>
         <div className={classes.wrapper}>
             <div className={classes.half}>
@@ -268,7 +276,8 @@ const NewEntry = () => {
     
       </div>
      
-     <div className={classes.submit}>
+     <div className={classes.submit}>      
+     {isLoading && <CircularProgress/>}
      <Button variant="contained" onClick={submitData}>Enviar</Button>
     </div>
     </React.Fragment>
