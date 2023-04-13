@@ -14,6 +14,7 @@ import FilmrecordContext from './shared/context/records-context';
 import Home from './components/Home/Home'
 import { useFetchContext } from './shared/hooks/fetchcontext-hook';
 import FilmDetail from './components/FilmDetail/FilmDetail';
+import Tops from './components/Tops/Tops'
 
 function App() {
 
@@ -28,7 +29,9 @@ function App() {
       <Route path="/new_entry" element={<NewEntry key="add-film" />}/>     
       <Route path="/edit/:id" element={<NewEntry key="update-film"/>} />
       <Route path="/history" element={<History/>}/>
+      <Route path="/tops" element={<Tops/>}/>
       <Route path="/film/:id" element={<FilmDetail/>}/>
+      
     </Routes>
   );
 

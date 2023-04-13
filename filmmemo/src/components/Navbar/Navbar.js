@@ -11,6 +11,9 @@ const Navbar = () => {
             <div className={classes.baritem}>
             <NavLink to="/history">History</NavLink>
             </div>
+            <div className={classes.baritem}>
+            <NavLink to="/tops">Tops</NavLink>
+            </div>
         </div>
     )
 }
