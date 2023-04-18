@@ -61,6 +61,12 @@ const getSisters = async (req,res, next) => {
     return next();
 }
 
+const getTop = async (req, res, next) => {
+    console.log(req.query);
+    res.sendStatus(200);
+    return next();
+}
+
 
 const insert = async (req, res, next) => {
 
@@ -151,3 +157,4 @@ exports.getAll = getAll;
 exports.getSisters = getSisters;
 exports.getFilm = getFilm;
 exports.update = update;
+exports.getTop = getTop;

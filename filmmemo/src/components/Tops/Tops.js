@@ -7,6 +7,11 @@ import TextField from '@mui/material/TextField';
 const Tops = () => {
 
     const [countryList, setCountryList] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState();
+
+    const handleCountryPick = (event, value) => {
+        setSelectedCountry(value)
+      }
 
     const country = <Autocomplete
     className={`${classes.inputs} ${classes.countries}`}
@@ -19,7 +24,20 @@ const Tops = () => {
     }
     renderInput={(params) => <TextField {...params} label="Country"/>}
     name="countryid"
+    onChange={handleCountryPick}
   />
+
+
+
+  const topize = async () => {
+    if(selectedCountry){
+        try{
+            await fetch(`http://localhost:5000/api/films/getTops?country=${selectedCountry.countryid}`)
+        }catch(e){
+            console.error(e);
+        }
+    }
+  }
 
   
 useEffect(()=>{
@@ -38,6 +56,9 @@ useEffect(()=>{
             <div className={classes.lookups}>
                 <div>
                 {country}
+                </div>
+                <div>
+                <button onClick={topize}>Topitza!</button>
                 </div>
             </div>
             </div>

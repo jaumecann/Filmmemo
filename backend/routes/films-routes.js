@@ -7,7 +7,8 @@ router.get('/lastfive', filmControllers.getLast5);
 router.get('/countries', filmControllers.getCountries);
 router.get('/getAll', filmControllers.getAll)
 router.get('/getSisters', filmControllers.getSisters);
-router.get('/getFilm', filmControllers.getFilm)
+router.get('/getFilm', filmControllers.getFilm);
+router.get('/getTops', filmControllers.getTop)
 
 router.post('/', filmControllers.insert);
 router.post('/update', filmControllers.update);
