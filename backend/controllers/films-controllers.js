@@ -63,7 +63,12 @@ const getSisters = async (req,res, next) => {
 
 const getTop = async (req, res, next) => {
     console.log(req.query);
-    res.sendStatus(200);
+    let country = req.query.country;
+    const queryTop = `SELECT * FROM FilmRecord where country = '${country}' order by rating desc`
+    const response = await sqlquery(queryTop)
+
+    res.json(response.recordsets[0])
+    // res.sendStatus(200);
     return next();
 }
 

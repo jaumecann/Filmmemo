@@ -8,6 +8,7 @@ const Tops = () => {
 
     const [countryList, setCountryList] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState();
+    const [theList, setTheList] = useState([]);
 
     const handleCountryPick = (event, value) => {
         setSelectedCountry(value)
@@ -32,7 +33,9 @@ const Tops = () => {
   const topize = async () => {
     if(selectedCountry){
         try{
-            await fetch(`http://localhost:5000/api/films/getTops?country=${selectedCountry.countryid}`)
+           const response = await fetch(`http://localhost:5000/api/films/getTops?country=${selectedCountry.countryid}`)
+            const items = await response.json();
+            setTheList(items)
         }catch(e){
             console.error(e);
         }
@@ -61,6 +64,9 @@ useEffect(()=>{
                 <button onClick={topize}>Topitza!</button>
                 </div>
             </div>
+                {theList.map(item =>  
+                    <p>{item.title}</p>
+                )}
             </div>
             
         </React.Fragment>
