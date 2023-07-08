@@ -61,12 +61,22 @@ useEffect(()=>{
                 {country}
                 </div>
                 <div>
-                <button onClick={topize}>Topitza!</button>
+                <button className={classes.top_button} onClick={topize}>Topitza!</button>
                 </div>
             </div>
+                <section className={classes.render_films_area}>
                 {theList.map(item =>  
-                    <p>{item.title}</p>
-                )}
+                    <div className={classes.topview}>
+                        <img alt='img' src={`/assets/${item.poster}`}></img>
+                        <div>
+                        <p>{item.title}</p>
+                        <div>{item.yearFilm}</div>
+                        </div>
+                    </div>      
+                    
+                )}  
+                </section>
+             
             </div>
             
         </React.Fragment>

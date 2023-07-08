@@ -18,3 +18,34 @@
 .lookups div{
     flex: 0 0 20%;
 }
+
+.topview{
+    display:flex;
+    gap: 5px;
+    margin-bottom: 5px;;
+
+}
+
+.topview img{
+    width:60px;
+}
+
+.topview p {
+    margin: 0;
+    background-color: white;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.render_films_area{
+    background-color: rgba(209, 209, 209, 0.323);
+    margin: 0 2em;
+    padding: 1em;
+}
+
+.top_button{
+    font-family: 'Acme';
+    background-color: rgb(207, 163, 20);
+    margin-left: 1em;
+    cursor: pointer;
+}
