@@ -3,16 +3,25 @@ import React from "react";
 import classes from './Tops.module.css'
 import  Autocomplete  from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
 
 const Tops = () => {
 
     const [countryList, setCountryList] = useState([]);
-    const [selectedCountry, setSelectedCountry] = useState();
+    const [directorList, setDirectorList] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState(null);
+    const [selectedDirector, setSelectedDirector] = useState(null);
     const [theList, setTheList] = useState([]);
+    const navigate = useNavigate();
 
     const handleCountryPick = (event, value) => {
         setSelectedCountry(value)
       }
+
+      const handleDirectorPick = (event, value) => {
+        setSelectedDirector(value)
+      }
+    
 
     const country = <Autocomplete
     className={`${classes.inputs} ${classes.countries}`}
@@ -28,19 +37,36 @@ const Tops = () => {
     onChange={handleCountryPick}
   />
 
+    const director = <Autocomplete
+    className={`${classes.inputs} ${classes.countries}`}
+    options={directorList}
+    selectOnFocus
+    clearOnBlur
+    getOptionLabel={(option)=> option.directorname}
+    isOptionEqualToValue={
+    (option, value) => {
+        return option.id === value.id
+    }
+    }
+    renderInput={(params) => <TextField {...params} label="Director"/>}
+/*     name="countryid" */
+    onChange={handleDirectorPick}
+    />
+
 
 
   const topize = async () => {
-    if(selectedCountry){
+    const country = selectedCountry ? selectedCountry.countryid : null;
+    const director = selectedDirector ? selectedDirector.id : null;
         try{
-           const response = await fetch(`http://localhost:5000/api/films/getTops?country=${selectedCountry.countryid}`)
+           const response = await fetch(`http://localhost:5000/api/films/getTops?country=${country}&director=${director}`)
             const items = await response.json();
             setTheList(items)
         }catch(e){
             console.error(e);
         }
     }
-  }
+  
 
   
 useEffect(()=>{
@@ -50,30 +76,46 @@ useEffect(()=>{
         setCountryList(countries);
     })();
 
+    (async() => {
+        const response = await fetch('http://localhost:5000/api/directors/alldirectors');
+        const directors = await response.json();
+        setDirectorList(directors);
+    })();
+
 },[]);
+
+const navigateToFilm = (id) => {
+    navigate(`/film/${id}`)
+}
 
     return (
         <React.Fragment>
             <div className={classes.tops}>
             <h1>Tops</h1>
             <div className={classes.lookups}>
-                <div>
+                <div className={classes.boxes}>
                 {country}
                 </div>
+                <div className={classes.boxes}>
+               {director}
+                </div>
                 <div>
-                <button className={classes.top_button} onClick={topize}>Topitza!</button>
+                <button className={classes.top_button} onClick={topize}>Topitza films!</button>
                 </div>
             </div>
                 <section className={classes.render_films_area}>
-                {theList.map(item =>  
-                    <div className={classes.topview}>
+                {theList.map((item, index) =>{
+                    const counter = index +1
+                    return  <div key={item.id} className={classes.topview}>
+                        <div>{counter}</div>
                         <img alt='img' src={`/assets/${item.poster}`}></img>
                         <div>
-                        <p>{item.title}</p>
+                        <p onClick={()=>{navigateToFilm(item.id)}}>{item.title}</p>
                         <div>{item.yearFilm}</div>
+                        <div className={classes.rating}>{item.rating}</div>
                         </div>
-                    </div>      
-                    
+                    </div>  
+                }          
                 )}  
                 </section>
              

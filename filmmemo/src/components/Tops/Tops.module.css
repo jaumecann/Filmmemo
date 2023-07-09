@@ -13,10 +13,18 @@
 .lookups{
     display: flex;
     margin: 1em;
+    gap:2px;
+    border:solid 1px rgba(0, 0, 0, 0.202);
+    padding:1em;
+    background-color: rgba(0, 0, 0, 0.012);
 }
 
 .lookups div{
     flex: 0 0 20%;
+}
+
+.boxes{
+    background-color: white;
 }
 
 .topview{
@@ -48,4 +56,13 @@
     background-color: rgb(207, 163, 20);
     margin-left: 1em;
     cursor: pointer;
+}
+
+.rating{
+    color: rgb(241, 187, 9);
+    border-radius: 5px;
+    width: fit-content;
+    padding:3px;
+    text-shadow: 1px 1px 2px black;
+    font-size: 1.2em;
 }
