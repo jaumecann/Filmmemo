@@ -65,12 +65,15 @@ const getTop = async (req, res, next) => {
 
     let country = req.query.country;
     let director = req.query.director;
+    let year = req.query.year;
 
     let querytop;
     if(country !== 'null'){
         querytop = `SELECT * FROM FilmRecord where country = '${country}' order by rating desc`
     } else if(director !== 'null'){
         querytop = `SELECT * FROM FilmRecord where directorid = '${director}' order by rating desc`
+    } else if(year !== null){
+        querytop = `SELECT * FROM FilmRecord where yearFilm = '${year}' order by rating desc`
     }
 
     console.log(querytop)

@@ -11,15 +11,26 @@ const Tops = () => {
     const [directorList, setDirectorList] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [selectedDirector, setSelectedDirector] = useState(null);
+    const [selectedYear, setSelectedYear] = useState(null);
     const [theList, setTheList] = useState([]);
     const navigate = useNavigate();
 
     const handleCountryPick = (event, value) => {
         setSelectedCountry(value)
+        setSelectedDirector(null)
+        setSelectedYear(null)
       }
 
       const handleDirectorPick = (event, value) => {
         setSelectedDirector(value)
+        setSelectedCountry(null)
+        setSelectedYear(null)
+      }
+
+      const handleYearInput = (event) => {
+        setSelectedYear(event.target.value)
+        setSelectedCountry(null)
+        setSelectedDirector(null)
       }
     
 
@@ -35,6 +46,8 @@ const Tops = () => {
     renderInput={(params) => <TextField {...params} label="Country"/>}
     name="countryid"
     onChange={handleCountryPick}
+    value={selectedCountry}
+    inputValue={selectedCountry ? selectedCountry.name : ""}
   />
 
     const director = <Autocomplete
@@ -53,13 +66,16 @@ const Tops = () => {
     onChange={handleDirectorPick}
     />
 
+    const yearFilm = <TextField label="Year" variant='outlined' name="yearFilm" style={{width:100}} onChange={handleYearInput}/>
+
 
 
   const topize = async () => {
     const country = selectedCountry ? selectedCountry.countryid : null;
     const director = selectedDirector ? selectedDirector.id : null;
+    const year = selectedYear ? selectedYear : null
         try{
-           const response = await fetch(`http://localhost:5000/api/films/getTops?country=${country}&director=${director}`)
+           const response = await fetch(`http://localhost:5000/api/films/getTops?country=${country}&director=${director}&year=${year}`)
             const items = await response.json();
             setTheList(items)
         }catch(e){
@@ -98,6 +114,9 @@ const navigateToFilm = (id) => {
                 </div>
                 <div className={classes.boxes}>
                {director}
+                </div>
+                <div>
+                {yearFilm}
                 </div>
                 <div>
                 <button className={classes.top_button} onClick={topize}>Topitza films!</button>
