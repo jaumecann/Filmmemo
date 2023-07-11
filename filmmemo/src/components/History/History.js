@@ -103,6 +103,9 @@ const History = () => {
         <h2>
             <span onClick={reloadAll}>Totes</span> <span> {directorname}</span>
         </h2>
+        <div className={classes.total}>
+            Total: {allrecords.collection.length}
+        </div>
         <div>
             {currentFilms}
         </div>

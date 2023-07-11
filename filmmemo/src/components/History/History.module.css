@@ -6,3 +6,13 @@ h2{
 h2 span {
     text-decoration: underline;
 }
+
+.total{
+    border: solid 2px black;
+    width: fit-content;
+    background-color: #f2d600;
+    margin: auto;
+    padding: 3px;
+    border-radius: 10px;
+    font-weight: 700;
+}

@@ -9,30 +9,31 @@ const Tops = () => {
 
     const [countryList, setCountryList] = useState([]);
     const [directorList, setDirectorList] = useState([]);
-    const [selectedCountry, setSelectedCountry] = useState(null);
-    const [selectedDirector, setSelectedDirector] = useState(null);
-    const [selectedYear, setSelectedYear] = useState(null);
+    const [selectedCountry, setSelectedCountry] = useState('');
+    const [selectedDirector, setSelectedDirector] = useState('');
+    const [selectedYear, setSelectedYear] = useState('');
     const [theList, setTheList] = useState([]);
     const navigate = useNavigate();
 
     const handleCountryPick = (event, value) => {
         setSelectedCountry(value)
-        setSelectedDirector(null)
-        setSelectedYear(null)
+        setSelectedDirector('')
+        setSelectedYear('')
       }
 
       const handleDirectorPick = (event, value) => {
         setSelectedDirector(value)
-        setSelectedCountry(null)
-        setSelectedYear(null)
+        setSelectedCountry('')
+        setSelectedYear('')
       }
 
       const handleYearInput = (event) => {
         setSelectedYear(event.target.value)
-        setSelectedCountry(null)
-        setSelectedDirector(null)
+        setSelectedCountry('')
+        setSelectedDirector('')
       }
-    
+
+
 
     const country = <Autocomplete
     className={`${classes.inputs} ${classes.countries}`}
@@ -46,8 +47,8 @@ const Tops = () => {
     renderInput={(params) => <TextField {...params} label="Country"/>}
     name="countryid"
     onChange={handleCountryPick}
-    value={selectedCountry}
-    inputValue={selectedCountry ? selectedCountry.name : ""}
+    // value={{countryid:selectedCountry.country, name:selectedCountry.name}}
+    // inputValue={selectedCountry ? selectedCountry.name : ""}
   />
 
     const director = <Autocomplete
@@ -66,13 +67,14 @@ const Tops = () => {
     onChange={handleDirectorPick}
     />
 
-    const yearFilm = <TextField label="Year" variant='outlined' name="yearFilm" style={{width:100}} onChange={handleYearInput}/>
+    const yearFilm = <TextField label="Year" variant='outlined' name="yearFilm" style={{width:100}} onChange={handleYearInput} value={selectedYear}/>
 
 
 
   const topize = async () => {
-    const country = selectedCountry ? selectedCountry.countryid : null;
-    const director = selectedDirector ? selectedDirector.id : null;
+    console.log(selectedDirector.id)
+    const country = selectedCountry && selectedCountry.countryid? selectedCountry.countryid : null;
+    const director = selectedDirector && selectedDirector.id? selectedDirector.id : null;
     const year = selectedYear ? selectedYear : null
         try{
            const response = await fetch(`http://localhost:5000/api/films/getTops?country=${country}&director=${director}&year=${year}`)
@@ -122,7 +124,7 @@ const navigateToFilm = (id) => {
                 <button className={classes.top_button} onClick={topize}>Topitza films!</button>
                 </div>
             </div>
-                <section className={classes.render_films_area}>
+            <section className={classes.render_films_area}>
                 {theList.map((item, index) =>{
                     const counter = index +1
                     return  <div key={item.id} className={classes.topview}>
