@@ -27,3 +27,9 @@ Actualizas nota dispara acciones:
 -poner tags al introducir films, que se comporte como cuando pones direccion en mail (en la coma o punto y coma crea un tag)
 
 - last 5 votes. Podría haber calendario al lado con las fechas de los votos (en fase superior podría ser incluso calendario clickable)
+
+---------
+
+que hi hagi una vista amb tots els dies de l'any com a contador de pelis per dia i que estiguin amb degradat de color segons la quantitat com a github el contador d'aportacions al calendari
+
+es pot fer el mateix amb anys

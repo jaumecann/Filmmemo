@@ -16,3 +16,11 @@ h2 span {
     border-radius: 10px;
     font-weight: 700;
 }
+
+.gotopage{
+    margin: 1em;
+    font-weight: 600;
+    background-color: #f2d60095;
+    width: fit-content;
+    padding: 0.5em;
+}

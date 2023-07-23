@@ -48,6 +48,14 @@ const History = () => {
     }, [displayedFilms]
     )
 
+    const handlePageInputChange = (event) => {
+        const inputPage = parseInt(event.target.value, 10);
+        if (!isNaN(inputPage) && inputPage >= 1 && inputPage <= totalPages) {
+          setPage(inputPage);
+          fetchSisters(inputPage);
+        }
+      };
+
     React.useEffect(() =>{
         if (displayedFilms.length === 0){
             return
@@ -109,6 +117,20 @@ const History = () => {
         <div>
             {currentFilms}
         </div>
+
+        <div className={classes.gotopage}>
+        <label htmlFor="pageInput">Go to Page:</label>
+        <input
+          type="number"
+          id="pageInput"
+          value={page}
+          onChange={handlePageInputChange}
+          min={1}
+          max={totalPages}
+        />
+        <span> of {totalPages}</span>
+      </div>
+
         {allrecords.collection.length > 0 && <Pagination
             count={totalPages}
             page={page}

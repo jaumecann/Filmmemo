@@ -1,0 +1,15 @@
+.commandrow{
+    display:flex;
+    padding: 1em;
+    background-color: #a3a3a3;
+    font-family: 'Acme';
+}
+
+.best_avg{
+    display: flex;
+}
+
+.best_avg_input{
+    font-family: 'Acme' !important;
+    width: 50px !important;
+}
