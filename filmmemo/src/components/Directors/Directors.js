@@ -7,8 +7,14 @@ const Directors = () => {
     const [bestDirectors, setBestDirector] = useState([]);
     const [minimum, setMinimum] = useState(1);
 
-    const handleBestDirectorSearch = () => {
+    const handleBestDirectorSearch = async () => {
         console.log(minimum)
+        try{
+           const directors = await fetch(`http://localhost:5000/api/directors/best?min=${minimum}`)
+           console.log(directors)
+        } catch{
+
+        }
     }
 
     const handleMinimumChange = (event) => {
@@ -29,7 +35,7 @@ const Directors = () => {
             <div className={classes.commandrow}>
                 <div className={classes.best_avg}>
                 Minimun films <input className={classes.best_avg_input} onChange={handleMinimumChange}></input>
-                <button onClick={handleBestDirectorSearch}>Best rating</button>
+                <button  onClick={handleBestDirectorSearch}>Best rating</button>
                 </div>     
             </div>
         </React.Fragment>

@@ -7,9 +7,12 @@
 
 .best_avg{
     display: flex;
+    background-color: white;
+    padding: 0.5em;
 }
 
 .best_avg_input{
     font-family: 'Acme' !important;
     width: 50px !important;
+    margin: 0 .5em;
 }
