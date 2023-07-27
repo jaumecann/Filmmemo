@@ -16,3 +16,36 @@
     width: 50px !important;
     margin: 0 .5em;
 }
+
+.list{
+    padding:2em;
+    background-color: #c7af2995;
+}
+
+.directorname{
+    font-family: 'Acme';
+    margin:.5em;
+}
+
+.avg{
+ border: solid 1px black;
+ border-radius: 25px;;
+ padding:.2em;
+ font-size:12px;
+ font-weight: 800;
+ background-color: #f9e382;
+}
+
+.totals{
+    margin: 0 5px;
+    font-size: 10px;
+    font-family: 'Acme';
+}
+
+.country img{
+    width:20px
+}
+
+.datarow{
+    border-bottom: solid 1px black;
+}

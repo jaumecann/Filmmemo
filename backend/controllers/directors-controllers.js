@@ -23,10 +23,10 @@ const insert = async (req, res, next) => {
 
 const getBest = async (req, res, next) => {
     const minimum = req.query.min;
-    const query = `SELECT directorname, directorid, AVG(CAST(rating AS DECIMAL(4, 2))) AS avrg, COUNT(*) as totalfilms, STRING_AGG(f.id, ',') AS film_ids
+    const query = `SELECT directorname, directorid, directorcountry, AVG(CAST(rating AS DECIMAL(4, 2))) AS avrg, COUNT(*) as totalfilms, STRING_AGG(f.id, ',') AS film_ids
     FROM [Filmmemo].[dbo].[FilmRecord] f
     JOIN Directors d ON f.directorid = d.id
-    GROUP BY directorid, directorname
+    GROUP BY directorid, directorname, directorcountry
     HAVING COUNT(*) >= ${minimum}
     ORDER BY avrg DESC`
 
