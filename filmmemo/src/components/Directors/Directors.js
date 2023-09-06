@@ -12,6 +12,7 @@ const Directors = () => {
     const [page, setPage] = React.useState(1);
     const itemsPerPage = 10;
     const allrecords = React.useContext(FilmrecordContext);
+    const [selectedDirectors, setSelectedDirectors] = useState([]);
 
     const handleBestDirectorSearch = async () => {
         try{
@@ -40,12 +41,19 @@ const Directors = () => {
         setPage(value);
     };
 
-    const showFilms = (film_ids) => {
+    const showFilms = (director, film_ids) => {
+        setSelectedDirectors((previous) => {
+        if(previous.includes(director)){
+            return previous.filter(id => id !== director)
+        } else {
+            return [...previous, director]
+        }
+        })
         let filmsOfSelectedDirector = film_ids.split(',');
         filmsOfSelectedDirector = filmsOfSelectedDirector.map(f => +f)
-        let filmsItems = allrecords.collection.filter((record) => {
-           return filmsOfSelectedDirector.includes(record.id)
-        })
+        let filmsItems = allrecords.collection.filter((record) => 
+           filmsOfSelectedDirector.includes(record.id)
+        )
         console.log(filmsItems)
         
     }
@@ -65,9 +73,12 @@ const Directors = () => {
             </div>
             <div className={classes.list}>
                 {bestDirectors.slice((page-1)*itemsPerPage, page*itemsPerPage).map(item => 
-                <div key={item.directorid} className={classes.datarow} onClick={() => showFilms(item.film_ids)}> 
+                <div key={item.directorid} className={classes.datarow} 
+                onClick={() => showFilms(item.directorid, item.film_ids)}> 
                 <b className={classes.directorname}>{item.directorname}</b><span className={classes.avg}>{item.avrg.toFixed(2)}</span><span className={classes.totals}>{item.totalfilms}</span><span className={classes.country}><img alt='flag' src={`/flags/${item.directorcountry.trim()}.png`}></img></span>
-                <div>{allrecords.collection.filter((record)=>{return record.directorid === item.directorid}).map(item => <div key={item.id}>{item.title}</div>)}</div>
+                {selectedDirectors.includes(item.directorid) && <div>
+                    {allrecords.collection.filter((record)=>{return record.directorid === item.directorid}).map(item => <div key={item.id}>{item.title}</div>)}
+                </div>}
                 </div>
                 )
                 }

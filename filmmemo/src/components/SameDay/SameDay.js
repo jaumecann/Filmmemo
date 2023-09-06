@@ -28,6 +28,8 @@ export function SameDay(props){
         setDayRank(targetDate.ranking)
     }, []);
 
+
+
     useEffect(()=>{
         if(allrecords.collection.length > 0){
             let totalrates = 0;
