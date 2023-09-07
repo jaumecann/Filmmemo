@@ -49,3 +49,33 @@
 .datarow{
     border-bottom: solid 1px black;
 }
+
+.posterlist img{
+    width: 50px;
+    margin: 3px;
+}
+
+.posterlist{
+    position: relative;
+}
+
+.postercontainer {
+    display:flex;
+    position: relative;
+    flex-wrap: wrap;
+}
+
+.posterraiting{
+    position:absolute;
+    background-color: rgba(0, 0, 0, 0.553);
+    color: white;
+    bottom: 10px;
+    padding:2px;
+    border-radius: 20px;
+    border: solid 2px #f2d600;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Acme';
+    width:15px;
+    text-align: center;
+}

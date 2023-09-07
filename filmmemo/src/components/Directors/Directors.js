@@ -76,8 +76,11 @@ const Directors = () => {
                 <div key={item.directorid} className={classes.datarow} 
                 onClick={() => showFilms(item.directorid, item.film_ids)}> 
                 <b className={classes.directorname}>{item.directorname}</b><span className={classes.avg}>{item.avrg.toFixed(2)}</span><span className={classes.totals}>{item.totalfilms}</span><span className={classes.country}><img alt='flag' src={`/flags/${item.directorcountry.trim()}.png`}></img></span>
-                {selectedDirectors.includes(item.directorid) && <div>
-                    {allrecords.collection.filter((record)=>{return record.directorid === item.directorid}).map(item => <div key={item.id}>{item.title}</div>)}
+                {selectedDirectors.includes(item.directorid) && <div className={classes.postercontainer}>
+                    {allrecords.collection.filter((record)=>{return record.directorid === item.directorid}).map(item => <div className={classes.posterlist} key={item.id}>
+                        <img alt='poster' src={`/assets/${item.poster}`}></img>
+                        <div className={classes.posterraiting}>{item.rating}</div>
+                    </div>)}
                 </div>}
                 </div>
                 )
