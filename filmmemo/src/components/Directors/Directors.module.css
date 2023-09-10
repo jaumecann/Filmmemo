@@ -79,3 +79,12 @@
     width:15px;
     text-align: center;
 }
+
+.countries {
+    width: 150px;
+}
+
+.countries input {
+    font-family: 'Acme';
+}
+
