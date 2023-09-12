@@ -164,7 +164,12 @@ const timeFieldsForNow = () => {
 
     return [ratedate, ratehour]
 }
-
+ 
+const countryCount = async (req,resp,next) => {
+    const countCountries = await sqlquery(querystrings.getTotalsCountry)
+    resp.json(countCountries.recordset)
+    return next();
+}
 
 
 exports.getLast5 = getLast5;  
@@ -175,3 +180,4 @@ exports.getSisters = getSisters;
 exports.getFilm = getFilm;
 exports.update = update;
 exports.getTop = getTop;
+exports.getCountryCount = countryCount;

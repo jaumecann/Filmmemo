@@ -15,7 +15,8 @@ import Home from './components/Home/Home'
 import { useFetchContext } from './shared/hooks/fetchcontext-hook';
 import FilmDetail from './components/FilmDetail/FilmDetail';
 import Tops from './components/Tops/Tops';
-import Directors from './components/Directors/Directors'
+import Directors from './components/Directors/Directors';
+import Stats from './components/Stats/Stats'
 
 function App() {
 
@@ -33,6 +34,7 @@ function App() {
       <Route path="/tops" element={<Tops/>}/>
       <Route path="/film/:id" element={<FilmDetail/>}/>
       <Route path="/Directors" element={<Directors/>}/>
+      <Route path="/stats" element={<Stats/>}/>
       
     </Routes>
   );

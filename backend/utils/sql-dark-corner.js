@@ -16,7 +16,8 @@ const queries = {
 FROM [Filmmemo].[dbo].[FilmRecord] films
 join [Filmmemo].[dbo].[Countries] ctry on films.country = ctry.countryid
 join [Filmmemo].[dbo].[Directors] dir on films.directorid = dir.id  where films.id =`,
-    getDayRecords: "SELECT id, CAST(totalpoints AS decimal(10,2))/CAST(film_number AS decimal(10,2)) as avrg,  RANK() OVER (ORDER BY CAST(totalpoints AS decimal(10,2))/CAST(film_number AS decimal(10,2)) DESC) AS ranking FROM DayRecord"
+    getDayRecords: "SELECT id, CAST(totalpoints AS decimal(10,2))/CAST(film_number AS decimal(10,2)) as avrg,  RANK() OVER (ORDER BY CAST(totalpoints AS decimal(10,2))/CAST(film_number AS decimal(10,2)) DESC) AS ranking FROM DayRecord",
+    getTotalsCountry: "SELECT [country], name, COUNT(*) AS record_count, ROUND((COUNT(*) * 100.0 / SUM(COUNT(*)) OVER ()), 2) AS percentage FROM [Filmmemo].[dbo].[FilmRecord] REC JOIN [Filmmemo].[dbo].[Countries] CTR on REC.country = CTR.countryid GROUP BY [country], name order by record_count desc"
 }
 
 module.exports = queries;
