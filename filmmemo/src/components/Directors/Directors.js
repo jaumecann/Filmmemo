@@ -46,6 +46,8 @@ const Directors = () => {
     };
 
     const handleCountryPick = (event, value) => {
+        value === null ?
+        setSelectedCountry('') :
         setSelectedCountry(value.countryid)
       }
 

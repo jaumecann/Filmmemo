@@ -1,0 +1,33 @@
+.country_row{
+    display:flex;
+    font-family: 'Acme';
+    font-size: 11px;
+}
+
+.country_row img{
+    height:10px;
+}
+
+.total_country{
+    margin: 2em;
+    background-color: rgba(175, 175, 175, 0.449);
+    padding: 1em;
+}
+
+.country_name{
+    width: auto;
+}
+
+.no_bar_side{
+    width: 200px;
+}
+
+.count{
+    background-color: #87c193;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    float:right;
+    padding:2px;
+    border:solid 1px orange;
+    font-size: 11px;
+}

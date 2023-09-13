@@ -24,17 +24,27 @@ const insert = async (req, res, next) => {
 const getBest = async (req, res, next) => {
     const minimum = req.query.min;
     const country = req.query.country;
-    let query = ''
-    // if(minimum){
-        query = `SELECT directorname, directorid, directorcountry, AVG(CAST(rating AS DECIMAL(4, 2))) AS avrg, COUNT(*) as totalfilms, STRING_AGG(f.id, ',') AS film_ids
-        FROM [Filmmemo].[dbo].[FilmRecord] f
-        JOIN Directors d ON f.directorid = d.id
-        WHERE d.directorcountry = '${country}'
-        GROUP BY directorid, directorname, directorcountry
-        HAVING COUNT(*) >= ${minimum}
-        ORDER BY avrg DESC`
-    //}
-    console.log(country)
+    let query = `SELECT directorname, directorid, directorcountry, AVG(CAST(rating AS DECIMAL(4, 2))) AS avrg, COUNT(*) as totalfilms, STRING_AGG(f.id, ',') AS film_ids FROM [Filmmemo].[dbo].[FilmRecord] f
+    JOIN Directors d ON f.directorid = d.id`
+
+    if(country){
+        query += ` WHERE d.directorcountry = '${country}'`
+    }
+
+    query += (` GROUP BY directorid, directorname, directorcountry
+    HAVING COUNT(*) >= ${minimum}
+    ORDER BY avrg DESC`)
+
+    
+        // query = `SELECT directorname, directorid, directorcountry, AVG(CAST(rating AS DECIMAL(4, 2))) AS avrg, COUNT(*) as totalfilms, STRING_AGG(f.id, ',') AS film_ids
+        // FROM [Filmmemo].[dbo].[FilmRecord] f
+        // JOIN Directors d ON f.directorid = d.id
+        // WHERE d.directorcountry = '${country}'
+        // GROUP BY directorid, directorname, directorcountry
+        // HAVING COUNT(*) >= ${minimum}
+        // ORDER BY avrg DESC`
+
+    console.log(query)
     try{
         const rankDirectors = await sqlquery(query);
         res.json(rankDirectors.recordsets[0])
