@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import classes from './Directors.module.css';
 import { useState,useEffect } from "react";
 import { Pagination } from "@mui/material";
@@ -17,6 +18,7 @@ const Directors = () => {
     const [selectedDirectors, setSelectedDirectors] = useState([]);
     const [countryList, setCountryList] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState('');
+    const navigate = useNavigate();
 
     const handleBestDirectorSearch = async () => {
         try{
@@ -121,6 +123,7 @@ const Directors = () => {
                             <div className={classes.posterlist} key={item.id}>
                                 <img alt='poster' src={`/assets/${item.poster}`}></img>
                                 <div className={classes.posterraiting}>{item.rating}</div>
+                                <div className={classes.postername} onClick={()=> {navigate(`/film/${item.id}`)}}>{item.title}</div>
                             </div>)
                         }
                 </div>}

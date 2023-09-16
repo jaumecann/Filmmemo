@@ -88,3 +88,18 @@
     font-family: 'Acme';
 }
 
+.postername{
+    background-color: rgba(24, 24, 54, 0.509);
+    position: absolute;
+    font-size: 9px;
+    font-family: 'Acme';
+    bottom: 40px;
+    padding-left: 10px;
+    color: var(--official-yellow);
+    display: none;
+    cursor: pointer;
+}
+
+.posterlist:hover .postername {
+    display: block; /* Show it on hover */
+  }
