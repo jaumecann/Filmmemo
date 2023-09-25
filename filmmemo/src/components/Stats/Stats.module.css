@@ -31,3 +31,18 @@
     border:solid 1px orange;
     font-size: 11px;
 }
+
+.tabs{
+    display:flex;
+    font-family: "Racing Sans One";
+    justify-content: left;
+    margin-top: -38px;
+    margin-bottom: 10px;
+}
+.tabs div{
+    border:solid 1px black;
+    padding: 0px 5px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px;
+    cursor: pointer;
+}

@@ -2,7 +2,15 @@
  import classes from './Stats.module.css'
  
  const Stats = () => {
+
+    const TabsEnum = {
+        COUNTRIES: 'countries',
+        DAYS: 'days',
+      };
+    
+    const [selectedTab, setSelectedTab] = useState(TabsEnum.COUNTRIES)
     const [totalCountries, setTotalCountries] = useState([]);
+
 
     useEffect(()=>{( async() => {
         try{
@@ -37,7 +45,19 @@
 
     return(
         <React.Fragment>
-            <div className={classes.total_country}>{countryRank}</div>
+            <div className={classes.total_country}>
+                <div className={classes.tabs}>
+                    <div onClick={() => setSelectedTab(TabsEnum.COUNTRIES)}>Countries</div>
+                    <div onClick={() => setSelectedTab(TabsEnum.DAYS)}>Days</div> 
+                </div>
+                {selectedTab === TabsEnum.COUNTRIES && <section>
+                    {countryRank}   
+                </section>}
+                {selectedTab === TabsEnum.DAYS && <section>
+                    <h1>GUILTY DAYS!!!!</h1>  
+                </section>}
+                
+            </div>
         </React.Fragment>
     )
 
