@@ -1,5 +1,6 @@
  import React, { useEffect, useState } from "react";
  import classes from './Stats.module.css'
+import { DayStats } from "../Days/Days-stats";
  
  const Stats = () => {
 
@@ -54,7 +55,7 @@
                     {countryRank}   
                 </section>}
                 {selectedTab === TabsEnum.DAYS && <section>
-                    <h1>GUILTY DAYS!!!!</h1>  
+                    <DayStats></DayStats>
                 </section>}
                 
             </div>
