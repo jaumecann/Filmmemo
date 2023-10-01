@@ -1,5 +1,8 @@
+DROP TABLE FilmRecordBackup
 SELECT * INTO FilmRecordBackup FROM FilmRecord
 
+DROP TABLE DirectorsBackup
+SELECT * INTO DirectorsBackup FROM Directors
 
 --This makes a copy of table mytable, and every row in it, called mytable_backup. It will not copy any indices, constraints, etc., just the structure and data.
 --Note that this will not work if you have an existing table named mytable_backup, 
