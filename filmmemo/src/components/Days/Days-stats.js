@@ -40,14 +40,66 @@ export const DayStats = () => {
 
     const months = Object.keys(year)
 
-    useEffect (() =>{
+/*     useEffect (() =>{
         let months = Object.keys(year)
         for (const month of months){
             for(let i = 1; i < year[month].days + 1; i++){
                 setAllDays((prevDays) => [...prevDays, {day:i, month:year[month].monthnumber}])
             }
         }
+    },[]) */
+
+    const getFilmsForDay = (index, monthInfo) => {
+        // Your logic to calculate the number of films for the day based on monthInfo
+        // Example: return monthInfo.days * 2;
+        return index  // Replace with your logic
+    };
+
+
+    useEffect(()=>{
+        const dateInsight = async () => {
+            const response = await fetch('http://localhost:5000/api/days/dateinsight');
+            const detailDate = await response.json();
+            let months = Object.keys(year)
+            for (const month of months){
+                 for(let i = 1; i < year[month].days + 1; i++){
+                    const day = i < 10 ? `0${i}` : `${i}`;
+                    const monthNumber = year[month].monthnumber < 10 ? `0${year[month].monthnumber}` : `${year[month].monthnumber}`;
+
+                    const day_month = `${monthNumber}-${day}`;
+                    const entry = detailDate.find((item) => item.day_month === day_month);
+
+                    setAllDays((prevDays) => [...prevDays, {day:i, month:year[month].monthnumber, totalFilms: entry.record_count}]);
+            }
+        }
+        }
+
+        dateInsight();
     },[])
+
+    const calculateColor = (totalfilms) => {
+        if (totalfilms > 0 && totalfilms <= 5){
+            return '#fbf5bf'
+        }
+        if (totalfilms > 5 && totalfilms <= 10){
+            return '#fdee77'
+        }
+        if (totalfilms > 10 && totalfilms <= 15){
+            return '#f2d600'
+        }
+        if (totalfilms > 15 && totalfilms <= 20){
+            return '#ffc02d'
+        }
+        if (totalfilms > 20 && totalfilms <= 25){
+            return '#f9af00'
+        }
+        if (totalfilms > 25 && totalfilms <= 30){
+            return '#f98c00'
+        }
+        if (totalfilms > 30){
+            return '#f75c28'
+        }
+    }
 
     return (
         <React.Fragment>
@@ -69,7 +121,8 @@ export const DayStats = () => {
                                             height: '15px',
                                             textAlign: 'center',
                                             lineHeight: '15px',
-                                            fontSize: '8px'
+                                            fontSize: '8px',
+                                            backgroundColor: `${calculateColor(mday.totalFilms)}`
                                         }}
                                     >
                                         {mday.day}

@@ -66,7 +66,6 @@ const Directors = () => {
         let filmsItems = allrecords.collection.filter((record) => 
            filmsOfSelectedDirector.includes(record.id)
         )
-        console.log(filmsItems)
         
     }
 
