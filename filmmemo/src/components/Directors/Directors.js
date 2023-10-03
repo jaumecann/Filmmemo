@@ -13,7 +13,7 @@ const Directors = () => {
     const [minimum, setMinimum] = useState(1);
     const [totalPages, setTotalPages] = React.useState(0);
     const [page, setPage] = React.useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 30;
     const allrecords = React.useContext(FilmrecordContext);
     const [selectedDirectors, setSelectedDirectors] = useState([]);
     const [countryList, setCountryList] = useState([]);
@@ -116,7 +116,7 @@ const Directors = () => {
                 {bestDirectors.slice((page-1)*itemsPerPage, page*itemsPerPage).map((item, idx) => 
                     <div key={item.directorid} className={classes.datarow} 
                     onClick={() => showFilms(item.directorid, item.film_ids)}> 
-                        <span>{idx+1}</span><b className={classes.directorname}> {item.directorname}</b><span className={classes.avg}>{item.avrg.toFixed(2)}</span><span className={classes.totals}>{item.totalfilms}</span><span className={classes.country}><img alt='flag' src={`/flags/${item.directorcountry.trim()}.png`}></img></span>
+                        <span>{(idx+1) + ((page-1)*itemsPerPage)}</span><b className={classes.directorname}> {item.directorname}</b><span className={classes.avg}>{item.avrg.toFixed(2)}</span><span className={classes.totals}>{item.totalfilms}</span><span className={classes.country}><img alt='flag' src={`/flags/${item.directorcountry.trim()}.png`}></img></span>
                     {selectedDirectors.includes(item.directorid) && <div className={classes.postercontainer}>
                         {allrecords.collection.filter((record)=>{return record.directorid === item.directorid}).map(item => 
                             <div className={classes.posterlist} key={item.id}>
