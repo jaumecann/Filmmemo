@@ -103,7 +103,6 @@ export const DayStats = () => {
 
     return (
         <React.Fragment>
-            <h1>tranqui tronqui</h1>
             <div style={{ display: 'flex' }}>
                 {months.map((month) => (
                     <div key={month} style={{ marginRight: '20px' }}>

@@ -165,6 +165,7 @@ const NewEntry = () => {
             console.log(e)
         } finally {
             setIsLoading(false)
+            window.location.reload();
         }
       } else {
 
