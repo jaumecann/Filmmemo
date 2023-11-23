@@ -14,6 +14,13 @@ const getDateInsights = async (req, res, next) => {
     return next();
 }
 
+const getTotalYears = async (req,res, next) => {
+    const yearData = await sqlquery(querystrings.getTotalYears)
+    res.json(yearData.recordsets[0])
+    return next();
+}
+
 
 exports.getDayRecords = getDayRecords; 
-exports.getDateInsights = getDateInsights
+exports.getDateInsights = getDateInsights;
+exports.getTotalYears = getTotalYears;

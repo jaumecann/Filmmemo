@@ -7,11 +7,13 @@ import { DayStats } from "../Days/Days-stats";
     const TabsEnum = {
         COUNTRIES: 'countries',
         DAYS: 'days',
-        COUNTRIES_AVG: 'countries_avg'
+        COUNTRIES_AVG: 'countries_avg',
+        YEARS: 'years'
       };
     
     const [selectedTab, setSelectedTab] = useState(TabsEnum.COUNTRIES)
     const [totalCountries, setTotalCountries] = useState([]);
+    const [totalYears, setTotalYears] = useState([]);
 
 
     useEffect(()=>{( async() => {
@@ -24,6 +26,17 @@ import { DayStats } from "../Days/Days-stats";
         }
     })();
     },[])
+
+    const getYearsData = ()=>{( async() => {
+        try{
+            const totalYears = await fetch('http://localhost:5000/api/days/yearsdata');
+            const records = await totalYears.json();
+            setTotalYears(records)
+        } catch(err){
+            alert(err)
+        }
+    })();
+    }
 
     const countryRank = totalCountries.map( entry=> 
         <div key={entry.country} className={classes.country_row}>
@@ -65,6 +78,22 @@ import { DayStats } from "../Days/Days-stats";
         </div>
     )
 
+    const years = totalYears.map(year => 
+        <div key={year.yearFilm} className={classes.country_row}> 
+            <span>{year.yearFilm}</span>
+            <div 
+                style={{
+                    width: `${year.record_count*5}px`,
+                    backgroundColor: '#7bcdb5',
+                    border: 'solid 1px rgba(0,0,0,.2)',
+                    height: '10px',
+                    margin: '0 2px'
+                }}
+            ></div>
+            <span>{year.record_count}</span>
+        </div>
+        )
+
 
     return(
         <React.Fragment>
@@ -73,6 +102,7 @@ import { DayStats } from "../Days/Days-stats";
                     <div onClick={() => setSelectedTab(TabsEnum.COUNTRIES)}>Countries totals</div>
                     <div onClick={() => setSelectedTab(TabsEnum.COUNTRIES_AVG)}>Countries average</div>
                     <div onClick={() => setSelectedTab(TabsEnum.DAYS)}>Days</div> 
+                    <div onClick={() => {setSelectedTab(TabsEnum.YEARS); getYearsData()}}>Years</div> 
                 </div>
                 {selectedTab === TabsEnum.COUNTRIES && <section>
                     {countryRank}   
@@ -82,6 +112,9 @@ import { DayStats } from "../Days/Days-stats";
                 </section>}
                 {selectedTab === TabsEnum.DAYS && <section>
                     <DayStats></DayStats>
+                </section>}
+                {selectedTab === TabsEnum.YEARS && <section>
+                    {years}
                 </section>}
                 
             </div>
