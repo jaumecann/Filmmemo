@@ -22,7 +22,7 @@ function App() {
 
   let routes;
 
-  const fetchData = useFetchContext();
+  const {dataGlobal, fetchData} = useFetchContext();
   const [contextData, setContextData] = React.useState([]);
 
   routes = (
@@ -40,13 +40,21 @@ function App() {
   );
 
   React.useEffect(()=>{
-      setContextData(fetchData)
-  },[fetchData])
+      setContextData(dataGlobal)
+  },[dataGlobal])
 
+  const onUpdate = async () => {
+    try {
+      const data = await fetchData(); // Re-fetch data
+      setContextData(data); // Update context data with fetched data
+    } catch (error) {
+      // Handle errors
+    }
+  };
 
   return (
     <FilmrecordContext.Provider
-      value={{collection: contextData}}
+      value={{collection: contextData, update: onUpdate}}
     >
     <Router>
     <div>

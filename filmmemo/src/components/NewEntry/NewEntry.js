@@ -164,7 +164,8 @@ const NewEntry = () => {
         } catch (e){
             console.log(e)
         } finally {
-            setIsLoading(false)
+            setIsLoading(false);
+            allrecords.update();
             window.location.reload();
         }
       } else {
@@ -185,7 +186,8 @@ const NewEntry = () => {
         } catch (e){
             console.log(e)
         } finally {
-            setIsLoading(false)
+            setIsLoading(false);
+            allrecords.update();
         }
 
       }
