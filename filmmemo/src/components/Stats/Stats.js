@@ -16,6 +16,7 @@ import { DayStats } from "../Days/Days-stats";
     const [totalCountries, setTotalCountries] = useState([]);
     const [totalYears, setTotalYears] = useState([]);
     const [totalSeenYears, setTotalSeenYears] = useState([]);
+    const [averageFilter, setAverageFilter] = useState(1);
 
 
     useEffect(()=>{( async() => {
@@ -71,7 +72,7 @@ import { DayStats } from "../Days/Days-stats";
         </div>
     )
 
-    const countryAvg = [...totalCountries].sort((a,b) => b.average - a.average).map(entry=> 
+    const countryAvg = [...totalCountries].filter((a) => a.record_count >= averageFilter).sort((a,b) => b.average - a.average).map(entry=> 
         <div key={entry.country} className={classes.country_row}>
             <div className={classes.no_bar_side}>
             <span className={classes.country_name}>{entry.name} </span>
@@ -124,6 +125,11 @@ import { DayStats } from "../Days/Days-stats";
             </div>
             )
 
+    const handleMin = (e) => {
+        if(e.key === 'Enter'){
+            setAverageFilter(e.target.value)
+        }
+    }
 
     return(
         <React.Fragment>
@@ -139,6 +145,9 @@ import { DayStats } from "../Days/Days-stats";
                     {countryRank}   
                 </section>}
                 {selectedTab === TabsEnum.COUNTRIES_AVG && <section>
+                    <div className={classes.minavg}><label>Mínim de films</label>
+                    <input type="number" defaultValue={averageFilter} onKeyDown={handleMin}></input>
+                    </div>                    
                     {countryAvg}   
                 </section>}
                 {selectedTab === TabsEnum.DAYS && <section>
