@@ -17,7 +17,6 @@ const History = () => {
     const [directorSelected, setDirectorSelected] = React.useState();
     const [displayedFilms, setDisplayedFilms] = React.useState(allrecords.collection)
     const [directorname, setDirectorname] = React.useState('');
-    const fetchGlobalContextData = useFetchContext();
     const [sistersList, setSistersList] = React.useState('');
 
     const handleChange = (event, value) => {
@@ -63,7 +62,7 @@ const History = () => {
               }
         setTotalPages(Math.ceil(displayedFilms.length / itemsPerPage));
         fetchSisters(1);
-    },[displayedFilms, fetchGlobalContextData, fetchSisters])
+    },[displayedFilms, fetchSisters])
 
     React.useEffect(() => {
         if(directorSelected){
