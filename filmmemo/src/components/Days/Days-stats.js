@@ -1,30 +1,31 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import classes from './Days-stats.module.css';
+import FilmrecordContext from '../../shared/context/records-context';
 
 
 
 export const DayStats = () => {
 
 
-    const year = {
-        january:{monthnumber:1, days:31},
-        february:{monthnumber:2, days:29},
-        march:{monthnumber:3, days:31},
-        april:{monthnumber:4, days:30},
-        may:{monthnumber:5, days:31},
-        june:{monthnumber:6, days:30},
-        july:{monthnumber:7, days:31},
-        august:{monthnumber:8, days:31},
-        september:{monthnumber:9, days:30},
-        october:{monthnumber:10, days:31},
-        november:{monthnumber:11, days:30},
-        december:{monthnumber:12, days:31},
-    }
+    const year = useMemo(() => ({
+        january: { monthnumber: 1, days: 31 },
+        february: { monthnumber: 2, days: 29 },
+        march: { monthnumber: 3, days: 31 },
+        april: { monthnumber: 4, days: 30 },
+        may: { monthnumber: 5, days: 31 },
+        june: { monthnumber: 6, days: 30 },
+        july: { monthnumber: 7, days: 31 },
+        august: { monthnumber: 8, days: 31 },
+        september: { monthnumber: 9, days: 30 },
+        october: { monthnumber: 10, days: 31 },
+        november: { monthnumber: 11, days: 30 },
+        december: { monthnumber: 12, days: 31 },
+      }), []);
 
 
     const [alldays, setAllDays] = useState([]);
-
+    const context = React.useContext(FilmrecordContext)
 
     const everyday = alldays.map(day => {
         return <div key={`${day.day}#${day.month}`} className={classes.daybox}></div>
@@ -75,7 +76,7 @@ export const DayStats = () => {
         }
 
         dateInsight();
-    },[])
+    },[year])
 
     const calculateColor = (totalfilms) => {
         if (totalfilms > 0 && totalfilms <= 5){
@@ -103,9 +104,9 @@ export const DayStats = () => {
 
     return (
         <React.Fragment>
-            <div style={{ display: 'flex' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                 {months.map((month) => (
-                    <div key={month} style={{ marginRight: '20px' }}>
+                    <div key={month} className={classes.month}>
                         <h3>{month}</h3>
                         <div style={{ display: 'flex', flexWrap: 'wrap' }}>
                             {alldays

@@ -24,6 +24,7 @@ function App() {
 
   const {dataGlobal, fetchData} = useFetchContext();
   const [contextData, setContextData] = React.useState([]);
+  const [dayCollectionData, setDayCollectionData] = React.useState([]);
 
   routes = (
     <Routes>
@@ -52,9 +53,13 @@ function App() {
     }
   };
 
+  const updateDaysCollection = (data) => {
+    setDayCollectionData(data);
+  }
+
   return (
     <FilmrecordContext.Provider
-      value={{collection: contextData, update: onUpdate}}
+      value={{collection: contextData, days_collection: dayCollectionData, update: onUpdate, updateDays: updateDaysCollection}}
     >
     <Router>
     <div>

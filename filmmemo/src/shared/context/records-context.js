@@ -2,7 +2,9 @@ import React from 'react';
 
 const FilmrecordContext = React.createContext({
     collection: [],
-    update:()=>[]
+    days_collection: [],
+    update:()=>[],
+    updateDays:()=>[]
 });
 
 

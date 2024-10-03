@@ -3,3 +3,8 @@
     width:5px;
     height: 5px;
 }
+
+.month{
+    margin-right: 20px;
+    max-width: 130px;
+}
