@@ -59,24 +59,36 @@ export const DayStats = () => {
 
     useEffect(()=>{
         const dateInsight = async () => {
-            const response = await fetch('http://localhost:5000/api/days/dateinsight');
-            const detailDate = await response.json();
-            let months = Object.keys(year)
-            for (const month of months){
-                 for(let i = 1; i < year[month].days + 1; i++){
-                    const day = i < 10 ? `0${i}` : `${i}`;
-                    const monthNumber = year[month].monthnumber < 10 ? `0${year[month].monthnumber}` : `${year[month].monthnumber}`;
-
-                    const day_month = `${monthNumber}-${day}`;
-                    const entry = detailDate.find((item) => item.day_month === day_month);
-
-                    setAllDays((prevDays) => [...prevDays, {day:i, month:year[month].monthnumber, totalFilms: entry.record_count}]);
+            let detailDate = []
+             if (context.days_collection.length === 0){
+                const response = await fetch('http://localhost:5000/api/days/dateinsight');
+                detailDate = await response.json();
+                context.updateDays(detailDate);
+            } else {
+                detailDate = context.days_collection
             }
-        }
-        }
 
+                const newDays = [];
+                let months = Object.keys(year)
+                for (const month of months){
+                     for(let i = 1; i < year[month].days + 1; i++){
+                        const day = i < 10 ? `0${i}` : `${i}`;
+                        const monthNumber = year[month].monthnumber < 10 ? `0${year[month].monthnumber}` : `${year[month].monthnumber}`;
+    
+                        const day_month = `${monthNumber}-${day}`;
+                        const entry = detailDate.find((item) => item.day_month === day_month);
+    
+                        if (!newDays.some(mday => mday.day === i && mday.month === year[month].monthnumber)) {
+                            newDays.push({ day: i, month: year[month].monthnumber, totalFilms: entry?.record_count || 0 });
+                        }
+                    }
+                }
+        
+                // Establece el estado una sola vez
+                setAllDays(newDays);
+            }
         dateInsight();
-    },[year])
+    },[year, context.days_collection, context.updateDays])
 
     const calculateColor = (totalfilms) => {
         if (totalfilms > 0 && totalfilms <= 5){
