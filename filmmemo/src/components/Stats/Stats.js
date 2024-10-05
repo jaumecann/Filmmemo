@@ -1,6 +1,7 @@
  import React, { useEffect, useState } from "react";
  import classes from './Stats.module.css'
 import { DayStats } from "../Days/Days-stats";
+import { Months } from "../Months/Months";
  
  const Stats = () => {
 
@@ -9,7 +10,8 @@ import { DayStats } from "../Days/Days-stats";
         DAYS: 'days',
         COUNTRIES_AVG: 'countries_avg',
         YEARS: 'years',
-        SEENxYEAR: 'seen_x_year'
+        SEENxYEAR: 'seen_x_year',
+        MONTHS: 'months'
       };
     
     const [selectedTab, setSelectedTab] = useState(TabsEnum.COUNTRIES)
@@ -138,6 +140,7 @@ import { DayStats } from "../Days/Days-stats";
                     <div onClick={() => setSelectedTab(TabsEnum.COUNTRIES)}>Countries totals</div>
                     <div onClick={() => setSelectedTab(TabsEnum.COUNTRIES_AVG)}>Countries average</div>
                     <div onClick={() => setSelectedTab(TabsEnum.DAYS)}>Days</div> 
+                    <div onClick={() => setSelectedTab(TabsEnum.MONTHS)}>Months</div> 
                     <div onClick={() => {setSelectedTab(TabsEnum.YEARS); getYearsData()}}>Years</div> 
                     <div onClick={() => {setSelectedTab(TabsEnum.SEENxYEAR); getSeenYear()}}>Seen x Year</div> 
                 </div>
@@ -152,6 +155,9 @@ import { DayStats } from "../Days/Days-stats";
                 </section>}
                 {selectedTab === TabsEnum.DAYS && <section>
                     <DayStats></DayStats>
+                </section>}
+                {selectedTab === TabsEnum.MONTHS && <section>
+                    <Months></Months>
                 </section>}
                 {selectedTab === TabsEnum.YEARS && <section>
                     {years}
