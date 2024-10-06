@@ -1,0 +1,13 @@
+.graphic{
+    width: 30px;
+    background-color: #f2d600;;
+    display: block;
+    border:solid 1px black;
+    margin: 0 1em;
+    font-family: 'Racing Sans One';
+}
+
+.monthbox{
+    display: flex;
+    align-items: end;
+}
