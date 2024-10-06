@@ -29,11 +29,21 @@ export const Months = () =>{
     }
 
     useEffect(()=>{
-        if(context.days_collection.length>0){
+        const processData = async () => {
+   
             let totals = {};
-            let breakdown = {}
+            let breakdown = {};
+            let days_data;
 
-            for(let day of context.days_collection){
+            if(context.days_collection.length > 0){
+                days_data = context.days_collection
+            } else {
+                const response = await fetch('http://localhost:5000/api/days/dateinsight');
+                days_data = await response.json();
+                context.updateDays(days_data);
+            }
+
+            for(let day of days_data){
                 const month = day.day_month.slice(0,2);
                 totals[month]? totals[month] += day.record_count : totals[month] = day.record_count
                 const years_for_day = day.years_for_day.split(',');
@@ -46,9 +56,10 @@ export const Months = () =>{
                     }
                 }
             }
-            setMonthsData(Object.entries(totals).map(([month,totals]) => ({month,totals})));
-        } 
-    },[context.days_collection])
+            setMonthsData(Object.entries(totals).map(([month,totals]) => ({month,totals}))); 
+        }
+        processData();
+    },[context.days_collection, context.updateDays])
     
     return (
         <React.Fragment>
@@ -62,7 +73,7 @@ export const Months = () =>{
                     }}>    
                     {m.totals}                 
                         </div>
-                        <div style={{textAlign:"center"}}>{transformMonths(m.month)}</div>
+                        <div style={{textAlign:"center", fontFamily:"Racing Sans One"}}>{transformMonths(m.month)}</div>
                     </div>
               
                 ))}
