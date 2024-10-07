@@ -60,3 +60,11 @@
     font-family: "Racing Sans One";
     width: 50px;
 }
+
+.indexC {
+    border: solid 1px black;
+    border-radius: 10px;
+    background-color: #ffffff;
+    padding: 2px;
+    margin-right: 3px;
+}

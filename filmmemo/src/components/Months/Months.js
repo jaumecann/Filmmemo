@@ -59,7 +59,7 @@ export const Months = () =>{
             setMonthsData(Object.entries(totals).map(([month,totals]) => ({month,totals}))); 
         }
         processData();
-    },[context.days_collection, context.updateDays])
+    },[context])
     
     return (
         <React.Fragment>

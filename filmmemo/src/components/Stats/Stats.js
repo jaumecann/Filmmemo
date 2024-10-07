@@ -54,9 +54,10 @@ import { Months } from "../Months/Months";
     })();
     }
 
-    const countryRank = totalCountries.map( entry=> 
+    const countryRank = totalCountries.map( (entry, i )=> 
         <div key={entry.country} className={classes.country_row}>
             <div className={classes.no_bar_side}>
+            <span className={classes.indexC}>{i+1} </span>
             <span className={classes.country_name}>{entry.name} </span>
             <span><img alt='flag' src={`/flags/${entry.country.trim()}.png`}></img></span>
             <span className={classes.count}> {entry.record_count} </span>
@@ -74,8 +75,9 @@ import { Months } from "../Months/Months";
         </div>
     )
 
-    const countryAvg = [...totalCountries].filter((a) => a.record_count >= averageFilter).sort((a,b) => b.average - a.average).map(entry=> 
+    const countryAvg = [...totalCountries].filter((a) => a.record_count >= averageFilter).sort((a,b) => b.average - a.average).map((entry, i) => 
         <div key={entry.country} className={classes.country_row}>
+            <span className={classes.indexC}>{i+1} </span>
             <div className={classes.no_bar_side}>
             <span className={classes.country_name}>{entry.name} </span>
             <span><img alt='flag' src={`/flags/${entry.country.trim()}.png`}></img></span>
