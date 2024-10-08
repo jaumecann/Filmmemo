@@ -6,7 +6,9 @@ import classes from './Months.module.css';
 export const Months = () =>{
 
     const [monthsData, setMonthsData] = useState([]);
+    const [monthsDetailData, setMonthsDetailData] = useState([]);
     const context = React.useContext(FilmrecordContext);
+    const [expandedYears, setExpandedYears] = useState([]);
 
     const transformMonths = (month) => {
         const months = {
@@ -45,6 +47,10 @@ export const Months = () =>{
 
             for(let day of days_data){
                 const month = day.day_month.slice(0,2);
+                //si hi ha algun dia que suma una barbaritat vol dir que aquell dia es va votar en massa -> es modifica
+                if(day.record_count > 100){
+                    day.record_count = 10;
+                }
                 totals[month]? totals[month] += day.record_count : totals[month] = day.record_count
                 const years_for_day = day.years_for_day.split(',');
                 const allyears = years_for_day.map(y => y.trim());
@@ -56,10 +62,25 @@ export const Months = () =>{
                     }
                 }
             }
-            setMonthsData(Object.entries(totals).map(([month,totals]) => ({month,totals}))); 
+
+            setMonthsData(Object.entries(totals).map(([month,totals]) => { return {month,totals}})); 
+            console.log(breakdown)
+            let detail= Object.entries(breakdown).map(([year,months]) => {
+                return {year, monthEntries:Object.entries(months).map(([month,totals]) => ({month,totals}))}}
+            )
+            console.log(detail)
+            setMonthsDetailData(detail)
         }
         processData();
     },[context])
+
+    const toggleYear = (year) => {
+        setExpandedYears((prevExpandedYears) =>
+          prevExpandedYears.includes(year)
+            ? prevExpandedYears.filter((y) => y !== year) 
+            : [...prevExpandedYears, year] 
+        );
+      };
     
     return (
         <React.Fragment>
@@ -75,8 +96,33 @@ export const Months = () =>{
                         </div>
                         <div style={{textAlign:"center", fontFamily:"Racing Sans One"}}>{transformMonths(m.month)}</div>
                     </div>
-              
                 ))}
+            </div>
+            <div >
+                {monthsDetailData.sort(function(a, b){return b.year - a.year}).map((data) => (
+                    <div key={data.year}>
+                        <div onClick={()=>toggleYear(data.year)}>
+                        {data.year}
+                        </div>
+                        {expandedYears.includes(data.year) && (
+                            <div className={classes.monthbox}>
+                            {data.monthEntries.sort(function(a, b){return a.month - b.month}).map((m,i) => (
+                    
+                            <div key={m.month}>
+                            <div className={classes.graphic} 
+                            style={{
+                            height:`${m.totals*2}px`,
+                            }}>    
+                            {m.totals}                 
+                            </div>
+                            <div style={{textAlign:"center", fontFamily:"Racing Sans One"}}>{transformMonths(m.month)}</div>
+                            </div>
+                            ))}    
+                        </div>
+                    )}                
+                    </div>
+                )
+            )}
             </div>
         </React.Fragment>
     )
