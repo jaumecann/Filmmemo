@@ -12,3 +12,17 @@
     align-items: end;
     justify-content: space-around;
 }
+
+.yearblock{
+    border-top: solid 1px black;
+    font-family: 'Racing Sans One';
+}
+
+.graphic2{
+    width: 30px;
+    background-color: #d4c6a3e0;;
+    display: block;
+    border:solid 1px black;
+    margin: 0 1em;
+    font-family: 'Racing Sans One';
+}

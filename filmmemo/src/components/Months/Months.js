@@ -64,11 +64,9 @@ export const Months = () =>{
             }
 
             setMonthsData(Object.entries(totals).map(([month,totals]) => { return {month,totals}})); 
-            console.log(breakdown)
             let detail= Object.entries(breakdown).map(([year,months]) => {
                 return {year, monthEntries:Object.entries(months).map(([month,totals]) => ({month,totals}))}}
             )
-            console.log(detail)
             setMonthsDetailData(detail)
         }
         processData();
@@ -91,6 +89,9 @@ export const Months = () =>{
                         <div className={classes.graphic} 
                         style={{
                         height:`${m.totals/2}px`,
+                        border:"solid 1px #dea918",
+                        padding:"5px",
+                        boxShadow: "2px 0px 3px #b96c36",
                     }}>    
                     {m.totals}                 
                         </div>
@@ -100,7 +101,7 @@ export const Months = () =>{
             </div>
             <div >
                 {monthsDetailData.sort(function(a, b){return b.year - a.year}).map((data) => (
-                    <div key={data.year}>
+                    <div key={data.year} className={classes.yearblock}>
                         <div onClick={()=>toggleYear(data.year)}>
                         {data.year}
                         </div>
@@ -109,13 +110,16 @@ export const Months = () =>{
                             {data.monthEntries.sort(function(a, b){return a.month - b.month}).map((m,i) => (
                     
                             <div key={m.month}>
-                            <div className={classes.graphic} 
+                            <div className={classes.graphic2} 
                             style={{
                             height:`${m.totals*2}px`,
+                            border:"solid 1px #ad7f02",
+                            padding:"5px",
+                            boxShadow: "2px 0px 3px #b96c36",
                             }}>    
-                            {m.totals}                 
+                                            
                             </div>
-                            <div style={{textAlign:"center", fontFamily:"Racing Sans One"}}>{transformMonths(m.month)}</div>
+                            <div style={{textAlign:"center", fontFamily:"Racing Sans One"}}>{transformMonths(m.month)} <span>({m.totals})</span> </div>
                             </div>
                             ))}    
                         </div>
