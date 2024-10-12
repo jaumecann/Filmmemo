@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom"
 import { transformData } from "../../shared/helpers";
 import classes from './FilmDetail.module.css';
 import  Icon  from '@mui/material/Icon';
+import FilmrecordContext from "../../shared/context/records-context";
 
 const FilmDetail = () => {
 
     const [filmData, setFilmData] = useState();
+    const allContext = useContext(FilmrecordContext);
 
     const ID = useParams().id;
 
@@ -16,7 +18,7 @@ const FilmDetail = () => {
             const filmdata = await data.json();
             setFilmData(filmdata[0]);
         })()
-    },[])
+    },[ID])
 
 
 
@@ -46,7 +48,21 @@ const FilmDetail = () => {
                 <div className={classes.ratearea}>
                 {filmData.rating}
                 </div>
+                
             </div>  }     
+            <section className={classes.directorArea}>
+            {filmData && <div className={classes.directorHeader}>Films by {filmData.directorname}</div>}
+            {allContext.collection && filmData && <div className={classes.directorPosters}>
+                    {allContext.collection.filter(f => f.directorid === filmData.directorid).map(
+                        film => 
+                            <div key={film.id} className={classes.poster}>
+                                <Link to={`/film/${film.id}`}>
+                                <img alt={film.title} src={`/assets/${film.poster}`}></img>
+                                </Link>                  
+                            </div>
+                    )}
+                </div>}
+            </section>
         </div>
     )
 }

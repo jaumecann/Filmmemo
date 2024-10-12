@@ -46,3 +46,34 @@
     box-shadow: 1px 1px 1px black;
     margin-top: 1em;
 }
+
+.directorHeader{
+    font-size: 1.2em;
+    background-color: black;
+    width: fit-content;
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 9px;
+    color: white;
+}
+
+.directorArea{
+    background-color:blanchedalmond;
+    padding: 2em 3em;
+    margin: auto;
+    width:50%;
+    font-family: 'Acme';
+    position:relative;
+    border:solid 2px;
+}
+
+.poster img{
+    width: 50px;
+    margin: 3px;
+    cursor: pointer;
+}
+
+.directorPosters{
+    display: flex;
+    flex-wrap: wrap;
+}
