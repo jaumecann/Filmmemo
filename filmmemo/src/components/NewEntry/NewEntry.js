@@ -145,7 +145,7 @@ const NewEntry = () => {
       record.year = payload.yearFilm.value;
       record.country = payload.country.value
       record.director = payload.directorid.value;
-      record.rate = payload.rating.value
+      record.rate = payload.rating? payload.rating.value : null
       record.poster = payload.poster.value
 
 

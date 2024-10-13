@@ -87,16 +87,23 @@ const getTop = async (req, res, next) => {
 
 const insert = async (req, res, next) => {
 
-    const [ratedate, ratehour] = timeFieldsForNow();
-
+    let [ratedate, ratehour] = timeFieldsForNow();
     const {title, year, country, director, rate, poster} = req.body
-    const query = `INSERT INTO FilmRecord(title, rating, yearFilm, ratedate, ratehour, country, directorid, poster) VALUES ('${title}', ${rate}, ${year}, '${ratedate}', '${ratehour}', '${country}', ${director}, '${poster}')`;
+    let query = '';
 
-    const [yearrate, month, day] = ratedate.split('-');
-    const id = `${day}${month}`;
+    if(rate === null){
+        ratedate = null; ratehour=null
+        query = `INSERT INTO FilmRecord(title, rating, yearFilm, ratedate, ratehour, country, directorid, poster) VALUES ('${title}', ${rate}, ${year}, ${ratedate}, ${ratehour}, '${country}', ${director}, '${poster}')`;
+    } else {
+        query = `INSERT INTO FilmRecord(title, rating, yearFilm, ratedate, ratehour, country, directorid, poster) VALUES ('${title}', ${rate}, ${year}, '${ratedate}', '${ratehour}', '${country}', ${director}, '${poster}')`;
+    }
 
-    const updateDayRecord = `UPDATE Dayrecord SET totalpoints = totalpoints + ${rate}, film_number = film_number + 1 where id = ${id}`;
-
+    if(ratedate){
+        const [yearrate, month, day] = ratedate.split('-');
+        const id = `${day}${month}`;
+    
+        const updateDayRecord = `UPDATE Dayrecord SET totalpoints = totalpoints + ${rate}, film_number = film_number + 1 where id = ${id}`;
+    }
     
     try {
         const record = await sqlquery(query);

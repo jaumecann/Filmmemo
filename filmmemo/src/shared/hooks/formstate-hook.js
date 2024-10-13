@@ -36,7 +36,7 @@ export const useFormState = () => {
         yearFilm: {value:'',isValid:false},
         country: {value:'',isValid:false},
         directorid: {value:'',isValid:false},
-        rating: {value:'',isValid:false},
+        // rating: {value:'',isValid:false},
         poster: {value:'',isValid:false},     
     }
 
