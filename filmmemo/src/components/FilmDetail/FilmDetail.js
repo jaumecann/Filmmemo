@@ -1,14 +1,15 @@
-import { useContext, useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom"
+import {  useEffect, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom"
 import { transformData } from "../../shared/helpers";
 import classes from './FilmDetail.module.css';
 import  Icon  from '@mui/material/Icon';
-import FilmrecordContext from "../../shared/context/records-context";
+
 
 const FilmDetail = () => {
 
     const [filmData, setFilmData] = useState();
-    const allContext = useContext(FilmrecordContext);
+    const [fullRecordDb, setFullRecordDb] = useState();
+    const navigate = useNavigate();
 
     const ID = useParams().id;
 
@@ -16,9 +17,22 @@ const FilmDetail = () => {
         (async() => {
             const data = await fetch(`http://localhost:5000/api/films/getFilm/?id=${ID}`);
             const filmdata = await data.json();
-            setFilmData(filmdata[0]);
+            if(filmdata.length > 0){
+                setFilmData(filmdata[0]);
+            } else {
+                navigate('/');
+            }
+
         })()
-    },[ID])
+    },[ID, navigate]);
+
+    useEffect(()=>{
+        (async() => {
+            const data = await fetch(`http://localhost:5000/api/films/getAllPlus`);
+            const filmdata = await data.json();
+            setFullRecordDb(filmdata);
+        })()
+    },[])
 
 
 
@@ -33,31 +47,31 @@ const FilmDetail = () => {
                     <li><img alt='flag' src={`/flags/${filmData.country}.png`}></img></li>
                     <li>Any: {filmData.yearFilm}</li>
                     <li>Director: {filmData.directorname}</li>   
-                    <li>{transformData(filmData.ratedate)}</li>
-                    <li>
+                   {filmData.ratedate && <li>{transformData(filmData.ratedate)}</li>}
+                    {filmData.ratehour && <li>
                         {filmData.ratehour.slice(0,2) < 18 && <span className={classes.icontime}><Icon>light_mode</Icon></span>}
                         {filmData.ratehour.slice(0,2) > 18 && <span className={classes.icontime}><Icon>bedtime</Icon></span>}
                         {filmData.ratehour}
-                    </li>
+                    </li>}
                     <div className={classes.edit}>
                     <Link to={`/edit/${ID}`}>
                     Edit
                     </Link>    
                     </div>
                 </div>
-                <div className={classes.ratearea}>
-                {filmData.rating}
+                <div className={filmData.rating ? classes.ratearea : classes.novista}>
+                {filmData.rating ? filmData.rating : 'NO VISTA'}
                 </div>
                 
             </div>  }     
             <section className={classes.directorArea}>
             {filmData && <div className={classes.directorHeader}>Films by {filmData.directorname}</div>}
-            {allContext.collection && filmData && <div className={classes.directorPosters}>
-                    {allContext.collection.filter(f => f.directorid === filmData.directorid).map(
+            {fullRecordDb && filmData && <div className={classes.directorPosters}>
+                    {fullRecordDb.filter(f => f.directorid === filmData.directorid).map(
                         film => 
                             <div key={film.id} className={classes.poster}>
                                 <Link to={`/film/${film.id}`}>
-                                <img alt={film.title} src={`/assets/${film.poster}`}></img>
+                                <img className={film.rating ? classes.normal : classes.poster_not_seen}  alt={film.title} src={`/assets/${film.poster}`}></img>
                                 </Link>                  
                             </div>
                     )}

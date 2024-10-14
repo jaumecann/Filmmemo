@@ -1,22 +1,23 @@
 import { Autocomplete } from "@mui/material"
-import { useState, useContext, useEffect} from 'react';
+import { useState, useEffect} from 'react';
 import TextField from '@mui/material/TextField';
 import classes from './LookupFilm.module.css';
-import FilmrecordContext from '../../shared/context/records-context';
 import { useNavigate } from "react-router-dom";
 
 
 const LookupFilm = () => {
 
     const [filmsList, setFilmList] = useState([])
-    const allrecords = useContext(FilmrecordContext)
     const navigate = useNavigate();
 
     useEffect(()=>{
-        if(allrecords.collection.length > 0){
-            setFilmList(allrecords.collection)
-        }
-    },[allrecords]);
+
+        (async() => {
+            const data = await fetch(`http://localhost:5000/api/films/getAllPlus`);
+            const filmdata = await data.json();
+            setFilmList(filmdata);
+        })()
+    },[]);
 
 
     return (

@@ -227,7 +227,7 @@ const NewEntry = () => {
             (async() => {
                 const response = await fetch(`http://localhost:5000/api/films/getFilm/?id=${filmID}`);
                 const filmdata = await response.json();
-                setFilmData(filmdata[0])
+            setFilmData(filmdata[0]);
             })();
         }
     },[]);
@@ -270,7 +270,7 @@ const NewEntry = () => {
             </div>} 
             <TextField label="Poster" variant='outlined' name='poster' className={classes.inputs} value={filmData.poster} style={{width:400}} onChange={onChangeInput}/>
             <h3>Nota</h3>
-            <Rating name="rating" min={1} max={10} value={filmData.rating}  classes={classes.ratebar} onChange={onChangeInput}/>
+            <Rating name="rating" min={1} max={10} value={+filmData.rating ?? 0}  onChange={onChangeInput}/>
             </div>
             </div>
        

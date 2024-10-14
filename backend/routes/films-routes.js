@@ -6,6 +6,7 @@ const router = express.Router();
 router.get('/lastfive', filmControllers.getLast5);
 router.get('/countries', filmControllers.getCountries);
 router.get('/getAll', filmControllers.getAll)
+router.get('/getAllPlus', filmControllers.getAllWithNotSeen)
 router.get('/getSisters', filmControllers.getSisters);
 router.get('/getFilm', filmControllers.getFilm);
 router.get('/getTops', filmControllers.getTop);

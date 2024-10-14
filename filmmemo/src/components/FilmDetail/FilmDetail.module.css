@@ -77,3 +77,21 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.novista{
+    color: #d90000;
+    border: solid 2px #e50404;
+    width: 100px;
+    height: fit-content;
+    transform: rotateZ(15deg);
+    padding: 14px;
+    text-align: center;
+}
+
+.normal{
+    opacity: 1;
+}
+
+.poster_not_seen{
+    opacity: 0.5;
+}
