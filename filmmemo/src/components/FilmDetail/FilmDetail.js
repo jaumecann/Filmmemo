@@ -14,25 +14,27 @@ const FilmDetail = () => {
     const ID = useParams().id;
 
     useEffect(()=>{
-        (async() => {
-            const data = await fetch(`http://localhost:5000/api/films/getFilm/?id=${ID}`);
-            const filmdata = await data.json();
-            if(filmdata.length > 0){
-                setFilmData(filmdata[0]);
-            } else {
-                navigate('/');
-            }
-
-        })()
-    },[ID, navigate]);
-
-    useEffect(()=>{
+      if(!fullRecordDb){
         (async() => {
             const data = await fetch(`http://localhost:5000/api/films/getAllPlus`);
-            const filmdata = await data.json();
-            setFullRecordDb(filmdata);
+            const allfilms = await data.json();
+            setFullRecordDb(allfilms);
+            console.log(allfilms.find(f => f.id === parseInt(ID)))
+            const gotcha = allfilms.find(f => f.id === parseInt(ID))
+            setFilmData(gotcha)
+            if(!gotcha){
+                navigate('/');
+             }
         })()
-    },[])
+      } else {
+        const gotcha = fullRecordDb.find(f => f.id === parseInt(ID))
+        setFilmData(gotcha)
+        if(!gotcha){
+            navigate('/');
+         }
+      }
+        
+    },[ID, navigate,fullRecordDb])
 
 
 
