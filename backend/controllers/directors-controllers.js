@@ -28,7 +28,9 @@ const getBest = async (req, res, next) => {
     JOIN Directors d ON f.directorid = d.id`
 
     if(country){
-        query += ` WHERE d.directorcountry = '${country}'`
+        query += ` WHERE d.directorcountry = '${country}' and rating is not null`
+    } else {
+        query += ` WHERE rating is not null`
     }
 
     query += (` GROUP BY directorid, directorname, directorcountry
