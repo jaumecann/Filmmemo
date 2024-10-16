@@ -17,6 +17,7 @@ import FilmDetail from './components/FilmDetail/FilmDetail';
 import Tops from './components/Tops/Tops';
 import Directors from './components/Directors/Directors';
 import Stats from './components/Stats/Stats'
+import  CountryFacts from './components/CountryFacts/CountryFacts';
 
 function App() {
 
@@ -36,6 +37,7 @@ function App() {
       <Route path="/film/:id" element={<FilmDetail/>}/>
       <Route path="/Directors" element={<Directors/>}/>
       <Route path="/stats" element={<Stats/>}/>
+      <Route path="/countryfacts" element={<CountryFacts/>}/>
       
     </Routes>
   );
