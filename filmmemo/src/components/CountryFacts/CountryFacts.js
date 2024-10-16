@@ -18,6 +18,8 @@ const CountryFacts = () => {
         {countryList.map(ctry => 
             <div key={ctry.countryid}>
                 <img alt="flag" src={`/flags/${ctry.countryid.trim()}.png`}></img>
+                <div>{ctry.name}
+                </div>
             </div>
         )}
         </div>}
