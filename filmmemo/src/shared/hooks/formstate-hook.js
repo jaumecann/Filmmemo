@@ -19,7 +19,9 @@ export const useFormState = () => {
             if(entry === 'yearFilm'){
                 state.yearFilm.value = dataSubmited[entry]
                 state.yearFilm.isValid = dataSubmited[entry] > 1800 && dataSubmited[entry] <= new Date().getFullYear() ? true : false
-          } else {
+            } else if ((entry === 'rating')) {
+                state.rating.value = dataSubmited[entry]
+            } else {
                 if(state[`${entry}`] !== undefined){
                     state[`${entry}`].value = dataSubmited[entry]
                     state[`${entry}`].isValid = dataSubmited[entry] ? true : false
@@ -36,7 +38,7 @@ export const useFormState = () => {
         yearFilm: {value:'',isValid:false},
         country: {value:'',isValid:false},
         directorid: {value:'',isValid:false},
-        // rating: {value:'',isValid:false},
+        rating: {value:'',isValid:true},
         poster: {value:'',isValid:false},     
     }
 

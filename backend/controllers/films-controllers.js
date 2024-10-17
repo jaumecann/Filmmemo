@@ -97,6 +97,7 @@ const insert = async (req, res, next) => {
     const {title, year, country, director, rate, poster} = req.body
     let query = '';
     let updateDayRecord = '';
+    console.log(rate)
 
     if(rate === null){
         ratedate = null; ratehour=null

@@ -9,7 +9,7 @@ const CountryFacts = () => {
         (async() => {
             const response = await fetch('http://localhost:5000/api/films/countries');
             const countries = await response.json();
-            setCountryList(countries);
+            setCountryList(countries.filter(c => c.population > 230000));
         })(); 
     },[]);
 
