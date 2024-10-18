@@ -3,3 +3,14 @@
     width:100%;
     flex-wrap: wrap;
 }
+
+.cardflag{
+    padding: 1em;
+    border: solid 1px lightgray;
+    margin: 1em;
+    width: 100px;
+    text-align: center;
+    font-family: 'Racing Sans One';
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px;
+}

@@ -188,6 +188,7 @@ const NewEntry = () => {
         } finally {
             setIsLoading(false);
             allrecords.update();
+            window.location.reload();
         }
 
       }

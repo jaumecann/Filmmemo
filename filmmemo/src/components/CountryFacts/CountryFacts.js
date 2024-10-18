@@ -4,6 +4,7 @@ import classes from './CountryFacts.module.css';
 const CountryFacts = () => {
 
     const [countryList, setCountryList] = useState([]);
+    const [countCountries, setCountCountries] = useState([]);
 
     useEffect(()=>{
         (async() => {
@@ -13,10 +14,25 @@ const CountryFacts = () => {
         })(); 
     },[]);
 
+    useEffect(()=>{( async() => {
+        try{
+            const totalCountries = await fetch(`http://localhost:5000/api/films/getCountryCount`);
+            const records = await totalCountries.json();
+            setCountCountries(records)
+        } catch(err){
+            alert(err)
+        }
+    })();
+    },[])
+
  return (<div>
     {countryList && <div className={classes.wrapflags}>
         {countryList.map(ctry => 
-            <div key={ctry.countryid}>
+            <div key={ctry.countryid} className={classes.cardflag}  style={{
+                    backgroundColor: countCountries.find(c => c.country === ctry.countryid) ?'#fcf9e6' : '#ffffff',
+                    opacity: countCountries.find(c => c.country === ctry.countryid) ? '1' : '0.5'
+                }}
+                >
                 <img alt="flag" src={`/flags/${ctry.countryid.trim()}.png`}></img>
                 <div>{ctry.name}
                 </div>
