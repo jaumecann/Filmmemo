@@ -1,0 +1,23 @@
+.modal{
+  position: fixed;
+  top: 50%;
+  left: 40%;
+  transform: translate(-50%, -50%);
+  padding: 1em;
+  border: solid 1px lightgray;
+  margin: 1em;
+  width: 300px;
+  height: 500px;
+  text-align: center;
+  font-family: 'Racing Sans One';
+  border-radius: 10px;
+  box-shadow: 1px 1px 3px;
+  background-color: #fcf9e6;
+  transform: scale(0);
+  transition: transform 0.3s ease-in;
+}
+
+.opening{
+    transform: scale(1);
+    
+}

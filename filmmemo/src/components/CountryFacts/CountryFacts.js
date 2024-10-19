@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'; 
 import classes from './CountryFacts.module.css';
+import FactsModal from './CountryFactsModal';
 
 const CountryFacts = () => {
 
     const [countryList, setCountryList] = useState([]);
     const [countCountries, setCountCountries] = useState([]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState("")
 
     useEffect(()=>{
         (async() => {
@@ -25,6 +28,11 @@ const CountryFacts = () => {
     })();
     },[])
 
+    const openCard = (id) => {
+        setIsModalOpen(true);
+        setSelectedCountry(id)
+    }
+
  return (<div>
     {countryList && <div className={classes.wrapflags}>
         {countryList.map(ctry => 
@@ -32,6 +40,7 @@ const CountryFacts = () => {
                     backgroundColor: countCountries.find(c => c.country === ctry.countryid) ?'#fcf9e6' : '#ffffff',
                     opacity: countCountries.find(c => c.country === ctry.countryid) ? '1' : '0.5'
                 }}
+                onClick={()=> openCard(ctry.countryid)}
                 >
                 <img alt="flag" src={`/flags/${ctry.countryid.trim()}.png`}></img>
                 <div>{ctry.name}
@@ -39,6 +48,7 @@ const CountryFacts = () => {
             </div>
         )}
         </div>}
+        <FactsModal openModal={isModalOpen} country={selectedCountry}/>
  </div>)
 }
 
