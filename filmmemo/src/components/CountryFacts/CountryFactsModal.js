@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'; 
 import classes from './CountryFactsModal.module.css';
 
-const FactsModal = (props) => {
+const FactsModal = ({openModal, country}) => {
 
-    console.log(props)
-
-    return (<div className={`${classes.modal} ${props.openModal ? classes.opening : ''}`}>
-        {props.country}
+    return (<div className={`${classes.modal} ${openModal ? classes.opening : ''}`}>
+        {country}
     </div>)
 }
 

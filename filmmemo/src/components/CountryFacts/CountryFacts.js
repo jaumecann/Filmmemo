@@ -34,6 +34,7 @@ const CountryFacts = () => {
     }
 
  return (<div>
+    <div className={`${isModalOpen ? classes.blockscreen : ''}`} onClick={()=>setIsModalOpen(false)}> </div>
     {countryList && <div className={classes.wrapflags}>
         {countryList.map(ctry => 
             <div key={ctry.countryid} className={classes.cardflag}  style={{
