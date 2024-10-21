@@ -184,6 +184,12 @@ const countryCount = async (req,resp,next) => {
     return next();
 }
 
+const getCountryFacts = async (req, resp, next) => {
+    console.log(req.query.ctry)
+    const allFilms = await sqlquery(querystrings.getAll)
+    console.log(allFilms.recordset.filter(f => f.country === req.query.ctry))
+} 
+
 
 exports.getLast5 = getLast5;  
 exports.getCountries = getCountries;
@@ -195,3 +201,4 @@ exports.update = update;
 exports.getTop = getTop;
 exports.getCountryCount = countryCount;
 exports.getAllWithNotSeen = getAllWithNotSeen
+exports.getCountryFacts = getCountryFacts

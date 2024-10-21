@@ -11,6 +11,7 @@ router.get('/getSisters', filmControllers.getSisters);
 router.get('/getFilm', filmControllers.getFilm);
 router.get('/getTops', filmControllers.getTop);
 router.get('/getCountryCount', filmControllers.getCountryCount);
+router.get('/getCountryFacts', filmControllers.getCountryFacts);
 
 router.post('/', filmControllers.insert);
 router.post('/update', filmControllers.update);
