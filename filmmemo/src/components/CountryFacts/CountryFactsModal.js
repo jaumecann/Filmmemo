@@ -10,7 +10,7 @@ const FactsModal = ({openModal, country}) => {
         (async() => {
             console.log('effe')
             const response = await fetch(`http://localhost:5000/api/films/getCountryFacts/?ctry=${country}`);
-            // const countries = await response.json();
+            const info = await response.json();
         })();
     },[country])
 

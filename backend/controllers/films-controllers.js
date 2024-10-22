@@ -185,9 +185,18 @@ const countryCount = async (req,resp,next) => {
 }
 
 const getCountryFacts = async (req, resp, next) => {
-    console.log(req.query.ctry)
     const allFilms = await sqlquery(querystrings.getAll)
-    console.log(allFilms.recordset.filter(f => f.country === req.query.ctry))
+    const countCountries = await sqlquery(querystrings.getTotalsCountry)
+    const countryFilms = allFilms.recordset.filter(f => f.country === req.query.ctry)
+    const countryCount = countCountries.recordset.filter(c => c.country === req.query.ctry)
+    const mostRecent = countryFilms.sort((a,b) => a.ratedate > b.ratedate)[0];
+    const returnObject = {
+        list: countryFilms,
+        stats: countryCount,
+        last: mostRecent
+    }
+    resp.json(returnObject)
+    return next();
 } 
 
 
