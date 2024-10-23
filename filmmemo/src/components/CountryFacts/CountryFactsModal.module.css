@@ -22,3 +22,20 @@
     transform: scale(1);
     
 }
+
+.databox{
+  border-top: solid 1px #777777a2;
+  width:100%;
+  margin-top: 5px;
+}
+
+.colddata{
+  background-color: burlywood;
+    padding: 1px 0 1px 5px;
+    text-align: left;
+    margin-top: 5px;
+}
+
+.colddata p{
+line-height: 1px;
+}

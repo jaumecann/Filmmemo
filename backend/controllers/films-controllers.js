@@ -190,10 +190,18 @@ const getCountryFacts = async (req, resp, next) => {
     const countryFilms = allFilms.recordset.filter(f => f.country === req.query.ctry)
     const countryCount = countCountries.recordset.filter(c => c.country === req.query.ctry)
     const mostRecent = countryFilms.sort((a,b) => a.ratedate > b.ratedate)[0];
+    let directorQuery = `SELECT directorname, directorid, directorcountry, AVG(CAST(rating AS DECIMAL(4, 2))) AS avrg, COUNT(*) as totalfilms, STRING_AGG(f.id, ',') AS film_ids FROM [Filmmemo].[dbo].[FilmRecord] f
+    JOIN Directors d ON f.directorid = d.id
+    WHERE d.directorcountry = '${req.query.ctry}' and rating is not null
+    GROUP BY directorid, directorname, directorcountry
+    HAVING COUNT(*) >= 1
+    ORDER BY avrg DESC`
+    const directors = await sqlquery(directorQuery)
     const returnObject = {
         list: countryFilms,
-        stats: countryCount,
-        last: mostRecent
+        stats: countryCount[0],
+        last: mostRecent,
+        directors: directors.recordset
     }
     resp.json(returnObject)
     return next();

@@ -8,14 +8,22 @@ const FactsModal = ({openModal, country}) => {
     useEffect(()=>{
         
         (async() => {
-            console.log('effe')
             const response = await fetch(`http://localhost:5000/api/films/getCountryFacts/?ctry=${country}`);
             const info = await response.json();
+            setCountryFacts(info)
         })();
     },[country])
 
     return (<div className={`${classes.modal} ${openModal ? classes.opening : ''}`}>
-        {country}
+        <img alt="flag" src={`/flags/${country.trim()}.png`}></img>
+        <div>{countryFacts?.stats?.name}</div>
+        <section className={classes.databox}>
+            <div className={classes.colddata}>
+                <p>Total films: {countryFacts?.stats?.record_count}</p>
+                <p>Average: {countryFacts?.stats?.average?.toFixed(2)}</p>
+                <p>Frequency: {countryFacts?.stats?.percentage}%</p>
+            </div>
+        </section>
     </div>)
 }
 
