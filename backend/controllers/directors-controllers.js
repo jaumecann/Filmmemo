@@ -34,7 +34,7 @@ const getBest = async (req, res, next) => {
     }
 
     query += (` GROUP BY directorid, directorname, directorcountry
-    HAVING COUNT(*) >= ${minimum}
+    HAVING COUNT(*) >= ${minimum}rs
     ORDER BY avrg DESC`)
 
     

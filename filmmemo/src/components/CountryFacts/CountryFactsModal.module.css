@@ -39,3 +39,21 @@
 .colddata p{
 line-height: 1px;
 }
+
+.lastseen{
+  display:flex;
+  padding: 5px 0 1px 5px;
+}
+
+.img_last{
+  width:65px;
+  margin-right: 5px;
+}
+
+.img_last img{
+  max-width:100%;
+}
+
+.last_text{
+  flex-grow: 1;
+}
