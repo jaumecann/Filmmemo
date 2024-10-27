@@ -57,3 +57,13 @@ line-height: 1px;
 .last_text{
   flex-grow: 1;
 }
+
+.bars{
+  display:flex;
+  font-size: 8px;
+}
+
+.bar_area{
+  background-color: bisque;
+    padding: 2px;
+}

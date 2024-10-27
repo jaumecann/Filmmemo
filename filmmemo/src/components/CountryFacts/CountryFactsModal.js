@@ -6,6 +6,15 @@ const FactsModal = ({openModal, country}) => {
     const [countryFacts, setCountryFacts] = useState()
     const [daysDiff, setDaysDiff] = useState();
     const [yearData, setYearData] = useState([]);
+    const currentYear = new Date().getFullYear();
+    const getYears = () => {
+        const array = []
+        for(let y=2004; y <= currentYear; y++){
+            array.push(y);
+        }
+        return array  
+    }
+    const yearsCollector = getYears();
 
     useEffect(()=>{
         
@@ -14,10 +23,22 @@ const FactsModal = ({openModal, country}) => {
             const info = await response.json();
             setCountryFacts(info)
             getSince(info?.last?.ratedate);
-            getYearStats(info?.list)
-            
+            getYearStats(info?.list);
         })();
     },[country])
+
+    useEffect(()=>{
+        
+        (() => {
+            for(let y=2004; y <= currentYear; y++){
+                yearsCollector.push(y);
+            }  
+            console.log(yearsCollector)
+        })();
+    },[])
+
+
+
 
     const getSince = (ratedate) => {
         const dataInicial = new Date(ratedate);
@@ -39,10 +60,20 @@ const FactsModal = ({openModal, country}) => {
             }
         })
         const years = Object.entries(yearObject).map(([clau, valor]) => {
-            return { [clau]: valor * 2 };
+            return { [clau]: valor};
           });
 
         setYearData(years)
+    }
+
+    const setPonderation = (total) => {
+        if(total<100){
+            return 10;
+        } else if (total>100 && total<500){
+            return 2
+        } else if(total > 500){
+            return 1
+        }
     }
 
 
@@ -69,8 +100,27 @@ const FactsModal = ({openModal, country}) => {
         </div>
         </section>
 
-        <section>
-
+        <section className={classes.bar_area}>
+            {country && <div>
+                {yearsCollector?.map((item, index) => {
+                    let recordForThatYear = yearData.find(y => y[item] !== undefined)
+                    if(recordForThatYear === undefined) recordForThatYear = 0;
+                    return <div key={index} className={classes.bars}>
+                        
+                        <div>{item}</div> <div style={{
+                        width: `${recordForThatYear[item]? recordForThatYear[item]*setPonderation(countryFacts?.stats?.record_count) : 0}px `,
+                        height: '5px',
+                        margin: '0 2px',
+                        backgroundColor: '#ff6700',
+                        alignSelf: 'center'
+                    }}></div>
+                    <div>{recordForThatYear[item] ?? 0}</div>
+                    </div>
+                  
+                }
+                  
+                )}
+                </div>}         
         </section>
 
     </div>)
