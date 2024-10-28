@@ -29,8 +29,10 @@ const CountryFacts = () => {
     },[])
 
     const openCard = (id) => {
-        setIsModalOpen(true);
-        setSelectedCountry(id)
+        if (countCountries.find(c => c.country === id)){
+            setIsModalOpen(true);
+            setSelectedCountry(id)
+        }    
     }
 
  return (<div>
