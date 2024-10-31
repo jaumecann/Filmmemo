@@ -24,6 +24,7 @@ const FactsModal = ({openModal, country}) => {
             setCountryFacts(info)
             getSince(info?.last?.ratedate);
             getYearStats(info?.list);
+            getBestFilms(info?.list);
         })();
     },[country])
 
@@ -76,6 +77,35 @@ const FactsModal = ({openModal, country}) => {
         }
     }
 
+    const getBestFilms = (list) => {
+        const orderedList = list.sort((a,b) => b.rating - a.rating);
+        let listOfRandoms = []; 
+        let finalList = []
+        const targetRating = orderedList[4]?.rating;
+        if (orderedList.length > 5 && targetRating === orderedList[5].rating ){
+         finalList = orderedList.filter(f => f.rating > targetRating);
+         listOfRandoms = orderedList.filter(f => f.rating === targetRating)
+         const shuffledArray = [...listOfRandoms].sort(() => Math.random() - 0.5);
+         while (finalList.length < 5){
+            let item = shuffledArray[0];
+            finalList.push(item);
+            shuffledArray.shift();
+         } 
+        }else if(orderedList.length <= 5) {
+            finalList = orderedList
+         } else {
+            finalList = orderedList.slice(0,5)
+         }
+
+         console.log(finalList)
+
+        //  const shuffledArray = [...array].sort(() => Math.random() - 0.5);
+  
+        //  // Agafem els primers 5 elements
+        //  return shuffledArray.slice(0, 5);
+        
+    }
+
 
     return (<div className={`${classes.modal} ${openModal ? classes.opening : ''}`}>
         <img alt="flag" src={`/flags/${country.trim()}.png`}></img>
@@ -121,6 +151,10 @@ const FactsModal = ({openModal, country}) => {
                   
                 )}
                 </div>}         
+        </section>
+
+        <section>
+
         </section>
 
     </div>)
