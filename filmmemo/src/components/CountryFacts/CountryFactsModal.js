@@ -6,6 +6,7 @@ const FactsModal = ({openModal, country}) => {
     const [countryFacts, setCountryFacts] = useState()
     const [daysDiff, setDaysDiff] = useState();
     const [yearData, setYearData] = useState([]);
+    const [listof5Best, setListof5Best] = useState([])
     const currentYear = new Date().getFullYear();
     const getYears = () => {
         const array = []
@@ -97,7 +98,7 @@ const FactsModal = ({openModal, country}) => {
             finalList = orderedList.slice(0,5)
          }
 
-         console.log(finalList)
+         setListof5Best(finalList)
 
         //  const shuffledArray = [...array].sort(() => Math.random() - 0.5);
   
@@ -153,8 +154,14 @@ const FactsModal = ({openModal, country}) => {
                 </div>}         
         </section>
 
-        <section>
-
+        <section className={classes.fabfive}>
+            {listof5Best?.map((item) =>{
+                return <div key={item.id}>
+                    <img alt='poster' src={`/assets/${item.poster}`}></img>
+                    <div className={classes.rating}>{item.rating}</div>
+                </div>
+            })
+            }
         </section>
 
     </div>)

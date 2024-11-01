@@ -74,7 +74,7 @@ import { Months } from "../Months/Months";
             <span>{entry.percentage}%</span>
         </div>
     )
-
+//fa copia de totalcountries
     const countryAvg = [...totalCountries].filter((a) => a.record_count >= averageFilter).sort((a,b) => b.average - a.average).map((entry, i) => 
         <div key={entry.country} className={classes.country_row}>
             <span className={classes.indexC}>{i+1} </span>
