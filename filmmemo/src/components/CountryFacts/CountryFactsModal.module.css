@@ -88,3 +88,15 @@ line-height: 1px;
     border-radius: 3px;
     color: #000000;
 }
+
+.nameo{
+  position: absolute;
+  bottom: 10px;
+  font-size: 10px;
+  width: 61px;
+  color: black;
+  background-color: white;
+  line-height: 8px;
+  padding: 2px;
+  opacity: 0.8;
+}

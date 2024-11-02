@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import classes from './CountryFactsModal.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const FactsModal = ({openModal, country}) => {
 
@@ -16,6 +17,7 @@ const FactsModal = ({openModal, country}) => {
         return array  
     }
     const yearsCollector = getYears();
+    const navigate = useNavigate();
 
     useEffect(()=>{
         
@@ -156,9 +158,10 @@ const FactsModal = ({openModal, country}) => {
 
         <section className={classes.fabfive}>
             {listof5Best?.map((item) =>{
-                return <div key={item.id}>
+                return <div key={item.id} onClick={()=> {navigate(`/film/${item.id}`)}}>
                     <img alt='poster' src={`/assets/${item.poster}`}></img>
                     <div className={classes.rating}>{item.rating}</div>
+                    <div className={classes.nameo}>{item.title}</div>
                 </div>
             })
             }
