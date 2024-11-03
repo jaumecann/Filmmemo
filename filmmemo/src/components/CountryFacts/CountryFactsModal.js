@@ -18,6 +18,7 @@ const FactsModal = ({openModal, country}) => {
     }
     const yearsCollector = getYears();
     const navigate = useNavigate();
+    const [isLoaded, setisLoaded] = useState(false);
 
     useEffect(()=>{
         
@@ -28,6 +29,7 @@ const FactsModal = ({openModal, country}) => {
             getSince(info?.last?.ratedate);
             getYearStats(info?.list);
             getBestFilms(info?.list);
+            setisLoaded(true);
         })();
     },[country])
 
@@ -37,7 +39,6 @@ const FactsModal = ({openModal, country}) => {
             for(let y=2004; y <= currentYear; y++){
                 yearsCollector.push(y);
             }  
-            console.log(yearsCollector)
         })();
     },[])
 
@@ -101,16 +102,29 @@ const FactsModal = ({openModal, country}) => {
          }
 
          setListof5Best(finalList)
+        
+    }
 
-        //  const shuffledArray = [...array].sort(() => Math.random() - 0.5);
-  
-        //  // Agafem els primers 5 elements
-        //  return shuffledArray.slice(0, 5);
+    const showDirectorFilms = (filmsIDs) => {
+        let ids = filmsIDs.split(',');
+        let fetchedFilms = [];
+        ids.map((id) => {
+          const target = countryFacts.list.find(f => f.id == id)
+          fetchedFilms.push(target)
+        })
+        if(fetchedFilms.length > 5){
+            const [first, second, third, fourth, fifth, ...rest] = fetchedFilms.sort((a,b) => b.rating - a.rating);
+            const firstFive = [first, second, third, fourth, fifth];
+            setListof5Best(firstFive)
+        } else {
+            setListof5Best(fetchedFilms)
+        }
+ 
         
     }
 
 
-    return (<div className={`${classes.modal} ${openModal ? classes.opening : ''}`}>
+    return (<div className={`${classes.modal} ${openModal ? classes.opening : ''} ${!isLoaded ? classes.loader : ''}`}>
         <img alt="flag" src={`/flags/${country.trim()}.png`}></img>
         <div>{countryFacts?.stats?.name}</div>
 
@@ -165,6 +179,12 @@ const FactsModal = ({openModal, country}) => {
                 </div>
             })
             }
+        </section>
+
+        <section className={classes.directors}>
+            {countryFacts?.directors.map(d => <div key={d.directorid} className={classes.directorItem} onClick={()=> {showDirectorFilms(d.film_ids)}}>
+                {d.directorname}
+            </div>)}
         </section>
 
     </div>)
