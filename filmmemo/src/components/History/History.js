@@ -3,8 +3,6 @@ import * as React from 'react';
 import FilmrecordContext from '../../shared/context/records-context';
 import ListCard from './List-card';
 import Pagination from '@mui/material/Pagination'; 
-import { useFetchContext } from '../../shared/hooks/fetchcontext-hook';
-import { useParams } from 'react-router-dom';
 
 
 const History = () => {

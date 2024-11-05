@@ -125,7 +125,8 @@ const insert = async (req, res, next) => {
 const update = async (req, res, next) => {
 
 const {id, title, year, country, director, rate, poster} = req.body
-const enteredRating = parseInt(rate)
+
+const enteredRating = rate ? parseInt(rate): null;
 
 /* primer comprovem si ha canviat la nota */
 const idquerystring = `${querystrings.getFilm}${id}`
@@ -135,7 +136,11 @@ const previousRating = previousRecord.recordset[0].rating;
 let query;
 let updateDateRecord = '';
 
-if (enteredRating !== previousRating){
+if(rate === null){
+    query = `UPDATE Filmrecord SET title = '${title}', rating = ${rate}, yearFilm = '${year}', country = '${country}', directorid = '${director}', poster = '${poster}' WHERE id = ${id}`
+}
+
+else if (enteredRating !== previousRating){
     const [date, hour] = timeFieldsForNow();
  
     query = `UPDATE Filmrecord SET title = '${title}', rating = '${rate}', yearFilm = '${year}', ratedate = '${date}', ratehour = '${hour}', country = '${country}', directorid = '${director}', poster = '${poster}' WHERE id = ${id}`
@@ -154,6 +159,7 @@ if (enteredRating !== previousRating){
 
 /* TO DO - log amb canvi nota que hi hagi hagut (taula on un camp sigui explicació de l'update) */
 try {
+    console.log(query)
     const record = await sqlquery(query);
     if(updateDateRecord.length > 0){
         await sqlquery(updateDateRecord)
@@ -161,6 +167,7 @@ try {
     res.sendStatus(200);
 }
 catch (e) {
+    console.log('errorficio')
     return next(e);
 }
 }

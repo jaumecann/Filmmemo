@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; 
 import classes from './CountryFactsModal.module.css';
 import { useNavigate } from 'react-router-dom';
+import FilmrecordContext from "../../shared/context/records-context";
 
 const FactsModal = ({openModal, country}) => {
 
@@ -19,6 +20,7 @@ const FactsModal = ({openModal, country}) => {
     const yearsCollector = getYears();
     const navigate = useNavigate();
     const [isLoaded, setisLoaded] = useState(false);
+    const context = React.useContext(FilmrecordContext);
 
     useEffect(()=>{
         
@@ -108,9 +110,17 @@ const FactsModal = ({openModal, country}) => {
     const showDirectorFilms = (filmsIDs) => {
         let ids = filmsIDs.split(',');
         let fetchedFilms = [];
-        ids.map((id) => {
+        ids.map((id) => { 
           const target = countryFacts.list.find(f => f.id == id)
-          fetchedFilms.push(target)
+          if(target){
+            fetchedFilms.push(target)
+          } else {
+            const outsideTarget = context.collection.find(c => c.id == id)
+            if(outsideTarget){
+                fetchedFilms.push(outsideTarget)
+            }
+          }
+          return id
         })
         if(fetchedFilms.length > 5){
             const [first, second, third, fourth, fifth, ...rest] = fetchedFilms.sort((a,b) => b.rating - a.rating);
@@ -182,7 +192,7 @@ const FactsModal = ({openModal, country}) => {
         </section>
 
         <section className={classes.directors}>
-            {countryFacts?.directors.map(d => <div key={d.directorid} className={classes.directorItem} onClick={()=> {showDirectorFilms(d.film_ids)}}>
+            {countryFacts?.directors.map(d => <div key={d.directorid} className={`${classes.directorItem} ${d.avrg >= 5 ? classes.highlight : '' }`} onClick={()=> {showDirectorFilms(d.film_ids)}}>
                 {d.directorname}
             </div>)}
         </section>

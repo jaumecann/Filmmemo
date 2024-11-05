@@ -37,5 +37,15 @@ app.use((req, res, next) => {
 //     res.json(lastFive.recordsets[0]);
 // })
 
+app.use((err, req, res, next) => {
+  console.error(err.stack); // Log para depuración en el servidor
+
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Ocurrió un error en el servidor'
+  });
+});
+
+
 
 app.listen(5000);
