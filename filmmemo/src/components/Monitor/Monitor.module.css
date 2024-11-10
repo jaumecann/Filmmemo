@@ -1,0 +1,10 @@
+.entry{
+    display:flex;
+    height: 75px;
+}
+
+.wrapper{
+    border: solid 1px lightgrey;
+    margin: 2em;
+    font-family: 'Racing Sans One';
+}

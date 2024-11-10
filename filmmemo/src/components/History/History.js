@@ -106,7 +106,8 @@ const History = () => {
     return(
         <React.Fragment>
         <h2>
-            <span onClick={reloadAll}>Totes</span> <span> {directorname}</span>
+            <span onClick={reloadAll}>Totes</span> 
+            {directorname && <div className={classes.directorname}> {directorname}</div>}
         </h2>
         <div className={classes.total}>
             Total: {allrecords.collection.length}

@@ -1,6 +1,9 @@
 h2{
     font-family: Racing sans One;
     padding:1em;
+    margin: auto;
+    width: auto;
+    text-align: center;
 }
 
 h2 span {
@@ -10,11 +13,12 @@ h2 span {
 .total{
     border: solid 2px black;
     width: fit-content;
-    background-color: #f2d600;
+    background-color: #fff;
     margin: auto;
-    padding: 3px;
+    padding: 10px;
     border-radius: 10px;
     font-weight: 700;
+    font-size: 51px;
 }
 
 .gotopage{
@@ -23,4 +27,11 @@ h2 span {
     background-color: #f2d60095;
     width: fit-content;
     padding: 0.5em;
+}
+
+.directorname{
+    font-size: 70px;
+    color: #db9f31;
+    background-color: #fff591c9;
+    text-shadow: 1px 1px 1px black;
 }
