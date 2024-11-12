@@ -23,7 +23,10 @@ const Monitor = () => {
             {unseenFilms.map(f => 
                 <div key={f.id} className={classes.entry} >
                     <img alt="poster" src={`/assets/${f.poster}`}></img>
-                    <div>{f.title}</div>
+                    <div style={{width:'300px', padding:'0 5px'}}>{f.title}</div>
+                    <div className={classes.flagy}><img alt='flag' src={`/flags/${f.country.trim()}.png`}></img></div>
+                    <div className={classes.director}>{f.directorname}</div>
+                    <div>{f.yearFilm}</div>
                 </div>
             )}
         </div>}
