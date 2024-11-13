@@ -2,6 +2,8 @@
     display:flex;
     height: 45px;
     font-size:14px;
+    padding: 5px;
+    border: solid 1px lightgrey;
 }
 
 .wrapper{
@@ -18,4 +20,13 @@
 
 .director{
     width:250px;
+}
+
+.checkie{
+    width:100px;
+    text-align: center;
+}
+
+.year{
+    width:50px;
 }

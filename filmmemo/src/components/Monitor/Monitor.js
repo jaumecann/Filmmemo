@@ -23,18 +23,23 @@ const Monitor = () => {
         navigate('/history', { state: { id: id, name:directorname} });
     }
 
+    const goToFilm = (id) => {
+        navigate(`/film/${id}`)
+    }
+
 
     return (<div>
     <div className={classes.wrapper}>
     {unseenFilms && <div>
             {unseenFilms.map((f,i) => 
                 <div key={f.id} className={classes.entry} >
-                    <div>{i+1}</div>
-                    <img alt="poster" src={`/assets/${f.poster}`}></img>
-                    <div style={{width:'300px', padding:'0 5px'}}>{f.title}</div>
+                    <div style={{flexBasis:'30px'}}>{i+1}</div>
+                    <div><img style={{width:'30px'}} alt="poster" src={`/assets/${f.poster}`}></img></div>
+                    <div style={{padding:'0 5px', flexBasis:'300px'}} onClick={()=>goToFilm(f.id)}>{f.title}</div>
                     <div className={classes.flagy}><img alt='flag' src={`/flags/${f.country.trim()}.png`}></img></div>
                     <div className={classes.director} onClick={()=>goToDirectorHistory(f.directorid, f.directorname)}>{f.directorname}</div>
-                    <div>{f.yearFilm}</div>
+                    <div className={classes.year}>{f.yearFilm}</div>
+                    <div className={classes.checkie}><input type="checkbox"></input></div>
                 </div>
             )}
         </div>}
