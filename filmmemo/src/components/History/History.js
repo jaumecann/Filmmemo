@@ -3,7 +3,7 @@ import * as React from 'react';
 import FilmrecordContext from '../../shared/context/records-context';
 import ListCard from './List-card';
 import Pagination from '@mui/material/Pagination'; 
-
+import { useLocation } from 'react-router-dom';
 
 const History = () => {
     
@@ -16,6 +16,7 @@ const History = () => {
     const [displayedFilms, setDisplayedFilms] = React.useState(allrecords.collection)
     const [directorname, setDirectorname] = React.useState('');
     const [sistersList, setSistersList] = React.useState('');
+    const location = useLocation();
 
     const handleChange = (event, value) => {
         setPage(value);
@@ -73,10 +74,14 @@ const History = () => {
         };
     },[directorSelected]);
 
-    // const getBigSis = (id) => {
-    //     console.log(sistersList[id].bigSis);
-    //     return '1'
-    //   }
+
+    React.useEffect(()=>{
+      const id = location.state?.id;
+      const name = location.state?.name;
+      if(id && name){
+        handleDirectorSelected(id,name)
+      }
+    },[])
 
 
     let currentFilms = displayedFilms.slice((page -1)*itemsPerPage, page*itemsPerPage).map(item => 
