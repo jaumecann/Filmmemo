@@ -46,7 +46,7 @@ const FilmDetail = () => {
                 <img alt='poster' src={`/assets/${filmData.poster}`}></img>
                 </div>
                 <div className={classes.data}>
-                    <li><img alt='flag' src={`/flags/${filmData.country}.png`}></img></li>
+                    <li><img alt='flag' src={`/flags/${filmData.country.trim()}.png`}></img></li>
                     <li>Any: {filmData.yearFilm}</li>
                     <li>Director: {filmData.directorname}</li>   
                    {filmData.ratedate && <li>{transformData(filmData.ratedate)}</li>}
