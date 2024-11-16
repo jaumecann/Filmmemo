@@ -37,13 +37,20 @@ const Monitor = () => {
             return listchecked.filter(item => item !== id)
         }
       });
-      console.log(listOfChecked);
       // Do something with the `checked` value
     };
 
 
     return (<div>
     <div className={classes.wrapper}>
+        <div className={classes.headers}>
+            <span style={{width:'60px'}}></span>
+            <span style={{width:'300px'}}>Name</span>
+            <span style={{width:'80px'}}>Country</span>
+            <span style={{width:'220px'}}>Director</span>
+            <span style={{width:'100px'}}>Year</span>
+            <span style={{width:'30px'}}>Wish</span>
+        </div>
     {unseenFilms && <div>
             {unseenFilms.map((f,i) => 
                 <div key={f.id} className={classes.entry} >

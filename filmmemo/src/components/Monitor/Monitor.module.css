@@ -30,3 +30,7 @@
 .year{
     width:50px;
 }
+
+.headers{
+    display:flex;
+}
