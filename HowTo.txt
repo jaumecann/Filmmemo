@@ -32,4 +32,10 @@ Actualizas nota dispara acciones:
 
 que hi hagi una vista amb tots els dies de l'any com a contador de pelis per dia i que estiguin amb degradat de color segons la quantitat com a github el contador d'aportacions al calendari
 
-es pot fer el mateix amb anys
+es pot fer el mateix amb any
+
+-----
+
+most seen directorPosters
+
+barres per directors amb mes pelis o els 100 primers

@@ -126,7 +126,7 @@ export const DayStats = () => {
                                 .map((mday) => (
                                     <div
                                         key={`${mday.month}-${mday.day}`}
-                                        className="daybox"
+                                        className={classes.daybox}
                                         style={{
                                             border: '1px solid #000',
                                             width: '15px',
@@ -134,10 +134,14 @@ export const DayStats = () => {
                                             textAlign: 'center',
                                             lineHeight: '15px',
                                             fontSize: '8px',
+                                            cursor:'pointer',
                                             backgroundColor: `${calculateColor(mday.totalFilms)}`
                                         }}
                                     >
                                         {mday.day}
+                                        <div className={classes.totalday}>
+                                        {mday.totalFilms}
+                                        </div>
                                     </div>
                                 ))}
                         </div>

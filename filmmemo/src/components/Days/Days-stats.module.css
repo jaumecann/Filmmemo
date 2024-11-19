@@ -8,3 +8,27 @@
     margin-right: 20px;
     max-width: 130px;
 }
+
+.totalday{
+    background-color: black;
+    color: rgb(255, 210, 11);
+    font-size: 18px;
+    position: relative;
+    top: -42px;
+    border: solid 1px lightgray;
+    width: 20px;
+    border-radius: 20px;
+    padding: 5px; 
+    display:none;
+    font-family: 'Acme';
+}
+
+
+.daybox:hover{
+    border-color: red;
+}
+
+.daybox:hover .totalday{
+    display:block;
+
+}
