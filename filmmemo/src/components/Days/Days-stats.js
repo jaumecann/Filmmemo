@@ -25,7 +25,9 @@ export const DayStats = () => {
 
 
     const [alldays, setAllDays] = useState([]);
-    const context = React.useContext(FilmrecordContext)
+    const [sortedDays, setSortedDays] = useState([]);
+    const context = React.useContext(FilmrecordContext);
+
 
     const everyday = alldays.map(day => {
         return <div key={`${day.day}#${day.month}`} className={classes.daybox}></div>
@@ -85,6 +87,8 @@ export const DayStats = () => {
                 }
         
                 // Establece el estado una sola vez
+                setSortedDays([...newDays]);
+                console.log(sortedDays)
                 setAllDays(newDays);
             }
         dateInsight();
@@ -145,10 +149,18 @@ export const DayStats = () => {
                                     </div>
                                 ))}
                         </div>
+                  
                     </div>
                 ))}
             </div>
-            {/* {everyday} */}
+            <div>
+            {sortedDays.sort((a,b) => b.totalFilms - a.totalFilms).map((day) => 
+                 <div key={`${day.day}-${day.month}`} className={classes.ranker}>{day.day}-{day.month}
+                <span> {day.totalFilms}</span>
+                </div>                              
+            )
+         }
+        </div>
         </React.Fragment>
 
     )
