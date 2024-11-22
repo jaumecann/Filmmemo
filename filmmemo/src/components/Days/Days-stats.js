@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 import classes from './Days-stats.module.css';
 import FilmrecordContext from '../../shared/context/records-context';
 
@@ -27,30 +27,22 @@ export const DayStats = () => {
     const [alldays, setAllDays] = useState([]);
     const [sortedDays, setSortedDays] = useState([]);
     const context = React.useContext(FilmrecordContext);
+    const [daysByAvg, setDaysByAvg] = useState([]);
+
+    const wholeYearRecords = useCallback(async () => {
+        const response = await fetch (`http://localhost:5000/api/days/dayrecords`);
+        const data = await response.json();
+        setDaysByAvg(data)
+        console.log(data)
+    }, []);
 
 
     const everyday = alldays.map(day => {
         return <div key={`${day.day}#${day.month}`} className={classes.daybox}></div>
     })
 
-    // const calendarMaker = () => {
-    //     let monthgroup = [];
-    //     for (let i=1; i === 12; i++){
-    //       monthgroup.push([alldays.filter(d => d.month === i)])
-    //     }
-    //     return monthgroup;
-    // }
-
     const months = Object.keys(year)
 
-/*     useEffect (() =>{
-        let months = Object.keys(year)
-        for (const month of months){
-            for(let i = 1; i < year[month].days + 1; i++){
-                setAllDays((prevDays) => [...prevDays, {day:i, month:year[month].monthnumber}])
-            }
-        }
-    },[]) */
 
     const getFilmsForDay = (index, monthInfo) => {
         // Your logic to calculate the number of films for the day based on monthInfo
@@ -91,7 +83,8 @@ export const DayStats = () => {
                 setAllDays(newDays);
             }
         dateInsight();
-    },[year, context.days_collection, context.updateDays])
+        wholeYearRecords();
+    },[year, context.days_collection, context.updateDays, wholeYearRecords, context])
 
     const calculateColor = (totalfilms) => {
         if (totalfilms > 0 && totalfilms <= 5){
@@ -170,14 +163,24 @@ export const DayStats = () => {
                     </div>
                 ))}
             </div>
-            <div>
-            {sortedDays.sort((a,b) => b.totalFilms - a.totalFilms).map((day) => 
+            <section style={{display:'flex', fontSize:'12px'}}>
+                    <div>
+                 {sortedDays.sort((a,b) => b.totalFilms - a.totalFilms).map((day) => 
                  <div key={`${day.day}-${day.month}`} className={classes.ranker}>{day.day}-{namify(day.month)}
-                <span> {day.totalFilms}</span>
-                </div>                              
-            )
-         }
-        </div>
+                    <span> {day.totalFilms}</span>
+                    </div>                              
+                    )
+                     }
+                </div>
+
+                 <div style={{marginLeft:'2em'}}>
+                     {daysByAvg.map((day) => <div key={day.id} className={classes.ranker}>
+                            {day.id.slice(0,2)}-{namify(+day.id.slice(2))} {day.avrg.toFixed(2)}
+                     </div>)}
+                     ddsds
+                </div>
+            </section>
+   
         </React.Fragment>
 
     )
