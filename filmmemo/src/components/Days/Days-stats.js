@@ -88,7 +88,6 @@ export const DayStats = () => {
         
                 // Establece el estado una sola vez
                 setSortedDays([...newDays]);
-                console.log(sortedDays)
                 setAllDays(newDays);
             }
         dateInsight();
@@ -115,6 +114,24 @@ export const DayStats = () => {
         }
         if (totalfilms > 30){
             return '#f75c28'
+        }
+    }
+
+    const namify = (number) => {
+        switch (number){
+            case 1 :return 'january'
+            case 2 :return 'february'
+            case 3 :return 'march'
+            case 4 :return 'april'
+            case 5 :return 'may'
+            case 6 :return 'june'
+            case 7 :return 'july'
+            case 8 :return 'august'
+            case 9 :return 'september'
+            case 10 :return 'october'
+            case 11:return 'november'
+            case 12 :return 'december'
+            default: return 'error';
         }
     }
 
@@ -155,7 +172,7 @@ export const DayStats = () => {
             </div>
             <div>
             {sortedDays.sort((a,b) => b.totalFilms - a.totalFilms).map((day) => 
-                 <div key={`${day.day}-${day.month}`} className={classes.ranker}>{day.day}-{day.month}
+                 <div key={`${day.day}-${day.month}`} className={classes.ranker}>{day.day}-{namify(day.month)}
                 <span> {day.totalFilms}</span>
                 </div>                              
             )
