@@ -16,6 +16,10 @@ const Monitor = () => {
             const unseen = filmdata.filter(f => f.rating === null)
             console.log(unseen);
             setUnseenFilms(unseen);
+
+            const wishfilms = await fetch(`http://localhost:5000/api/wishlist/wishList`);
+            const wished = await wishfilms.json();
+            console.log(wished);
         })()
     },[]);
 

@@ -10,7 +10,7 @@ const app = express();
 const filmRoutes = require('./routes/films-routes')
 const directorRoutes = require('./routes/director-routes')
 const daterecordRoutes = require('./routes/daterecord-routes')
-// const wishRoutes = require('./routes/wishlist-routes')
+const wishRoutes = require('./routes/wishlist-routes')
 
 // sqlquery('select * from FilmRecord').then((res) => console.log(res.recordsets[0][1298]))
 
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
   app.use('/api/films', filmRoutes);
   app.use('/api/directors', directorRoutes);
   app.use('/api/days', daterecordRoutes);
-  // app.use('/api/wishlist', wishRoutes);
+  app.use('/api/wishlist', wishRoutes);
 
 //  app.get('/api/films/lastfive', async (req, res, next) =>{
 //     const lastFive = await sqlquery(querystrings.last5);
