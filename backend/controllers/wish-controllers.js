@@ -7,4 +7,18 @@ const getWishList = async (req, res, next) =>{
     return next();
     }
 
+const insert = async (req, res, next) => {
+    
+    const {id} = req.body
+    
+    const query = `INSERT INTO Wishlist(filmId) VALUES ('${id}')`
+     try {
+            await sqlquery(query);
+            res.sendStatus(200);
+        }
+        catch(e){
+            return next(e);
+        }
+    }
+
 exports.getWishList = getWishList

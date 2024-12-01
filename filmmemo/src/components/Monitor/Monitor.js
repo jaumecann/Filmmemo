@@ -19,7 +19,11 @@ const Monitor = () => {
 
             const wishfilms = await fetch(`http://localhost:5000/api/wishlist/wishList`);
             const wished = await wishfilms.json();
-            console.log(wished);
+            const checkedDefault = [];
+            wished.map(item => 
+                checkedDefault.push(item.filmId)
+            )
+            setListOfChecked(checkedDefault)
         })()
     },[]);
 
