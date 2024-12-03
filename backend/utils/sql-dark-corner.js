@@ -22,7 +22,7 @@ join [Filmmemo].[dbo].[Directors] dir on films.directorid = dir.id  where films.
     filmsPerDay: "SELECT FORMAT(ratedate, 'MM-dd') AS day_month, COUNT(*) AS record_count,STRING_AGG(CONVERT(VARCHAR, title), ', ') AS ids_for_day,STRING_AGG(CAST(YEAR(ratedate) AS VARCHAR), ', ') AS years_for_day FROM [Filmmemo].[dbo].[FilmRecord] WHERE rating is not null GROUP BY FORMAT(ratedate, 'MM-dd') ORDER BY FORMAT(ratedate, 'MM-dd');",
     getTotalYears:"select yearFilm, COUNT(yearFilm) AS record_count,ROUND(AVG(CAST(rating AS DECIMAL(10, 3))), 3) AS average_rating FROM FilmRecord WHERE rating is not null GROUP BY yearFilm order by yearFilm desc",
     seenXYear:"select YEAR(ratedate) AS year, COUNT(*) AS total FROM FilmRecord where rating is not null group by YEAR(ratedate) order by YEAR desc",
-    getWishList:"select filmId FROM Wishlist"
+    getWishList:"select filmId FROM Wishlist where deactivateDate IS NULL"
 }
 
 module.exports = queries;

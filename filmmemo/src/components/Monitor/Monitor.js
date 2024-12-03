@@ -72,12 +72,12 @@ const Monitor = () => {
     return (<div>
     <div className={classes.wrapper}>
         <div className={classes.headers}>
-            <span style={{width:'60px'}}></span>
-            <span style={{width:'300px'}}>Name</span>
-            <span style={{width:'80px'}}>Country</span>
-            <span style={{width:'220px'}}>Director</span>
-            <span style={{width:'100px'}}>Year</span>
-            <span style={{width:'30px'}}>Wish</span>
+            <div style={{width:'60px'}}></div>
+            <div style={{width:'300px'}}><div>Name</div><input className={classes.filterbox}type="text"/><span className={classes.gotag}>GO</span></div>
+            <div style={{width:'80px'}}>Country</div>
+            <div style={{width:'220px'}}>Director</div>
+            <div style={{width:'100px'}}>Year</div>
+            <div style={{width:'30px'}}>Wish</div>
         </div>
     {unseenFilms && <div>
             {unseenFilms.map((f,i) => 

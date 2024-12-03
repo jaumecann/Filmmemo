@@ -10,6 +10,8 @@
     border: solid 1px lightgrey;
     margin: 2em;
     font-family: 'Racing Sans One';
+    width: 65%;
+    justify-self: center;
 }
 
 .flagy img{
@@ -33,4 +35,14 @@
 
 .headers{
     display:flex;
+}
+
+.filterbox{
+    margin-bottom: 5px;
+    border: solid 1px lightgray;
+}
+
+.gotag{
+    background-color: black;
+    color:white;
 }
