@@ -36,16 +36,36 @@ const Monitor = () => {
         navigate(`/film/${id}`)
     }
 
-    const handleCheckboxChange = (event, id) => {
+    const handleCheckboxChange = async (event, id) => {
       const checked = event.target.checked;
+      let isAdding;
+      checked ? isAdding = true : isAdding = false;
       setListOfChecked((listchecked) => {
         if (checked){
             return [...listchecked, id];
+  
         } else {
-            return listchecked.filter(item => item !== id)
+            return listchecked.filter(item => item !== id)   
         }
       });
+
+      const updateWishObject = {
+        id:id,
+        isAdding:isAdding
+      }
+
       // Do something with the `checked` value
+      const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: JSON.stringify(updateWishObject)
+        };
+
+        try {
+            await fetch('http://localhost:5000/api/wishlist', requestOptions)
+        } catch (e){
+            console.log(e)
+        } 
     };
 
 
