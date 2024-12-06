@@ -45,4 +45,8 @@
 .gotag{
     background-color: black;
     color:white;
+    border-radius: 10px;
+    font-size: 9px;
+    padding: 3px;
+    cursor:pointer;
 }

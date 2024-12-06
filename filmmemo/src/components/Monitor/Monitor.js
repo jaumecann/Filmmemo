@@ -1,12 +1,15 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect, useRef} from "react";
 import classes from './Monitor.module.css';
 import { useNavigate}  from 'react-router-dom';
 
 const Monitor = () => {
 
     const [unseenFilms, setUnseenFilms]= useState([])
+    const [fullCollection, setFullCollection]= useState([])
     const navigate = useNavigate();
     const [listOfChecked, setListOfChecked] = useState([]);
+    const nameRef = useRef();
+    const directorRef = useRef();
 
     useEffect(()=>{
 
@@ -14,8 +17,8 @@ const Monitor = () => {
             const data = await fetch(`http://localhost:5000/api/films/getAllPlus`);
             const filmdata = await data.json();
             const unseen = filmdata.filter(f => f.rating === null)
-            console.log(unseen);
             setUnseenFilms(unseen);
+            setFullCollection(unseen)
 
             const wishfilms = await fetch(`http://localhost:5000/api/wishlist/wishList`);
             const wished = await wishfilms.json();
@@ -68,14 +71,25 @@ const Monitor = () => {
         } 
     };
 
+    const doSearch = () => {
+        const name = nameRef.current.value;
+        const director = directorRef.current.value;
+        setUnseenFilms(current => {
+            const newList = fullCollection.filter(
+                f => 
+                f.title.toLowerCase().includes(name.toLowerCase()) && 
+                f.directorname.toLowerCase().includes(director.toLowerCase()))
+            return newList;
+        })
+    }
 
     return (<div>
     <div className={classes.wrapper}>
         <div className={classes.headers}>
             <div style={{width:'60px'}}></div>
-            <div style={{width:'300px'}}><div>Name</div><input className={classes.filterbox}type="text"/><span className={classes.gotag}>GO</span></div>
+            <div style={{width:'300px'}}><div>Name</div><input className={classes.filterbox}type="text" ref={nameRef}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
             <div style={{width:'80px'}}>Country</div>
-            <div style={{width:'220px'}}>Director</div>
+            <div style={{width:'220px'}}><div>Director</div><input className={classes.filterbox}type="text" ref={directorRef}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
             <div style={{width:'100px'}}>Year</div>
             <div style={{width:'30px'}}>Wish</div>
         </div>
