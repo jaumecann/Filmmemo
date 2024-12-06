@@ -37,6 +37,11 @@ const FilmDetail = () => {
     },[ID, navigate,fullRecordDb])
 
 
+    const goToDirectorHistory = (id, directorname) => {
+        navigate('/history', { state: { id: id, name:directorname} });
+    }
+
+
 
     return (
         <div>
@@ -48,7 +53,7 @@ const FilmDetail = () => {
                 <div className={classes.data}>
                     <li><img alt='flag' src={`/flags/${filmData.country.trim()}.png`}></img></li>
                     <li>Any: {filmData.yearFilm}</li>
-                    <li>Director: {filmData.directorname}</li>   
+                    <li onClick={()=>goToDirectorHistory(filmData.directorid, filmData.directorname)}>Director: {filmData.directorname}</li>   
                    {filmData.ratedate && <li>{transformData(filmData.ratedate)}</li>}
                     {filmData.ratehour && <li>
                         {filmData.ratehour.slice(0,2) < 18 && <span className={classes.icontime}><Icon>light_mode</Icon></span>}
@@ -67,7 +72,7 @@ const FilmDetail = () => {
                 
             </div>  }     
             <section className={classes.directorArea}>
-            {filmData && <div className={classes.directorHeader}>Films by {filmData.directorname}</div>}
+            {filmData && <div className={classes.directorHeader} onClick={()=>goToDirectorHistory(filmData.directorid, filmData.directorname)}>Films by {filmData.directorname}</div>}
             {fullRecordDb && filmData && <div className={classes.directorPosters}>
                     {fullRecordDb.filter(f => f.directorid === filmData.directorid).map(
                         film => 

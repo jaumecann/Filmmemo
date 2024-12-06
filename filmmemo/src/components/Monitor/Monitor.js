@@ -8,6 +8,7 @@ const Monitor = () => {
     const [fullCollection, setFullCollection]= useState([])
     const navigate = useNavigate();
     const [listOfChecked, setListOfChecked] = useState([]);
+    const [filterWishActive, setFilterWishActive] = useState(false);
     const nameRef = useRef();
     const directorRef = useRef();
 
@@ -75,12 +76,21 @@ const Monitor = () => {
         const name = nameRef.current.value;
         const director = directorRef.current.value;
         setUnseenFilms(current => {
-            const newList = fullCollection.filter(
+            let newList = fullCollection.filter(
                 f => 
                 f.title.toLowerCase().includes(name.toLowerCase()) && 
                 f.directorname.toLowerCase().includes(director.toLowerCase()))
+            if(filterWishActive){
+                newList = newList.filter(item => listOfChecked?.includes(item.id))
+            }
             return newList;
         })
+    }
+
+    const handleWishFilter = (event) =>{
+       event.target.checked ? 
+            setFilterWishActive(true) :
+            setFilterWishActive(false)
     }
 
     return (<div>
@@ -91,7 +101,7 @@ const Monitor = () => {
             <div style={{width:'80px'}}>Country</div>
             <div style={{width:'220px'}}><div>Director</div><input className={classes.filterbox}type="text" ref={directorRef}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
             <div style={{width:'100px'}}>Year</div>
-            <div style={{width:'30px'}}>Wish</div>
+            <div style={{width:'30px'}}><div>Wish</div><input type="checkbox" onChange={(event) => handleWishFilter(event)}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
         </div>
     {unseenFilms && <div>
             {unseenFilms.map((f,i) => 
