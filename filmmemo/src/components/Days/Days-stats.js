@@ -128,6 +128,24 @@ export const DayStats = () => {
         }
     }
 
+    const calculateMonthColor = (month) => {
+        switch (month){
+            case 1: return '#cce7ff'; // Azul claro
+            case 2: return '#b3d9ff'; // Azul medio
+            case 3: return '#99ccff'; // Azul pastel
+            case 4: return '#ccffcc'; // Verde claro
+            case 5: return '#b3ffb3'; // Verde medio
+            case 6: return '#99ff99'; // Verde pastel
+            case 7: return '#ffcccc'; // Rosa claro
+            case 8: return '#ffb3b3'; // Rosa medio
+            case 9: return '#ff9999'; // Rosa pastel
+            case 10: return '#e6ccff'; // Lila claro
+            case 11: return '#d9b3ff'; // Lila medio
+            case 12: return '#cc99ff'; // Lila pastel
+            default: return '#ffffff'; // Blanco
+        }
+    }
+
     return (
         <React.Fragment>
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -163,21 +181,20 @@ export const DayStats = () => {
                     </div>
                 ))}
             </div>
-            <section style={{display:'flex', fontSize:'12px'}}>
+            <section style={{display:'flex', fontSize:'12px', marginTop:'2em'}}>
                     <div>
                  {sortedDays.sort((a,b) => b.totalFilms - a.totalFilms).map((day) => 
-                 <div key={`${day.day}-${day.month}`} className={classes.ranker}>{day.day}-{namify(day.month)}
-                    <span> {day.totalFilms}</span>
+                 <div key={`${day.day}-${day.month}`} className={classes.ranker} style={{backgroundColor:`${calculateMonthColor(day.month)}`}}>{day.day}-{namify(day.month)}
+                    <span style={{fontSize:'14px', color:'white', textShadow:'1px 1px 3px black'}}> {day.totalFilms}</span>
                     </div>                              
                     )
                      }
                 </div>
 
                  <div style={{marginLeft:'2em'}}>
-                     {daysByAvg.map((day) => <div key={day.id} className={classes.ranker}>
+                     {daysByAvg.map((day) => <div key={day.id} className={classes.ranker} style={{backgroundColor:`${calculateMonthColor(day.month)}`}}>
                             {day.id.slice(0,2)}-{namify(+day.id.slice(2))} {day.avrg.toFixed(2)}
                      </div>)}
-                     ddsds
                 </div>
             </section>
    

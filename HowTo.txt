@@ -39,3 +39,5 @@ es pot fer el mateix amb any
 most seen directorPosters
 
 barres per directors amb mes pelis o els 100 primers
+
+als stats de countries totals posar input per ficar un any i mostrar resultats per any
