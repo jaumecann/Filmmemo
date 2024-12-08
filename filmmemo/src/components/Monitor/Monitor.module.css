@@ -42,6 +42,12 @@
     border: solid 1px lightgray;
 }
 
+.filterbox_short{
+    margin-bottom: 5px;
+    border: solid 1px lightgray;
+    width:55px;
+}
+
 .gotag{
     background-color: black;
     color:white;
@@ -49,4 +55,17 @@
     font-size: 9px;
     padding: 3px;
     cursor:pointer;
+}
+
+.droplist{
+    border: solid 1px lightgray;
+    padding: 5px;
+    position: absolute;
+    background-color: white;
+    top: 41px;
+    cursor: pointer;
+}
+
+.dropitem:hover{
+ background-color: lightgray;
 }

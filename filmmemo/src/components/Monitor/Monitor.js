@@ -11,6 +11,9 @@ const Monitor = () => {
     const [filterWishActive, setFilterWishActive] = useState(false);
     const nameRef = useRef();
     const directorRef = useRef();
+    const countryRef = useRef();
+    const [countriesAvailable, setCountriesAvailable] = useState([]);
+    const [showDroplist, setShowDroplist] = useState(false);
 
     useEffect(()=>{
 
@@ -19,7 +22,18 @@ const Monitor = () => {
             const filmdata = await data.json();
             const unseen = filmdata.filter(f => f.rating === null)
             setUnseenFilms(unseen);
-            setFullCollection(unseen)
+            setFullCollection(unseen);
+            setCountriesAvailable(current => {
+                const updatedCountries = [...current]; // Copia del estado actual
+                unseen.forEach((f) => {
+                    if (!updatedCountries.includes(f.country)) {
+                        updatedCountries.push(f.country);
+                    }
+                });
+                return updatedCountries; // Devuelve el nuevo array
+            })
+    
+            console.log(countriesAvailable)
 
             const wishfilms = await fetch(`http://localhost:5000/api/wishlist/wishList`);
             const wished = await wishfilms.json();
@@ -75,11 +89,14 @@ const Monitor = () => {
     const doSearch = () => {
         const name = nameRef.current.value;
         const director = directorRef.current.value;
+        const country = countryRef.current.value
         setUnseenFilms(current => {
             let newList = fullCollection.filter(
                 f => 
                 f.title.toLowerCase().includes(name.toLowerCase()) && 
-                f.directorname.toLowerCase().includes(director.toLowerCase()))
+                f.directorname.toLowerCase().includes(director.toLowerCase()) &&
+                f.country.toLowerCase().includes(country.toLowerCase())
+            )
             if(filterWishActive){
                 newList = newList.filter(item => listOfChecked?.includes(item.id))
             }
@@ -93,13 +110,24 @@ const Monitor = () => {
             setFilterWishActive(false)
     }
 
+    const displayCountries = (action) =>{
+        setShowDroplist(action)
+    }
+
+    const setCountry = (country) => {
+        countryRef.current.value = country;
+        displayCountries(false)
+    }
+ 
     return (<div>
     <div className={classes.wrapper}>
         <div className={classes.headers}>
             <div style={{width:'60px'}}></div>
             <div style={{width:'300px'}}><div>Name</div><input className={classes.filterbox}type="text" ref={nameRef}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
-            <div style={{width:'80px'}}>Country</div>
-            <div style={{width:'220px'}}><div>Director</div><input className={classes.filterbox}type="text" ref={directorRef}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
+            <div style={{width:'80px', position:'relative'}}><div>Country</div><input onFocus={()=> displayCountries(true)}  className={classes.filterbox_short}type="text" ref={countryRef}/>       
+            {countriesAvailable && showDroplist && <div className={classes.droplist} onMouseLeave={()=>displayCountries(false)}>{countriesAvailable.map((c) => <div key={c} className={classes.dropitem} onClick={() => setCountry(c)} >{c}</div>)}</div>}</div>
+            <div style={{width:'220px'}}><div>Director</div><input className={classes.filterbox}type="text" ref={directorRef}/>   <span className={classes.gotag} onClick={()=>doSearch()}>GO</span>
+            </div>
             <div style={{width:'100px'}}>Year</div>
             <div style={{width:'30px'}}><div>Wish</div><input type="checkbox" onChange={(event) => handleWishFilter(event)}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
         </div>
