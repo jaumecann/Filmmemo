@@ -124,12 +124,15 @@ const Monitor = () => {
         <div className={classes.headers}>
             <div style={{width:'60px'}}></div>
             <div style={{width:'300px'}}><div>Name</div><input className={classes.filterbox}type="text" ref={nameRef}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
-            <div style={{width:'80px', position:'relative'}}><div>Country</div><input onFocus={()=> displayCountries(true)}  className={classes.filterbox_short}type="text" ref={countryRef}/>       
-            {countriesAvailable && showDroplist && <div className={classes.droplist} onMouseLeave={()=>displayCountries(false)}>{countriesAvailable.map((c) => <div key={c} className={classes.dropitem} onClick={() => setCountry(c)} >{c}</div>)}</div>}</div>
+            <div style={{width:'80px', position:'relative'}}><div>Country</div><input onFocus={()=> displayCountries(true)}  className={classes.filterbox_short}type="text" ref={countryRef}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span>      
+            {countriesAvailable && showDroplist && <div className={classes.droplist} onMouseLeave={()=>displayCountries(false)}>{countriesAvailable.map((c) => <div key={c} className={classes.dropitem} onClick={() => setCountry(c)}><span className={classes.dropspan}><img alt='flag' src={`/flags/${c.trim()}.png`}></img> {c}</span></div>)}</div>}</div>
             <div style={{width:'220px'}}><div>Director</div><input className={classes.filterbox}type="text" ref={directorRef}/>   <span className={classes.gotag} onClick={()=>doSearch()}>GO</span>
             </div>
             <div style={{width:'100px'}}>Year</div>
-            <div style={{width:'30px'}}><div>Wish</div><input type="checkbox" onChange={(event) => handleWishFilter(event)}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
+            <div style={{width:'30px'}}>
+                <div>Wish</div>
+                <div style={{display:'flex'}}><input type="checkbox" onChange={(event) => handleWishFilter(event)}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
+            </div>
         </div>
     {unseenFilms && <div>
             {unseenFilms.map((f,i) => 
