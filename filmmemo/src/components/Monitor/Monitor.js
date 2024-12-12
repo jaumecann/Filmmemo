@@ -12,6 +12,7 @@ const Monitor = () => {
     const nameRef = useRef();
     const directorRef = useRef();
     const countryRef = useRef();
+    const yearRef = useRef();
     const [countriesAvailable, setCountriesAvailable] = useState([]);
     const [showDroplist, setShowDroplist] = useState(false);
 
@@ -89,7 +90,9 @@ const Monitor = () => {
     const doSearch = () => {
         const name = nameRef.current.value;
         const director = directorRef.current.value;
-        const country = countryRef.current.value
+        const country = countryRef.current.value;
+        const years = yearRef.current.value;
+        console.log(years)
         setUnseenFilms(current => {
             let newList = fullCollection.filter(
                 f => 
@@ -128,7 +131,7 @@ const Monitor = () => {
             {countriesAvailable && showDroplist && <div className={classes.droplist} onMouseLeave={()=>displayCountries(false)}>{countriesAvailable.map((c) => <div key={c} className={classes.dropitem} onClick={() => setCountry(c)}><span className={classes.dropspan}><img alt='flag' src={`/flags/${c.trim()}.png`}></img> {c}</span></div>)}</div>}</div>
             <div style={{width:'220px'}}><div>Director</div><input className={classes.filterbox}type="text" ref={directorRef}/>   <span className={classes.gotag} onClick={()=>doSearch()}>GO</span>
             </div>
-            <div style={{width:'100px'}}>Year</div>
+            <div style={{width:'150px'}}><div>Year</div><input className={classes.filterbox_short}type="text" ref={yearRef}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
             <div style={{width:'30px'}}>
                 <div>Wish</div>
                 <div style={{display:'flex'}}><input type="checkbox" onChange={(event) => handleWishFilter(event)}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
