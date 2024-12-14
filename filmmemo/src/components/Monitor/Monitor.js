@@ -134,6 +134,14 @@ const Monitor = () => {
         countryRef.current.value = country;
         displayCountries(false)
     }
+
+    const doClear = () => {
+       nameRef.current.value = '';
+        directorRef.current.value = '';
+        countryRef.current.value = '';
+        yearRef.current.value = '';
+        doSearch();
+    }
  
     return (<div>
     <div className={classes.wrapper}>
@@ -149,6 +157,7 @@ const Monitor = () => {
                 <div>Wish</div>
                 <div style={{display:'flex'}}><input type="checkbox" onChange={(event) => handleWishFilter(event)}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
             </div>
+            <div className={classes.cleartag} onClick={()=>doClear()}>CLEAR!</div>
         </div>
     {unseenFilms && <div>
             {unseenFilms.map((f,i) => 

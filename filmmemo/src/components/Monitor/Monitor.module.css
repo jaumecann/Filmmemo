@@ -58,6 +58,17 @@
     cursor:pointer;
 }
 
+.cleartag{
+    background-color: black;
+    color:white;
+    border-radius: 10px;
+    font-size: 9px;
+    padding: 3px;
+    cursor:pointer;
+    height:15px;
+    align-self: center;
+}
+
 .droplist{
     border: solid 1px lightgray;
     padding: 5px;
