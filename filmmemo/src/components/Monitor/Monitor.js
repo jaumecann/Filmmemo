@@ -92,19 +92,32 @@ const Monitor = () => {
         const director = directorRef.current.value;
         const country = countryRef.current.value;
         const years = yearRef.current.value;
-        console.log(years)
         setUnseenFilms(current => {
             let newList = fullCollection.filter(
                 f => 
-                f.title.toLowerCase().includes(name.toLowerCase()) && 
-                f.directorname.toLowerCase().includes(director.toLowerCase()) &&
-                f.country.toLowerCase().includes(country.toLowerCase())
+                    f.title.toLowerCase().includes(name.toLowerCase()) && 
+                    f.directorname.toLowerCase().includes(director.toLowerCase()) &&
+                    f.country.toLowerCase().includes(country.toLowerCase()) &&
+                    withinYear(years, f.yearFilm)
+                
+               
             )
             if(filterWishActive){
                 newList = newList.filter(item => listOfChecked?.includes(item.id))
             }
             return newList;
         })
+    }
+
+    const withinYear = (yearExpression, yearFilm) => {
+        if(!yearExpression){return true}
+        if(yearExpression.includes('-')){
+            const [year1, year2] = yearExpression.split('-');
+           return yearFilm >= year1 && yearFilm <= year2 ? true : false;
+        } else {
+            return yearExpression == yearFilm
+        }
+       
     }
 
     const handleWishFilter = (event) =>{
@@ -132,7 +145,7 @@ const Monitor = () => {
             <div style={{width:'220px'}}><div>Director</div><input className={classes.filterbox}type="text" ref={directorRef}/>   <span className={classes.gotag} onClick={()=>doSearch()}>GO</span>
             </div>
             <div style={{width:'150px'}}><div>Year</div><input className={classes.filterbox_short}type="text" ref={yearRef}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
-            <div style={{width:'30px'}}>
+            <div style={{width:'50px'}}>
                 <div>Wish</div>
                 <div style={{display:'flex'}}><input type="checkbox" onChange={(event) => handleWishFilter(event)}/><span className={classes.gotag} onClick={()=>doSearch()}>GO</span></div>
             </div>
