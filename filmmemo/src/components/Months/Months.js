@@ -59,14 +59,17 @@ export const Months = () =>{
                         breakdown[year][month] ? breakdown[year][month] += 1 : breakdown[year][month] = 1
                     } else {
                         breakdown[year] = {};
+                        breakdown[year][month] = 1
                     }
                 }
             }
 
             setMonthsData(Object.entries(totals).map(([month,totals]) => { return {month,totals}})); 
+            console.log(breakdown)
             let detail= Object.entries(breakdown).map(([year,months]) => {
                 return {year, monthEntries:Object.entries(months).map(([month,totals]) => ({month,totals}))}}
             )
+            console.log(detail)
             setMonthsDetailData(detail)
         }
         processData();
